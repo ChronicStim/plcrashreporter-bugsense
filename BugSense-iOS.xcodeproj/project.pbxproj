@@ -17,8 +17,6 @@
 		05B49DD614311E6600CC3B5B /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B49DC014311E6600CC3B5B /* AFImageRequestOperation.m */; };
 		05B49DD714311E6600CC3B5B /* AFJSONRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B49DC114311E6600CC3B5B /* AFJSONRequestOperation.h */; };
 		05B49DD814311E6600CC3B5B /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B49DC214311E6600CC3B5B /* AFJSONRequestOperation.m */; };
-		05B49DD914311E6600CC3B5B /* AFNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B49DC314311E6600CC3B5B /* AFNetworkActivityIndicatorManager.h */; };
-		05B49DDA14311E6600CC3B5B /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B49DC414311E6600CC3B5B /* AFNetworkActivityIndicatorManager.m */; };
 		05B49DDB14311E6600CC3B5B /* AFRestClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B49DC514311E6600CC3B5B /* AFRestClient.h */; };
 		05B49DDC14311E6600CC3B5B /* AFRestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B49DC614311E6600CC3B5B /* AFRestClient.m */; };
 		05B49DDD14311E6600CC3B5B /* NSData+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B49DC714311E6600CC3B5B /* NSData+AFNetworking.h */; };
@@ -31,6 +29,9 @@
 		05B49DE414311E6600CC3B5B /* UIImage+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B49DCE14311E6600CC3B5B /* UIImage+AFNetworking.m */; };
 		05B49DE514311E6600CC3B5B /* UIImageView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B49DCF14311E6600CC3B5B /* UIImageView+AFNetworking.h */; };
 		05B49DE614311E6600CC3B5B /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B49DD014311E6600CC3B5B /* UIImageView+AFNetworking.m */; };
+		05B49DE91431227000CC3B5B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B49DE81431227000CC3B5B /* UIKit.framework */; };
+		05B49DEC1431248900CC3B5B /* AFNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B49DEA1431248800CC3B5B /* AFNetworkActivityIndicatorManager.h */; };
+		05B49DED1431248900CC3B5B /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B49DEB1431248800CC3B5B /* AFNetworkActivityIndicatorManager.m */; };
 		05D58BB4142CC4A400BEE267 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D58BB3142CC4A400BEE267 /* Foundation.framework */; };
 		05D58BBA142CC4A400BEE267 /* BugSenseCrashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D58BB9142CC4A400BEE267 /* BugSenseCrashController.m */; };
 /* End PBXBuildFile section */
@@ -133,8 +134,6 @@
 		05B49DC014311E6600CC3B5B /* AFImageRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFImageRequestOperation.m; sourceTree = "<group>"; };
 		05B49DC114311E6600CC3B5B /* AFJSONRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFJSONRequestOperation.h; sourceTree = "<group>"; };
 		05B49DC214311E6600CC3B5B /* AFJSONRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFJSONRequestOperation.m; sourceTree = "<group>"; };
-		05B49DC314311E6600CC3B5B /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
-		05B49DC414311E6600CC3B5B /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
 		05B49DC514311E6600CC3B5B /* AFRestClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFRestClient.h; sourceTree = "<group>"; };
 		05B49DC614311E6600CC3B5B /* AFRestClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFRestClient.m; sourceTree = "<group>"; };
 		05B49DC714311E6600CC3B5B /* NSData+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+AFNetworking.h"; sourceTree = "<group>"; };
@@ -147,6 +146,9 @@
 		05B49DCE14311E6600CC3B5B /* UIImage+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AFNetworking.m"; sourceTree = "<group>"; };
 		05B49DCF14311E6600CC3B5B /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		05B49DD014311E6600CC3B5B /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		05B49DE81431227000CC3B5B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		05B49DEA1431248800CC3B5B /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
+		05B49DEB1431248800CC3B5B /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
 		05D58BB0142CC4A400BEE267 /* BugSense-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "BugSense-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		05D58BB3142CC4A400BEE267 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		05D58BB7142CC4A400BEE267 /* BugSense-iOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BugSense-iOS-Prefix.pch"; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05B49DE91431227000CC3B5B /* UIKit.framework in Frameworks */,
 				05D58BB4142CC4A400BEE267 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -187,8 +190,8 @@
 				05B49DC014311E6600CC3B5B /* AFImageRequestOperation.m */,
 				05B49DC114311E6600CC3B5B /* AFJSONRequestOperation.h */,
 				05B49DC214311E6600CC3B5B /* AFJSONRequestOperation.m */,
-				05B49DC314311E6600CC3B5B /* AFNetworkActivityIndicatorManager.h */,
-				05B49DC414311E6600CC3B5B /* AFNetworkActivityIndicatorManager.m */,
+				05B49DEA1431248800CC3B5B /* AFNetworkActivityIndicatorManager.h */,
+				05B49DEB1431248800CC3B5B /* AFNetworkActivityIndicatorManager.m */,
 				05B49DC514311E6600CC3B5B /* AFRestClient.h */,
 				05B49DC614311E6600CC3B5B /* AFRestClient.m */,
 				05B49DC714311E6600CC3B5B /* NSData+AFNetworking.h */,
@@ -225,6 +228,7 @@
 		05D58BB2142CC4A400BEE267 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				05B49DE81431227000CC3B5B /* UIKit.framework */,
 				05D58BB3142CC4A400BEE267 /* Foundation.framework */,
 				05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */,
 			);
@@ -281,13 +285,13 @@
 				05B49DD314311E6600CC3B5B /* AFImageCache.h in Headers */,
 				05B49DD514311E6600CC3B5B /* AFImageRequestOperation.h in Headers */,
 				05B49DD714311E6600CC3B5B /* AFJSONRequestOperation.h in Headers */,
-				05B49DD914311E6600CC3B5B /* AFNetworkActivityIndicatorManager.h in Headers */,
 				05B49DDB14311E6600CC3B5B /* AFRestClient.h in Headers */,
 				05B49DDD14311E6600CC3B5B /* NSData+AFNetworking.h in Headers */,
 				05B49DDF14311E6600CC3B5B /* NSMutableURLRequest+AFNetworking.h in Headers */,
 				05B49DE114311E6600CC3B5B /* NSString+AFNetworking.h in Headers */,
 				05B49DE314311E6600CC3B5B /* UIImage+AFNetworking.h in Headers */,
 				05B49DE514311E6600CC3B5B /* UIImageView+AFNetworking.h in Headers */,
+				05B49DEC1431248900CC3B5B /* AFNetworkActivityIndicatorManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,13 +435,13 @@
 				05B49DD414311E6600CC3B5B /* AFImageCache.m in Sources */,
 				05B49DD614311E6600CC3B5B /* AFImageRequestOperation.m in Sources */,
 				05B49DD814311E6600CC3B5B /* AFJSONRequestOperation.m in Sources */,
-				05B49DDA14311E6600CC3B5B /* AFNetworkActivityIndicatorManager.m in Sources */,
 				05B49DDC14311E6600CC3B5B /* AFRestClient.m in Sources */,
 				05B49DDE14311E6600CC3B5B /* NSData+AFNetworking.m in Sources */,
 				05B49DE014311E6600CC3B5B /* NSMutableURLRequest+AFNetworking.m in Sources */,
 				05B49DE214311E6600CC3B5B /* NSString+AFNetworking.m in Sources */,
 				05B49DE414311E6600CC3B5B /* UIImage+AFNetworking.m in Sources */,
 				05B49DE614311E6600CC3B5B /* UIImageView+AFNetworking.m in Sources */,
+				05B49DED1431248900CC3B5B /* AFNetworkActivityIndicatorManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,7 +460,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -479,7 +483,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -500,6 +504,7 @@
 				EXECUTABLE_PREFIX = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -514,6 +519,7 @@
 				EXECUTABLE_PREFIX = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
