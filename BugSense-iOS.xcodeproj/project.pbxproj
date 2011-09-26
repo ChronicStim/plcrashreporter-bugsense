@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05B49DB814311DFC00CC3B5B /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B49DB614311DFC00CC3B5B /* JSONKit.h */; };
+		05B49DB914311DFC00CC3B5B /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B49DB714311DFC00CC3B5B /* JSONKit.m */; };
 		05D58BB4142CC4A400BEE267 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D58BB3142CC4A400BEE267 /* Foundation.framework */; };
 		05D58BBA142CC4A400BEE267 /* BugSenseCrashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D58BB9142CC4A400BEE267 /* BugSenseCrashController.m */; };
 /* End PBXBuildFile section */
@@ -99,6 +101,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		05B49DB614311DFC00CC3B5B /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		05B49DB714311DFC00CC3B5B /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		05D58BB0142CC4A400BEE267 /* BugSense-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "BugSense-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		05D58BB3142CC4A400BEE267 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		05D58BB7142CC4A400BEE267 /* BugSense-iOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BugSense-iOS-Prefix.pch"; sourceTree = "<group>"; };
@@ -119,6 +123,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05B49DB514311DEA00CC3B5B /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				05B49DB614311DFC00CC3B5B /* JSONKit.h */,
+				05B49DB714311DFC00CC3B5B /* JSONKit.m */,
+			);
+			name = JSONKit;
+			sourceTree = "<group>";
+		};
 		05D58BA5142CC4A400BEE267 = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +171,7 @@
 		05D58BB6142CC4A400BEE267 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				05B49DB514311DEA00CC3B5B /* JSONKit */,
 				05D58BB7142CC4A400BEE267 /* BugSense-iOS-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -188,6 +202,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05B49DB814311DFC00CC3B5B /* JSONKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,6 +341,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				05D58BBA142CC4A400BEE267 /* BugSenseCrashController.m in Sources */,
+				05B49DB914311DFC00CC3B5B /* JSONKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
