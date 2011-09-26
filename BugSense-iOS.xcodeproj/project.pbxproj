@@ -8,15 +8,103 @@
 
 /* Begin PBXBuildFile section */
 		05D58BB4142CC4A400BEE267 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D58BB3142CC4A400BEE267 /* Foundation.framework */; };
-		05D58BBA142CC4A400BEE267 /* BugSense-iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D58BB9142CC4A400BEE267 /* BugSense-iOS.m */; };
+		05D58BBA142CC4A400BEE267 /* BugSenseCrashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D58BB9142CC4A400BEE267 /* BugSenseCrashController.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		05D58C0A142CC56800BEE267 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 05E731F30EFA1AAB005EDFB7;
+			remoteInfo = "CrashReporter-MacOSX-Static";
+		};
+		05D58C0C142CC56800BEE267 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = "CrashReporter-MacOSX";
+		};
+		05D58C0E142CC56800BEE267 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 058812B91040582D009128FB;
+			remoteInfo = "CrashReporter-iPhone";
+		};
+		05D58C10142CC56800BEE267 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 05CD31520EE936A9000FDE88;
+			remoteInfo = "CrashReporter-iPhoneOS";
+		};
+		05D58C12142CC56800BEE267 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 05CD31630EE93905000FDE88;
+			remoteInfo = "CrashReporter-iPhoneSimulator";
+		};
+		05D58C14142CC56800BEE267 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 05E731E30EFA1A3E005EDFB7;
+			remoteInfo = plcrashutil;
+		};
+		05D58C16142CC56800BEE267 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 05CD32690EE93DC3000FDE88;
+			remoteInfo = "Tests-MacOSX";
+		};
+		05D58C18142CC56800BEE267 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 05CD32A90EE94062000FDE88;
+			remoteInfo = "Tests-iPhoneSimulator";
+		};
+		05D58C1A142CC56800BEE267 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 05CD33240EE94439000FDE88;
+			remoteInfo = "Tests-iPhoneOS";
+		};
+		05D58C1C142CC56800BEE267 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 05F40CE70EF7AB80008050CF;
+			remoteInfo = DemoCrash;
+		};
+		05D58C1E142CC56800BEE267 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 050DE24D0F61B80B00152ED3;
+			remoteInfo = "Fuzz Testing";
+		};
+		05D58C9A142CD2FD00BEE267 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 05CD31510EE936A9000FDE88;
+			remoteInfo = "CrashReporter-iPhoneOS";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		05D58BB0142CC4A400BEE267 /* libBugSense-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libBugSense-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		05D58BB0142CC4A400BEE267 /* BugSense-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "BugSense-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		05D58BB3142CC4A400BEE267 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		05D58BB7142CC4A400BEE267 /* BugSense-iOS-Prefix.pch */ = {isa = PBXFileReference; path = "BugSense-iOS-Prefix.pch"; sourceTree = "<group>"; };
-		05D58BB8142CC4A400BEE267 /* BugSense-iOS.h */ = {isa = PBXFileReference; path = "BugSense-iOS.h"; sourceTree = "<group>"; };
-		05D58BB9142CC4A400BEE267 /* BugSense-iOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "BugSense-iOS.m"; sourceTree = "<group>"; };
+		05D58BB7142CC4A400BEE267 /* BugSense-iOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BugSense-iOS-Prefix.pch"; sourceTree = "<group>"; };
+		05D58BB8142CC4A400BEE267 /* BugSenseCrashController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BugSenseCrashController.h; sourceTree = "<group>"; };
+		05D58BB9142CC4A400BEE267 /* BugSenseCrashController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BugSenseCrashController.m; sourceTree = "<group>"; };
+		05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CrashReporter.xcodeproj; path = CrashReporter/CrashReporter.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,7 +131,7 @@
 		05D58BB1142CC4A400BEE267 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				05D58BB0142CC4A400BEE267 /* libBugSense-iOS.a */,
+				05D58BB0142CC4A400BEE267 /* BugSense-iOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -52,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				05D58BB3142CC4A400BEE267 /* Foundation.framework */,
+				05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -59,8 +148,8 @@
 		05D58BB5142CC4A400BEE267 /* BugSense-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				05D58BB8142CC4A400BEE267 /* BugSense-iOS.h */,
-				05D58BB9142CC4A400BEE267 /* BugSense-iOS.m */,
+				05D58BB8142CC4A400BEE267 /* BugSenseCrashController.h */,
+				05D58BB9142CC4A400BEE267 /* BugSenseCrashController.m */,
 				05D58BB6142CC4A400BEE267 /* Supporting Files */,
 			);
 			path = "BugSense-iOS";
@@ -72,6 +161,24 @@
 				05D58BB7142CC4A400BEE267 /* BugSense-iOS-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		05D58BF3142CC56700BEE267 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				05D58C0B142CC56800BEE267 /* libCrashReporter-MacOSX-Static.a */,
+				05D58C0D142CC56800BEE267 /* CrashReporter.framework */,
+				05D58C0F142CC56800BEE267 /* CrashReporter.framework */,
+				05D58C11142CC56800BEE267 /* libCrashReporter-iphoneos.a */,
+				05D58C13142CC56800BEE267 /* libCrashReporter.a */,
+				05D58C15142CC56800BEE267 /* plcrashutil */,
+				05D58C17142CC56800BEE267 /* Tests-MacOSX.octest */,
+				05D58C19142CC56800BEE267 /* Tests-iPhoneSimulator.app */,
+				05D58C1B142CC56800BEE267 /* Tests-iPhoneOS.app */,
+				05D58C1D142CC56800BEE267 /* DemoCrash.app */,
+				05D58C1F142CC56800BEE267 /* Fuzz Testing */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -98,10 +205,11 @@
 			buildRules = (
 			);
 			dependencies = (
+				05D58C9B142CD2FD00BEE267 /* PBXTargetDependency */,
 			);
 			name = "BugSense-iOS";
 			productName = "BugSense-iOS";
-			productReference = 05D58BB0142CC4A400BEE267 /* libBugSense-iOS.a */;
+			productReference = 05D58BB0142CC4A400BEE267 /* BugSense-iOS.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -119,6 +227,12 @@
 			mainGroup = 05D58BA5142CC4A400BEE267;
 			productRefGroup = 05D58BB1142CC4A400BEE267 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 05D58BF3142CC56700BEE267 /* Products */;
+					ProjectRef = 05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				05D58BAF142CC4A400BEE267 /* BugSense-iOS */,
@@ -126,23 +240,111 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		05D58C0B142CC56800BEE267 /* libCrashReporter-MacOSX-Static.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libCrashReporter-MacOSX-Static.a";
+			remoteRef = 05D58C0A142CC56800BEE267 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05D58C0D142CC56800BEE267 /* CrashReporter.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CrashReporter.framework;
+			remoteRef = 05D58C0C142CC56800BEE267 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05D58C0F142CC56800BEE267 /* CrashReporter.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CrashReporter.framework;
+			remoteRef = 05D58C0E142CC56800BEE267 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05D58C11142CC56800BEE267 /* libCrashReporter-iphoneos.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libCrashReporter-iphoneos.a";
+			remoteRef = 05D58C10142CC56800BEE267 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05D58C13142CC56800BEE267 /* libCrashReporter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCrashReporter.a;
+			remoteRef = 05D58C12142CC56800BEE267 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05D58C15142CC56800BEE267 /* plcrashutil */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = plcrashutil;
+			remoteRef = 05D58C14142CC56800BEE267 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05D58C17142CC56800BEE267 /* Tests-MacOSX.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Tests-MacOSX.octest";
+			remoteRef = 05D58C16142CC56800BEE267 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05D58C19142CC56800BEE267 /* Tests-iPhoneSimulator.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Tests-iPhoneSimulator.app";
+			remoteRef = 05D58C18142CC56800BEE267 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05D58C1B142CC56800BEE267 /* Tests-iPhoneOS.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Tests-iPhoneOS.app";
+			remoteRef = 05D58C1A142CC56800BEE267 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05D58C1D142CC56800BEE267 /* DemoCrash.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = DemoCrash.app;
+			remoteRef = 05D58C1C142CC56800BEE267 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05D58C1F142CC56800BEE267 /* Fuzz Testing */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "Fuzz Testing";
+			remoteRef = 05D58C1E142CC56800BEE267 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXSourcesBuildPhase section */
 		05D58BAC142CC4A400BEE267 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05D58BBA142CC4A400BEE267 /* BugSense-iOS.m in Sources */,
+				05D58BBA142CC4A400BEE267 /* BugSenseCrashController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		05D58C9B142CD2FD00BEE267 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CrashReporter-iPhoneOS";
+			targetProxy = 05D58C9A142CD2FD00BEE267 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		05D58BBB142CC4A400BEE267 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -152,11 +354,11 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -165,14 +367,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -181,7 +383,9 @@
 		05D58BBE142CC4A400BEE267 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = /tmp/BugSense_iOS.dst;
+				EXECUTABLE_PREFIX = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
@@ -193,7 +397,9 @@
 		05D58BBF142CC4A400BEE267 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = /tmp/BugSense_iOS.dst;
+				EXECUTABLE_PREFIX = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
@@ -221,6 +427,7 @@
 				05D58BBF142CC4A400BEE267 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
