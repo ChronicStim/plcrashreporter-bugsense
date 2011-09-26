@@ -504,10 +504,12 @@
 				EXECUTABLE_PREFIX = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/CrashReporter/Source\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/CrashReporter/Source/**";
 			};
 			name = Debug;
 		};
@@ -519,10 +521,12 @@
 				EXECUTABLE_PREFIX = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/CrashReporter/Source\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/CrashReporter/Source/**";
 			};
 			name = Release;
 		};
