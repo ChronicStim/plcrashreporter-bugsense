@@ -32,6 +32,9 @@
 		05B49DE91431227000CC3B5B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B49DE81431227000CC3B5B /* UIKit.framework */; };
 		05B49DEC1431248900CC3B5B /* AFNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B49DEA1431248800CC3B5B /* AFNetworkActivityIndicatorManager.h */; };
 		05B49DED1431248900CC3B5B /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B49DEB1431248800CC3B5B /* AFNetworkActivityIndicatorManager.m */; };
+		05C9AD8214330D0100343267 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9AD8114330D0100343267 /* CoreLocation.framework */; };
+		05C9AD891433174000343267 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 05C9AD871433174000343267 /* Reachability.h */; };
+		05C9AD8A1433174000343267 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C9AD881433174000343267 /* Reachability.m */; };
 		05D58BB4142CC4A400BEE267 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D58BB3142CC4A400BEE267 /* Foundation.framework */; };
 		05D58BBA142CC4A400BEE267 /* BugSenseCrashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D58BB9142CC4A400BEE267 /* BugSenseCrashController.m */; };
 /* End PBXBuildFile section */
@@ -149,6 +152,9 @@
 		05B49DE81431227000CC3B5B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		05B49DEA1431248800CC3B5B /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
 		05B49DEB1431248800CC3B5B /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
+		05C9AD8114330D0100343267 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		05C9AD871433174000343267 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		05C9AD881433174000343267 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		05D58BB0142CC4A400BEE267 /* BugSense-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "BugSense-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		05D58BB3142CC4A400BEE267 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		05D58BB7142CC4A400BEE267 /* BugSense-iOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BugSense-iOS-Prefix.pch"; sourceTree = "<group>"; };
@@ -162,6 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05C9AD8214330D0100343267 /* CoreLocation.framework in Frameworks */,
 				05B49DE91431227000CC3B5B /* UIKit.framework in Frameworks */,
 				05D58BB4142CC4A400BEE267 /* Foundation.framework in Frameworks */,
 			);
@@ -228,6 +235,7 @@
 		05D58BB2142CC4A400BEE267 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				05C9AD8114330D0100343267 /* CoreLocation.framework */,
 				05B49DE81431227000CC3B5B /* UIKit.framework */,
 				05D58BB3142CC4A400BEE267 /* Foundation.framework */,
 				05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */,
@@ -248,6 +256,8 @@
 		05D58BB6142CC4A400BEE267 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				05C9AD871433174000343267 /* Reachability.h */,
+				05C9AD881433174000343267 /* Reachability.m */,
 				05B49DBA14311E4F00CC3B5B /* AFNetworking */,
 				05B49DB514311DEA00CC3B5B /* JSONKit */,
 				05D58BB7142CC4A400BEE267 /* BugSense-iOS-Prefix.pch */,
@@ -292,6 +302,7 @@
 				05B49DE314311E6600CC3B5B /* UIImage+AFNetworking.h in Headers */,
 				05B49DE514311E6600CC3B5B /* UIImageView+AFNetworking.h in Headers */,
 				05B49DEC1431248900CC3B5B /* AFNetworkActivityIndicatorManager.h in Headers */,
+				05C9AD891433174000343267 /* Reachability.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,6 +453,7 @@
 				05B49DE414311E6600CC3B5B /* UIImage+AFNetworking.m in Sources */,
 				05B49DE614311E6600CC3B5B /* UIImageView+AFNetworking.m in Sources */,
 				05B49DED1431248900CC3B5B /* AFNetworkActivityIndicatorManager.m in Sources */,
+				05C9AD8A1433174000343267 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
