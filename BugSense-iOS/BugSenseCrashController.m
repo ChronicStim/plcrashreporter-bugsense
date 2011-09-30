@@ -7,7 +7,15 @@
 //
 
 #import "BugSenseCrashController.h"
+
+#import <CoreLocation/CoreLocation.h>
+#include <ifaddrs.h>
+#include <arpa/inet.h>
+
 #import "CrashReporter.h"
+#import "JSONKit.h"
+#import "Reachability.h"
+#import "AFHTTPRequestOperation.h"
 
 #define BUGSENSE_REPORTING_SERVICE_URL @"http://www.bugsense.com/api/errors"
 #define BUGSENSE_HEADER                @"X-BugSense-Api-Key"
