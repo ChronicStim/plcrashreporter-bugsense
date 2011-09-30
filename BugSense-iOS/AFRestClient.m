@@ -22,7 +22,6 @@
 
 #import "AFRestClient.h"
 #import "AFJSONRequestOperation.h"
-
 #import "NSData+AFNetworking.h"
 
 static NSStringEncoding const kAFRestClientStringEncoding = NSUTF8StringEncoding;

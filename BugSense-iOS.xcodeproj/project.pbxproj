@@ -35,11 +35,21 @@
 		05C9AD8214330D0100343267 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9AD8114330D0100343267 /* CoreLocation.framework */; };
 		05C9AD891433174000343267 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 05C9AD871433174000343267 /* Reachability.h */; };
 		05C9AD8A1433174000343267 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C9AD881433174000343267 /* Reachability.m */; };
+		05C9AEB51434D45100343267 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9AEB41434D45100343267 /* SystemConfiguration.framework */; };
+		05C9AED81434D6C100343267 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9AED71434D6C100343267 /* libz.1.1.3.dylib */; };
+		05C9AEFC1434DB5F00343267 /* BugSense-iOS.pch in Headers */ = {isa = PBXBuildFile; fileRef = 05C9AEFB1434DB5E00343267 /* BugSense-iOS.pch */; settings = {ATTRIBUTES = (); }; };
 		05D58BB4142CC4A400BEE267 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D58BB3142CC4A400BEE267 /* Foundation.framework */; };
 		05D58BBA142CC4A400BEE267 /* BugSenseCrashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D58BB9142CC4A400BEE267 /* BugSenseCrashController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		05C9AEDC1434D8CE00343267 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 05CD31510EE936A9000FDE88;
+			remoteInfo = "CrashReporter-iPhoneOS";
+		};
 		05D58C0A142CC56800BEE267 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */;
@@ -117,13 +127,6 @@
 			remoteGlobalIDString = 050DE24D0F61B80B00152ED3;
 			remoteInfo = "Fuzz Testing";
 		};
-		05D58C9A142CD2FD00BEE267 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 05CD31510EE936A9000FDE88;
-			remoteInfo = "CrashReporter-iPhoneOS";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -155,9 +158,11 @@
 		05C9AD8114330D0100343267 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		05C9AD871433174000343267 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		05C9AD881433174000343267 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		05C9AEB41434D45100343267 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		05C9AED71434D6C100343267 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
+		05C9AEFB1434DB5E00343267 /* BugSense-iOS.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BugSense-iOS.pch"; sourceTree = "<group>"; };
 		05D58BB0142CC4A400BEE267 /* BugSense-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "BugSense-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		05D58BB3142CC4A400BEE267 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		05D58BB7142CC4A400BEE267 /* BugSense-iOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BugSense-iOS-Prefix.pch"; sourceTree = "<group>"; };
 		05D58BB8142CC4A400BEE267 /* BugSenseCrashController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BugSenseCrashController.h; sourceTree = "<group>"; };
 		05D58BB9142CC4A400BEE267 /* BugSenseCrashController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BugSenseCrashController.m; sourceTree = "<group>"; };
 		05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CrashReporter.xcodeproj; path = CrashReporter/CrashReporter.xcodeproj; sourceTree = "<group>"; };
@@ -168,6 +173,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05C9AED81434D6C100343267 /* libz.1.1.3.dylib in Frameworks */,
+				05C9AEB51434D45100343267 /* SystemConfiguration.framework in Frameworks */,
 				05C9AD8214330D0100343267 /* CoreLocation.framework in Frameworks */,
 				05B49DE91431227000CC3B5B /* UIKit.framework in Frameworks */,
 				05D58BB4142CC4A400BEE267 /* Foundation.framework in Frameworks */,
@@ -235,9 +242,11 @@
 		05D58BB2142CC4A400BEE267 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				05C9AEB41434D45100343267 /* SystemConfiguration.framework */,
 				05C9AD8114330D0100343267 /* CoreLocation.framework */,
 				05B49DE81431227000CC3B5B /* UIKit.framework */,
 				05D58BB3142CC4A400BEE267 /* Foundation.framework */,
+				05C9AED71434D6C100343267 /* libz.1.1.3.dylib */,
 				05D58BF2142CC56700BEE267 /* CrashReporter.xcodeproj */,
 			);
 			name = Frameworks;
@@ -256,11 +265,11 @@
 		05D58BB6142CC4A400BEE267 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				05C9AEFB1434DB5E00343267 /* BugSense-iOS.pch */,
 				05C9AD871433174000343267 /* Reachability.h */,
 				05C9AD881433174000343267 /* Reachability.m */,
 				05B49DBA14311E4F00CC3B5B /* AFNetworking */,
 				05B49DB514311DEA00CC3B5B /* JSONKit */,
-				05D58BB7142CC4A400BEE267 /* BugSense-iOS-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -272,7 +281,7 @@
 				05D58C0D142CC56800BEE267 /* CrashReporter.framework */,
 				05D58C0F142CC56800BEE267 /* CrashReporter.framework */,
 				05D58C11142CC56800BEE267 /* libCrashReporter-iphoneos.a */,
-				05D58C13142CC56800BEE267 /* libCrashReporter.a */,
+				05D58C13142CC56800BEE267 /* libCrashReporter-iphonesimulator.a */,
 				05D58C15142CC56800BEE267 /* plcrashutil */,
 				05D58C17142CC56800BEE267 /* Tests-MacOSX.octest */,
 				05D58C19142CC56800BEE267 /* Tests-iPhoneSimulator.app */,
@@ -290,6 +299,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05C9AEFC1434DB5F00343267 /* BugSense-iOS.pch in Headers */,
 				05B49DB814311DFC00CC3B5B /* JSONKit.h in Headers */,
 				05B49DD114311E6600CC3B5B /* AFHTTPRequestOperation.h in Headers */,
 				05B49DD314311E6600CC3B5B /* AFImageCache.h in Headers */,
@@ -320,7 +330,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				05D58C9B142CD2FD00BEE267 /* PBXTargetDependency */,
+				05C9AEDD1434D8CE00343267 /* PBXTargetDependency */,
 			);
 			name = "BugSense-iOS";
 			productName = "BugSense-iOS";
@@ -384,10 +394,10 @@
 			remoteRef = 05D58C10142CC56800BEE267 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		05D58C13142CC56800BEE267 /* libCrashReporter.a */ = {
+		05D58C13142CC56800BEE267 /* libCrashReporter-iphonesimulator.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libCrashReporter.a;
+			path = "libCrashReporter-iphonesimulator.a";
 			remoteRef = 05D58C12142CC56800BEE267 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -460,10 +470,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		05D58C9B142CD2FD00BEE267 /* PBXTargetDependency */ = {
+		05C9AEDD1434D8CE00343267 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "CrashReporter-iPhoneOS";
-			targetProxy = 05D58C9A142CD2FD00BEE267 /* PBXContainerItemProxy */;
+			targetProxy = 05C9AEDC1434D8CE00343267 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -514,14 +524,23 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = /tmp/BugSense_iOS.dst;
 				EXECUTABLE_PREFIX = "";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
+				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS.pch";
+				GENERATE_MASTER_OBJECT_FILE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/CrashReporter/Source\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
-				OTHER_LDFLAGS = "-ObjC";
+				KEEP_PRIVATE_EXTERNS = NO;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SystemConfiguration,
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/CrashReporter/Source/**";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -529,16 +548,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/BugSense_iOS.dst;
 				EXECUTABLE_PREFIX = "";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
+				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS.pch";
+				GENERATE_MASTER_OBJECT_FILE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/CrashReporter/Source\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
-				OTHER_LDFLAGS = "-ObjC";
+				KEEP_PRIVATE_EXTERNS = NO;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SystemConfiguration,
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/CrashReporter/Source/**";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};

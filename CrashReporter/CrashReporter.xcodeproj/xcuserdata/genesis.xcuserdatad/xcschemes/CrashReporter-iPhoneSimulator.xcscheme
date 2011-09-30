@@ -14,7 +14,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "05CD31620EE93905000FDE88"
-               BuildableName = "libCrashReporter.a"
+               BuildableName = "libCrashReporter-iphonesimulator.a"
                BlueprintName = "CrashReporter-iPhoneSimulator"
                ReferencedContainer = "container:CrashReporter.xcodeproj">
             </BuildableReference>

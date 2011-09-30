@@ -7,12 +7,7 @@
 //
 
 #import "BugSenseCrashController.h"
-#import <CoreLocation/CoreLocation.h>
-#import "Reachability.h"
-#import "AFHTTPRequestOperation.h"
-#import "JSONKit.h"
-#include <ifaddrs.h>
-#include <arpa/inet.h>
+#import "CrashReporter.h"
 
 #define BUGSENSE_REPORTING_SERVICE_URL @"http://www.bugsense.com/api/errors"
 #define BUGSENSE_HEADER                @"X-BugSense-Api-Key"
@@ -444,7 +439,11 @@ static BugSenseCrashController *sharedCrashController = nil;
         AFHTTPRequestOperation *operation = 
             [AFHTTPRequestOperation operationWithRequest:bugsenseRequest 
                 completion:^(NSURLRequest *request, NSHTTPURLResponse *response, NSData *data, NSError *error) {
-                    /// error handling and reporting
+                    NSLog(@"BugSense --> Server responded with: \nstatus code:%i\nheader fields: %@", 
+                        response.statusCode, response.allHeaderFields);
+                    if (error) {
+                        NSLog(@"BugSense --> Error: %@", error);
+                    }
             }];
         
         /// add operation to queue
