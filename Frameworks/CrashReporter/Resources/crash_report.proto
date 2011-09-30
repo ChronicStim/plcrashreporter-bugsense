@@ -1,0 +1,170 @@
+/*
+ * Author: Landon Fuller <landonf@plausiblelabs.com>
+ *
+ * Copyright (c) 2008-2009 Plausible Labs Cooperative, Inc.
+ * All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package plcrash;
+option java_package = "com.plausiblelabs.crashreporter";
+
+/* Known processor architecture types */
+enum Architecture {
+    /* x86 */
+    X86_32 = 0;
+
+    /* x86-64 */
+    X86_64 = 1;
+
+    /* ARM */
+    ARM = 2;
+
+    /* PPC */
+    PPC = 3;
+
+    /** PPC64 */
+    PPC64 = 4;
+}
+
+/* Known operating system types */
+enum OperatingSystem {
+    /* Mac OS X */
+    MAC_OS_X = 0;
+
+    /* iPhone OS */
+    IPHONE_OS = 1;
+
+    /* iPhone Simulator (Mac OS X w/ simulator runtime environment) */
+    IPHONE_SIMULATOR = 2;
+}
+
+/* A crash report */
+message CrashReport {
+    message SystemInfo {
+        /* Operating system */
+        required OperatingSystem operating_system = 1;
+
+        /* OS version */
+        required string os_version = 2;
+
+        /* Processor architecture */
+        required Architecture architecture = 3;
+
+        /* Date crash report was generated (as seconds since epoch). 0 if the time
+         * is unknown or can not be determined. */
+        required uint32 timestamp = 4;
+    }
+
+    /* Host data */
+    required SystemInfo system_info = 1;
+
+    message ApplicationInfo {
+        /* Unique application identifier */
+        required string identifier = 1;
+
+        /* Application version string */
+        required string version = 2;
+    }
+    required ApplicationInfo application_info = 2;
+
+    /* Thread state */
+    message Thread {
+        /* Thread number (indexed at 0, must be unique within a crash report) */
+        required uint32 thread_number = 1;
+        
+        /* Stack frame */
+        message StackFrame {
+            /* Instruction pointer */
+            required uint64 pc = 3;
+        }
+
+        /* Backtrace stack frames */
+        repeated StackFrame frames = 2;
+
+        /* True if this is the crashed thread */
+        required bool crashed = 3;
+        
+        /* A single register value */
+        message RegisterValue {
+            /* Register name (r1, ebp, ...) */
+            required string name = 1;
+
+            /* Register value (32-bit or 64-bit) */
+            required uint64 value = 2;
+        }
+
+        /* Thread registers (required if this is the
+         * crashed thread, optional otherwise) */
+        repeated RegisterValue registers = 4;
+    }
+
+    /* All backtraces */
+    repeated Thread threads = 3;
+
+    /* Binary image */
+    message BinaryImage {
+        /* Image base address */
+        required uint64 base_address = 1;
+
+        /* Segment size */
+        required uint64 size = 2;
+
+        /* Name of the binary image (should be a full path name) */
+        required string name = 3;
+
+        /* 128-bit object UUID (matches Mach-O DWARF dSYM files) */
+        optional bytes uuid = 4;
+    }
+
+    /* All loaded binary images */
+    repeated BinaryImage binary_images = 4;
+
+    /* Exception */
+    message Exception {
+        /* The exception name that triggered this crash */
+        required string name = 1;
+
+        /* The exception reason */
+        required string reason = 2;
+    }
+
+    /* The exception that triggered the crash (if any) */
+    optional Exception exception = 5;
+
+
+    /* Signal Information */
+    message Signal {
+        /** Signal name */
+        required string name = 1;
+
+        /* Signal code */
+        required string code = 2;
+
+        /* Faulting instruction or address */
+        required uint64 address = 3;
+    }
+
+    /* The signal that triggered the crash */
+    required Signal signal = 6;
+}

@@ -6,6 +6,9 @@
 //  Copyright 2011 . All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
 @interface BugSenseCrashController : NSObject {
     NSString *_APIKey;
     NSDictionary *_userDictionary;

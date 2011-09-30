@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05086B241436275C008A8411 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05086B231436275C008A8411 /* UIKit.framework */; };
+		05086B2614362769008A8411 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05086B2514362768008A8411 /* Foundation.framework */; };
+		05086B2814362774008A8411 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05086B2714362774008A8411 /* SystemConfiguration.framework */; };
+		05086B2A14362DFE008A8411 /* BugSenseCrashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D58BB9142CC4A400BEE267 /* BugSenseCrashController.m */; };
+		05086B2C14362EEC008A8411 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05086B2B14362EEC008A8411 /* CoreLocation.framework */; };
 		05A5C22B1435CE4F0055E04F /* BugSenseCrashController.h in Headers */ = {isa = PBXBuildFile; fileRef = 05D58BB8142CC4A400BEE267 /* BugSenseCrashController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		05C9B06D1435C8C800343267 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C9B0521435C8C700343267 /* AFHTTPRequestOperation.m */; };
 		05C9B06E1435C8C800343267 /* AFImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C9B0541435C8C700343267 /* AFImageCache.m */; };
@@ -14,7 +19,6 @@
 		05C9B0701435C8C800343267 /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C9B0581435C8C700343267 /* AFJSONRequestOperation.m */; };
 		05C9B0711435C8C800343267 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C9B05A1435C8C700343267 /* AFNetworkActivityIndicatorManager.m */; };
 		05C9B0721435C8C800343267 /* AFRestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C9B05C1435C8C700343267 /* AFRestClient.m */; };
-		05C9B0731435C8C800343267 /* NSData+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C9B05E1435C8C700343267 /* NSData+AFNetworking.m */; };
 		05C9B0741435C8C800343267 /* NSMutableURLRequest+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C9B0601435C8C700343267 /* NSMutableURLRequest+AFNetworking.m */; };
 		05C9B0751435C8C800343267 /* NSString+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C9B0621435C8C700343267 /* NSString+AFNetworking.m */; };
 		05C9B0761435C8C800343267 /* UIImage+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C9B0641435C8C800343267 /* UIImage+AFNetworking.m */; };
@@ -111,6 +115,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		05086B231436275C008A8411 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		05086B2514362768008A8411 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		05086B2714362774008A8411 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		05086B2B14362EEC008A8411 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		05C9B01F1435BB9F00343267 /* BugSense-iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BugSense-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		05C9B0411435C65300343267 /* BugSense-iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BugSense-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		05C9B04E1435C8A500343267 /* BugSense-iOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BugSense-iOS-Prefix.pch"; sourceTree = SOURCE_ROOT; };
@@ -126,8 +134,6 @@
 		05C9B05A1435C8C700343267 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
 		05C9B05B1435C8C700343267 /* AFRestClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFRestClient.h; sourceTree = "<group>"; };
 		05C9B05C1435C8C700343267 /* AFRestClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFRestClient.m; sourceTree = "<group>"; };
-		05C9B05D1435C8C700343267 /* NSData+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+AFNetworking.h"; sourceTree = "<group>"; };
-		05C9B05E1435C8C700343267 /* NSData+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+AFNetworking.m"; sourceTree = "<group>"; };
 		05C9B05F1435C8C700343267 /* NSMutableURLRequest+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+AFNetworking.h"; sourceTree = "<group>"; };
 		05C9B0601435C8C700343267 /* NSMutableURLRequest+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableURLRequest+AFNetworking.m"; sourceTree = "<group>"; };
 		05C9B0611435C8C700343267 /* NSString+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AFNetworking.h"; sourceTree = "<group>"; };
@@ -150,6 +156,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05086B2C14362EEC008A8411 /* CoreLocation.framework in Frameworks */,
+				05086B2814362774008A8411 /* SystemConfiguration.framework in Frameworks */,
+				05086B2614362769008A8411 /* Foundation.framework in Frameworks */,
+				05086B241436275C008A8411 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,8 +191,6 @@
 				05C9B05A1435C8C700343267 /* AFNetworkActivityIndicatorManager.m */,
 				05C9B05B1435C8C700343267 /* AFRestClient.h */,
 				05C9B05C1435C8C700343267 /* AFRestClient.m */,
-				05C9B05D1435C8C700343267 /* NSData+AFNetworking.h */,
-				05C9B05E1435C8C700343267 /* NSData+AFNetworking.m */,
 				05C9B05F1435C8C700343267 /* NSMutableURLRequest+AFNetworking.h */,
 				05C9B0601435C8C700343267 /* NSMutableURLRequest+AFNetworking.m */,
 				05C9B0611435C8C700343267 /* NSString+AFNetworking.h */,
@@ -253,6 +261,10 @@
 		05D58BB2142CC4A400BEE267 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				05086B2B14362EEC008A8411 /* CoreLocation.framework */,
+				05086B2714362774008A8411 /* SystemConfiguration.framework */,
+				05086B2514362768008A8411 /* Foundation.framework */,
+				05086B231436275C008A8411 /* UIKit.framework */,
 				05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */,
 			);
 			name = Frameworks;
@@ -430,13 +442,13 @@
 				05C9B0701435C8C800343267 /* AFJSONRequestOperation.m in Sources */,
 				05C9B0711435C8C800343267 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				05C9B0721435C8C800343267 /* AFRestClient.m in Sources */,
-				05C9B0731435C8C800343267 /* NSData+AFNetworking.m in Sources */,
 				05C9B0741435C8C800343267 /* NSMutableURLRequest+AFNetworking.m in Sources */,
 				05C9B0751435C8C800343267 /* NSString+AFNetworking.m in Sources */,
 				05C9B0761435C8C800343267 /* UIImage+AFNetworking.m in Sources */,
 				05C9B0771435C8C800343267 /* UIImageView+AFNetworking.m in Sources */,
 				05C9B0781435C8C800343267 /* JSONKit.m in Sources */,
 				05C9B0791435C8C800343267 /* Reachability.m in Sources */,
+				05086B2A14362DFE008A8411 /* BugSenseCrashController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,23 +466,38 @@
 		05C9B04C1435C65400343267 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1.0;
+				DYLIB_CURRENT_VERSION = 1.0;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BugSense-iOS-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GENERATE_MASTER_OBJECT_FILE = NO;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Frameworks/CrashReporter/Source\"";
 				INFOPLIST_FILE = "BugSense-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				KEEP_PRIVATE_EXTERNS = NO;
+				LD_GENERATE_MAP_FILE = NO;
+				LD_RUNPATH_SEARCH_PATHS = "";
 				LINK_WITH_STANDARD_LIBRARIES = NO;
 				MACH_O_TYPE = mh_object;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SDKROOT = iphoneos;
+				SECTORDER_FLAGS = "";
+				SEPARATE_STRIP = NO;
+				STRIP_INSTALLED_PRODUCT = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -478,23 +505,38 @@
 		05C9B04D1435C65400343267 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1.0;
+				DYLIB_CURRENT_VERSION = 1.0;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BugSense-iOS-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GENERATE_MASTER_OBJECT_FILE = NO;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Frameworks/CrashReporter/Source\"";
 				INFOPLIST_FILE = "BugSense-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				KEEP_PRIVATE_EXTERNS = NO;
+				LD_GENERATE_MAP_FILE = NO;
+				LD_RUNPATH_SEARCH_PATHS = "";
 				LINK_WITH_STANDARD_LIBRARIES = NO;
 				MACH_O_TYPE = mh_object;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SDKROOT = iphoneos;
+				SECTORDER_FLAGS = "";
+				SEPARATE_STRIP = NO;
+				STRIP_INSTALLED_PRODUCT = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
