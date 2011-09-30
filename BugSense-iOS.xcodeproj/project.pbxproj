@@ -37,7 +37,7 @@
 		05C9AD8A1433174000343267 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C9AD881433174000343267 /* Reachability.m */; };
 		05C9AEB51434D45100343267 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9AEB41434D45100343267 /* SystemConfiguration.framework */; };
 		05C9AED81434D6C100343267 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9AED71434D6C100343267 /* libz.1.1.3.dylib */; };
-		05C9AEFC1434DB5F00343267 /* BugSense-iOS.pch in Headers */ = {isa = PBXBuildFile; fileRef = 05C9AEFB1434DB5E00343267 /* BugSense-iOS.pch */; settings = {ATTRIBUTES = (); }; };
+		05C9AEFC1434DB5F00343267 /* BugSense-iOS-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 05C9AEFB1434DB5E00343267 /* BugSense-iOS-Prefix.pch */; settings = {ATTRIBUTES = (); }; };
 		05D58BB4142CC4A400BEE267 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D58BB3142CC4A400BEE267 /* Foundation.framework */; };
 		05D58BBA142CC4A400BEE267 /* BugSenseCrashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D58BB9142CC4A400BEE267 /* BugSenseCrashController.m */; };
 /* End PBXBuildFile section */
@@ -160,8 +160,9 @@
 		05C9AD881433174000343267 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		05C9AEB41434D45100343267 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		05C9AED71434D6C100343267 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
-		05C9AEFB1434DB5E00343267 /* BugSense-iOS.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BugSense-iOS.pch"; sourceTree = "<group>"; };
-		05D58BB0142CC4A400BEE267 /* BugSense-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "BugSense-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		05C9AEFB1434DB5E00343267 /* BugSense-iOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BugSense-iOS-Prefix.pch"; sourceTree = "<group>"; };
+		05C9B01F1435BB9F00343267 /* BugSense-iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BugSense-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
+		05D58BB0142CC4A400BEE267 /* BugSense-iOS. */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "BugSense-iOS."; sourceTree = BUILT_PRODUCTS_DIR; };
 		05D58BB3142CC4A400BEE267 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		05D58BB8142CC4A400BEE267 /* BugSenseCrashController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BugSenseCrashController.h; sourceTree = "<group>"; };
 		05D58BB9142CC4A400BEE267 /* BugSenseCrashController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BugSenseCrashController.m; sourceTree = "<group>"; };
@@ -234,7 +235,7 @@
 		05D58BB1142CC4A400BEE267 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				05D58BB0142CC4A400BEE267 /* BugSense-iOS.a */,
+				05D58BB0142CC4A400BEE267 /* BugSense-iOS. */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -265,7 +266,8 @@
 		05D58BB6142CC4A400BEE267 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				05C9AEFB1434DB5E00343267 /* BugSense-iOS.pch */,
+				05C9B01F1435BB9F00343267 /* BugSense-iOS-Info.plist */,
+				05C9AEFB1434DB5E00343267 /* BugSense-iOS-Prefix.pch */,
 				05C9AD871433174000343267 /* Reachability.h */,
 				05C9AD881433174000343267 /* Reachability.m */,
 				05B49DBA14311E4F00CC3B5B /* AFNetworking */,
@@ -299,7 +301,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05C9AEFC1434DB5F00343267 /* BugSense-iOS.pch in Headers */,
+				05C9AEFC1434DB5F00343267 /* BugSense-iOS-Prefix.pch in Headers */,
 				05B49DB814311DFC00CC3B5B /* JSONKit.h in Headers */,
 				05B49DD114311E6600CC3B5B /* AFHTTPRequestOperation.h in Headers */,
 				05B49DD314311E6600CC3B5B /* AFImageCache.h in Headers */,
@@ -334,7 +336,7 @@
 			);
 			name = "BugSense-iOS";
 			productName = "BugSense-iOS";
-			productReference = 05D58BB0142CC4A400BEE267 /* BugSense-iOS.a */;
+			productReference = 05D58BB0142CC4A400BEE267 /* BugSense-iOS. */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -498,6 +500,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
 		};
@@ -515,6 +518,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
 		};
@@ -522,25 +526,34 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/BugSense_iOS.dst;
+				EXECUTABLE_EXTENSION = "";
 				EXECUTABLE_PREFIX = "";
 				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS.pch";
+				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GENERATE_MASTER_OBJECT_FILE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/CrashReporter/Source\"";
+				INFOPLIST_FILE = "\"/Users/genesis/Projects/Ocean Road Software/BugSense/BugSense-iOS/BugSense-iOS-Info.plist\"";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				KEEP_PRIVATE_EXTERNS = NO;
-				MACH_O_TYPE = staticlib;
-				OTHER_LDFLAGS = (
-					"-framework",
-					SystemConfiguration,
-					"-all_load",
-					"-ObjC",
-				);
+				LINK_WITH_STANDARD_LIBRARIES = NO;
+				MACH_O_TYPE = mh_object;
+				MODULE_START = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = "-ObjC";
+				PRIVATE_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/PrivateHeaders";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				PUBLIC_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Headers";
+				SEPARATE_STRIP = NO;
+				SKIP_INSTALL = NO;
+				STRIP_STYLE = "non-global";
 				USER_HEADER_SEARCH_PATHS = "";
+				WARNING_LDFLAGS = "";
+				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
 		};
@@ -549,25 +562,34 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/BugSense_iOS.dst;
+				EXECUTABLE_EXTENSION = "";
 				EXECUTABLE_PREFIX = "";
 				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS.pch";
+				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GENERATE_MASTER_OBJECT_FILE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/CrashReporter/Source\"";
+				INFOPLIST_FILE = "\"/Users/genesis/Projects/Ocean Road Software/BugSense/BugSense-iOS/BugSense-iOS-Info.plist\"";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				KEEP_PRIVATE_EXTERNS = NO;
-				MACH_O_TYPE = staticlib;
-				OTHER_LDFLAGS = (
-					"-framework",
-					SystemConfiguration,
-					"-all_load",
-					"-ObjC",
-				);
+				LINK_WITH_STANDARD_LIBRARIES = NO;
+				MACH_O_TYPE = mh_object;
+				MODULE_START = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = "-ObjC";
+				PRIVATE_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/PrivateHeaders";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				PUBLIC_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/Headers";
+				SEPARATE_STRIP = NO;
+				SKIP_INSTALL = NO;
+				STRIP_STYLE = "non-global";
 				USER_HEADER_SEARCH_PATHS = "";
+				WARNING_LDFLAGS = "";
+				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
 		};
