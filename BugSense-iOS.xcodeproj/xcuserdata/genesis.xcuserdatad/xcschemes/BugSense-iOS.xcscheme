@@ -14,7 +14,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "05D58BAF142CC4A400BEE267"
-               BuildableName = "BugSense-iOS.a"
+               BuildableName = "BugSense-iOS."
                BlueprintName = "BugSense-iOS"
                ReferencedContainer = "container:BugSense-iOS.xcodeproj">
             </BuildableReference>
