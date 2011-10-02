@@ -46,22 +46,21 @@ static BugSenseCrashController *sharedCrashController = nil;
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 + (BugSenseCrashController *) sharedInstance {
-    @synchronized(self) {
-		if (sharedCrashController == nil) {
-			[[self alloc] init]; 
-		}
-	}
+    if (!sharedCrashController) {
+        sharedCrashController = [[BugSenseCrashController alloc] init];
+    }
+    
     return sharedCrashController;
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 + (BugSenseCrashController *) sharedInstanceWithBugSenseAPIKey:(NSString *)bugSenseAPIKey {
-    @synchronized(self) {
-		if (sharedCrashController == nil) {
-			[[self alloc] initWithAPIKey:bugSenseAPIKey];
-		}
-	}
+    if (!sharedCrashController) {
+        sharedCrashController = [[BugSenseCrashController alloc] initWithAPIKey:bugSenseAPIKey];
+        [sharedCrashController initiateReportingProcess];
+    }
+    
     return sharedCrashController;
 }
 
@@ -69,10 +68,10 @@ static BugSenseCrashController *sharedCrashController = nil;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 + (BugSenseCrashController *) sharedInstanceWithBugSenseAPIKey:(NSString *)bugSenseAPIKey 
                                                 userDictionary:(NSDictionary *)userDictionary {
-    @synchronized(self) {
-		if (sharedCrashController == nil) {
-			[[self alloc] initWithAPIKey:bugSenseAPIKey userDictionary:userDictionary];
-		}
+    if (!sharedCrashController) {
+        sharedCrashController = [[BugSenseCrashController alloc] initWithAPIKey:bugSenseAPIKey 
+                                                                 userDictionary:userDictionary];
+        [sharedCrashController initiateReportingProcess];
 	}
     return sharedCrashController;
 }
@@ -84,55 +83,13 @@ static BugSenseCrashController *sharedCrashController = nil;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 + (BugSenseCrashController *) sharedInstanceWithBugSenseAPIKey:(NSString *)bugSenseAPIKey 
                                                  andDomainName:(NSString *)domainName {
-    @synchronized(self) {
-		if (sharedCrashController == nil) {
-			[[self alloc] initWithAPIKey:bugSenseAPIKey andDomainName:domainName];
-		}
-	}
+    if (!sharedCrashController) {
+        sharedCrashController = [[BugSenseCrashController alloc] initWithAPIKey:bugSenseAPIKey 
+                                                                  andDomainName:domainName];
+        [sharedCrashController initiateReportingProcess];
+    }
     return sharedCrashController;
     
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-+ (id) allocWithZone:(NSZone *)zone {
-	@synchronized(self) {
-		if (sharedCrashController == nil) {
-			sharedCrashController = [super allocWithZone:zone];
-			return sharedCrashController;   // assignment and return on first allocation
-		}
-	}
-	return nil;  // on subsequent allocation attempts return nil
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (id) copyWithZone:(NSZone *)zone {
-	return self;
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (id) retain {
-	return self;
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (NSUInteger) retainCount {
-	return NSUIntegerMax;  // denotes an object that cannot be released
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (oneway void) release {
-	//do nothing
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (id) autorelease {
-	return self;
 }
 
 
@@ -140,7 +97,7 @@ static BugSenseCrashController *sharedCrashController = nil;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 - (id) init {
     if ((self = [super init])) {
-        [self initiateReportingProcess];
+
     }
     return self;
 }
@@ -150,7 +107,6 @@ static BugSenseCrashController *sharedCrashController = nil;
 - (id) initWithAPIKey:(NSString *)bugSenseAPIKey {
     if ((self = [super init])) {
         _APIKey = [bugSenseAPIKey retain];
-        [self initiateReportingProcess];
     }
     return self;
 }
@@ -161,7 +117,6 @@ static BugSenseCrashController *sharedCrashController = nil;
     if ((self = [super init])) {
         _APIKey = [bugSenseAPIKey retain];
         _userDictionary = [userDictionary retain];
-        [self initiateReportingProcess];
     }
     return self;
 }
@@ -174,7 +129,6 @@ static BugSenseCrashController *sharedCrashController = nil;
 - (id) initWithAPIKey:(NSString *)bugSenseAPIKey andDomainName:(NSString *)domainName {
     if ((self = [super init])) {
         _APIKey = [bugSenseAPIKey retain];
-        [self initiateReportingProcess];
     }
     return self;
 }
@@ -236,48 +190,6 @@ static BugSenseCrashController *sharedCrashController = nil;
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
- {
-    "application_environment": {
-        "appname": "spitogatos", 
-        "appver": "1.0", 
-        "gps_on": "false", 
-        "languages": "el, -, -", 
-        "locale": "en_US", 
-        "mobile_net_on": "false", 
-        "osver": "4.3", 
-        "phone": "iPhone Simulator", 
-        "timestamp": "2011-06-14 13:33:34 GMT 03:00", 
-        "wifi_on": "true"
-    }, 
-    "exception": {
-        "backtrace": [
-            "0   spitogatos™                         0x2009f840 -[BugSenseCrashController callstackAsArray]   64", 
-            "1   spitogatos™                         0x0009e8ad bugSenseSighandler   221", 
-            "2   libSystem.B.dylib                   0x93a4045b _sigtramp   43", 
-            "3   ???                                 0xffffffff 0x0   4294967295", 
-            "4   MapKit                              0x00ef2328 -[MKOverlayClusterView drawLayer:inContext:]   1450", 
-            "5   QuartzCore                          0x0106cb5e -[CALayer drawInContext:]   143", 
-            "6   QuartzCore                          0x01083283 _ZL18tiled_layer_renderP16_CAImageProviderjjjjPv   1648", 
-            "7   QuartzCore                          0x00fcbeb2 _ZL21CAImageProviderThreadPjb   475", 
-            "8   libSystem.B.dylib                   0x739ffd21 _pthread_wqthread   390", 
-            "9   libSystem.B.dylib                   0x739ffb66 start_wqthread   30"
-        ], 
-        "klass": "SIGNAL", 
-        "message": "SIGSEGV", 
-        "where": "6   QuartzCore                          0x01083283 _ZL18tiled_layer_renderP16_CAImageProviderjjjjPv   1648"
-    }, 
-    "request": {
-        "remote_ip": ""
-    },
-    "custom_data": {
-        ...
-    }
- }
- */
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 - (NSString *) deviceIPAddress {
     NSString *address = @"Error.";
     struct ifaddrs *interfaces = NULL;
@@ -316,22 +228,40 @@ static BugSenseCrashController *sharedCrashController = nil;
     NSMutableDictionary *application_environment = [[NSMutableDictionary alloc] init];
     
     // ----appname
-    [application_environment setObject:report.applicationInfo.applicationIdentifier forKey:@"appname"];
+    // [application_environment setObject:report.applicationInfo.applicationIdentifier forKey:@"appname"];
+    NSArray *identifierComponents = [report.applicationInfo.applicationIdentifier componentsSeparatedByString:@"."];
+    [application_environment setObject:[identifierComponents lastObject] forKey:@"appname"];
     // ----appver
     [application_environment setObject:report.applicationInfo.applicationVersion forKey:@"appver"];
+    // ----internal_version
+    //CFDictionaryRef bundleInfoDict = CFBundleGetInfoDictionary(CFBundleGetMainBundle());
+    CFBundleRef bundle = CFBundleGetBundleWithIdentifier((CFStringRef)report.applicationInfo.applicationIdentifier);
+    CFDictionaryRef bundleInfoDict = CFBundleGetInfoDictionary(bundle);
+    CFStringRef buildNumber;
+    
+    // If we succeeded, look for our property.
+    if (bundleInfoDict != NULL) {
+        buildNumber = CFDictionaryGetValue(bundleInfoDict, CFSTR("CFBundleVersion"));
+        [application_environment setObject:(NSString *)buildNumber forKey:@"internal_version"];
+    }
+    
     // ----gps_on
     [application_environment setObject:[NSNumber numberWithBool:[CLLocationManager locationServicesEnabled]] 
                                 forKey:@"gps_on"];
     
     // ----languages
-    NSMutableString *languages = [[[NSMutableString alloc] init] autorelease];
-    for (NSUInteger pos = 0; pos < [[NSLocale preferredLanguages] count]; pos++) {
-        [languages appendString:[[NSLocale preferredLanguages] objectAtIndex:pos]];
-        if (pos < [[NSLocale preferredLanguages] count]-1) {
+    /*NSMutableString *languages = [[[NSMutableString alloc] init] autorelease];
+    for (NSUInteger pos = 0; pos < [[NSLocale availableLocaleIdentifiers] count]; pos++) {
+        [languages appendString:[[NSLocale availableLocaleIdentifiers] objectAtIndex:pos]];
+        if (pos < [[NSLocale availableLocaleIdentifiers] count]-1) {
             [languages appendString:@", "];
         }
+    }*/
+    CFStringRef languages;
+    if (bundleInfoDict != NULL) {
+        languages = CFDictionaryGetValue(bundleInfoDict, kCFBundleLocalizationsKey);
+        [application_environment setObject:(NSString *)languages forKey:@"languages"];
     }
-    [application_environment setObject:languages forKey:@"languages"];
     
     // ----locale
     [application_environment setObject:[[NSLocale currentLocale] localeIdentifier] forKey:@"locale"];
@@ -361,10 +291,13 @@ static BugSenseCrashController *sharedCrashController = nil;
     
     // ----timestamp
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss zzz Z"];
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss zzz"];
     [application_environment setObject:[formatter stringFromDate:report.systemInfo.timestamp] 
                                 forKey:@"timestamp"];
     [formatter release];
+    
+    
+    NSLog(@"Basic stuff");
     
     // --exception
     NSMutableDictionary *exception = [[NSMutableDictionary alloc] init];
@@ -395,7 +328,7 @@ static BugSenseCrashController *sharedCrashController = nil;
             pcOffset = frameInfo.instructionPointer - imageInfo.imageBaseAddress;
         }
         
-        NSString *stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " 0x%" PRIx64 " + %" PRId64 "\n", 
+        NSString *stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " 0x%" PRIx64 " + %" PRId64 "", 
             (long)frame_idx, imageName, frameInfo.instructionPointer, baseAddress, pcOffset];
         [backtrace addObject:stackframe];
         
@@ -439,8 +372,8 @@ static BugSenseCrashController *sharedCrashController = nil;
     } else {
         NSURL *bugsenseURL = [NSURL URLWithString:BUGSENSE_REPORTING_SERVICE_URL];
         NSMutableURLRequest *bugsenseRequest = [[NSMutableURLRequest alloc] initWithURL:bugsenseURL 
-                                                                            cachePolicy:NSURLCacheStorageNotAllowed 
-                                                                        timeoutInterval:20.0f];
+                                                                            cachePolicy:NSURLRequestReloadIgnoringLocalCacheData 
+                                                                        timeoutInterval:15.0f];
         [bugsenseRequest setHTTPMethod:@"POST"];
         [bugsenseRequest setHTTPBody:jsonData];
         [bugsenseRequest setValue:_APIKey forHTTPHeaderField:BUGSENSE_HEADER];
@@ -458,7 +391,6 @@ static BugSenseCrashController *sharedCrashController = nil;
         /// add operation to queue
         [[NSOperationQueue mainQueue] addOperation:operation];
         
-        // should be working. need to test
         return YES;
     }
 }

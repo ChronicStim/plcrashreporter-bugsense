@@ -12,6 +12,8 @@
 		05086B2814362774008A8411 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05086B2714362774008A8411 /* SystemConfiguration.framework */; };
 		05086B2A14362DFE008A8411 /* BugSenseCrashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D58BB9142CC4A400BEE267 /* BugSenseCrashController.m */; };
 		05086B2C14362EEC008A8411 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05086B2B14362EEC008A8411 /* CoreLocation.framework */; };
+		05086B321436FEDE008A8411 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9B0991435C90800343267 /* libCrashReporter-iphoneos.a */; };
+		05086B331436FEF8008A8411 /* libCrashReporter-iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9B09B1435C90800343267 /* libCrashReporter-iphonesimulator.a */; };
 		05A5C22B1435CE4F0055E04F /* BugSenseCrashController.h in Headers */ = {isa = PBXBuildFile; fileRef = 05D58BB8142CC4A400BEE267 /* BugSenseCrashController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		05C9B06D1435C8C800343267 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C9B0521435C8C700343267 /* AFHTTPRequestOperation.m */; };
 		05C9B06E1435C8C800343267 /* AFImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C9B0541435C8C700343267 /* AFImageCache.m */; };
@@ -156,6 +158,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05086B331436FEF8008A8411 /* libCrashReporter-iphonesimulator.a in Frameworks */,
+				05086B321436FEDE008A8411 /* libCrashReporter-iphoneos.a in Frameworks */,
 				05086B2C14362EEC008A8411 /* CoreLocation.framework in Frameworks */,
 				05086B2814362774008A8411 /* SystemConfiguration.framework in Frameworks */,
 				05086B2614362769008A8411 /* Foundation.framework in Frameworks */,
