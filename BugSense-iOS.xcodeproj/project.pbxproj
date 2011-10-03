@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		05086B2A14362DFE008A8411 /* BugSenseCrashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D58BB9142CC4A400BEE267 /* BugSenseCrashController.m */; };
-		05086C031439E71B008A8411 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9B0991435C90800343267 /* libCrashReporter-iphoneos.a */; };
-		05086C041439E71B008A8411 /* libCrashReporter-iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9B09B1435C90800343267 /* libCrashReporter-iphonesimulator.a */; };
+		05086C261439E9E5008A8411 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9B0991435C90800343267 /* libCrashReporter-iphoneos.a */; };
+		05086C271439E9E5008A8411 /* libCrashReporter-iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9B09B1435C90800343267 /* libCrashReporter-iphonesimulator.a */; };
 		05A5C22B1435CE4F0055E04F /* BugSenseCrashController.h in Headers */ = {isa = PBXBuildFile; fileRef = 05D58BB8142CC4A400BEE267 /* BugSenseCrashController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		05C9B06D1435C8C800343267 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C9B0521435C8C700343267 /* AFHTTPRequestOperation.m */; };
 		05C9B06E1435C8C800343267 /* AFImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C9B0541435C8C700343267 /* AFImageCache.m */; };
@@ -26,6 +26,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		05086C241439E9B7008A8411 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 058812B81040582D009128FB;
+			remoteInfo = "CrashReporter-iPhone";
+		};
 		05C9B0921435C90800343267 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */;
@@ -103,13 +110,6 @@
 			remoteGlobalIDString = 050DE24D0F61B80B00152ED3;
 			remoteInfo = "Fuzz Testing";
 		};
-		05C9B0AD1435C99000343267 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 05CD31510EE936A9000FDE88;
-			remoteInfo = "CrashReporter-iPhoneOS";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -154,8 +154,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05086C031439E71B008A8411 /* libCrashReporter-iphoneos.a in Frameworks */,
-				05086C041439E71B008A8411 /* libCrashReporter-iphonesimulator.a in Frameworks */,
+				05086C261439E9E5008A8411 /* libCrashReporter-iphoneos.a in Frameworks */,
+				05086C271439E9E5008A8411 /* libCrashReporter-iphonesimulator.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,7 +302,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				05C9B0AE1435C99000343267 /* PBXTargetDependency */,
+				05086C251439E9B7008A8411 /* PBXTargetDependency */,
 			);
 			name = "BugSense-iOS";
 			productName = "BugSense-iOS";
@@ -451,10 +451,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		05C9B0AE1435C99000343267 /* PBXTargetDependency */ = {
+		05086C251439E9B7008A8411 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "CrashReporter-iPhoneOS";
-			targetProxy = 05C9B0AD1435C99000343267 /* PBXContainerItemProxy */;
+			name = "CrashReporter-iPhone";
+			targetProxy = 05086C241439E9B7008A8411 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

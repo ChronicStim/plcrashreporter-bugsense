@@ -1970,18 +1970,27 @@
 				EXPORTED_SYMBOLS_FILE = Resources/CrashReporter.exp;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GENERATE_MASTER_OBJECT_FILE = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
+				GENERATE_MASTER_OBJECT_FILE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Dependencies/protobuf-2.0.3/include\"",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Dependencies/protobuf-2.0.3/lib\"",
 				);
-				MACH_O_TYPE = mh_object;
+				MACH_O_TYPE = staticlib;
 				ONLY_ACTIVE_ARCH = NO;
 				PREBINDING = NO;
 				PRODUCT_NAME = "CrashReporter${EFFECTIVE_PLATFORM_NAME}";
+				REZ_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(DERIVED_FILES_DIR)\"",
+					"\"$(SRCROOT)/Dependencies/protobuf-2.0.3/include\"",
+				);
 				SDKROOT = iphonesimulator4.3;
 				SKIP_INSTALL = NO;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Dependencies/protobuf-2.0.3/include\" \"$(SRCROOT)/$(DERIVED_FILES_DIR)\" $(inherited)";
 			};
 			name = Debug;
 		};
@@ -1993,17 +2002,23 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXPORTED_SYMBOLS_FILE = Resources/CrashReporter.exp;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GENERATE_MASTER_OBJECT_FILE = YES;
+				GENERATE_MASTER_OBJECT_FILE = NO;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Dependencies/protobuf-2.0.3/lib\"",
 				);
-				MACH_O_TYPE = mh_object;
+				MACH_O_TYPE = staticlib;
 				ONLY_ACTIVE_ARCH = NO;
 				PREBINDING = NO;
 				PRODUCT_NAME = "CrashReporter${EFFECTIVE_PLATFORM_NAME}";
+				REZ_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(DERIVED_FILES_DIR)\"",
+					"\"$(SRCROOT)/Dependencies/protobuf-2.0.3/include\"",
+				);
 				SDKROOT = iphonesimulator4.3;
 				SKIP_INSTALL = NO;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Dependencies/protobuf-2.0.3/include\" \"$(SRCROOT)/$(DERIVED_FILES_DIR)\" $(inherited)";
 				ZERO_LINK = NO;
 			};
 			name = Release;
