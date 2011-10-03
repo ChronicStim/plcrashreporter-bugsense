@@ -18,7 +18,6 @@
 #import "NSMutableURLRequest+AFNetworking.h"
 
 #import <CoreLocation/CoreLocation.h>
-#import <CommonCrypto/CommonDigest.h>
 
 #define BUGSENSE_REPORTING_SERVICE_URL @"http://www.bugsense.com/api/errors"
 #define BUGSENSE_HEADER                @"X-BugSense-Api-Key"
@@ -30,11 +29,9 @@
 - (id) initWithAPIKey:(NSString *)bugSenseAPIKey userDictionary:(NSDictionary *)userDictionary;
 - (void) initiateReportingProcess;
 - (void) processCrashReport;
-- (NSString *) backtraceStringFromReport:(PLCrashReport *)report;
 - (NSString *) deviceIPAddress;
 - (NSData *) JSONDataFromCrashReport:(PLCrashReport *)report;
-- (BOOL) postJSONData:(NSData *)jsonData withHash:(NSString *)hash;
-- (NSString *) md5Hash:(NSString *)plainText;
+- (BOOL) postJSONData:(NSData *)jsonData;
 
 @end
 
@@ -158,18 +155,6 @@ static BugSenseCrashController *sharedCrashController = nil;
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (NSString *) md5Hash:(NSString *)plainText {
-    const char *concat_str = [plainText UTF8String];
-    unsigned char result[CC_MD5_DIGEST_LENGTH];
-    CC_MD5(concat_str, strlen(concat_str), result);
-    NSMutableString *hash = [NSMutableString string];
-    for (int i = 0; i < 16; i++)
-        [hash appendFormat:@"%02X", result[i]];
-    return [hash lowercaseString];
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void) processCrashReport {
     NSLog(@"BugSense --> Processing crash report...");
     
@@ -206,47 +191,8 @@ static BugSenseCrashController *sharedCrashController = nil;
         return;
     }
     
-    NSString *backtraceString = [self backtraceStringFromReport:report];
-    
     // Send the JSON string to the BugSense servers
-    [self postJSONData:jsonData withHash:[self md5Hash:backtraceString]];
-}
-                           
-         
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (NSString *) backtraceStringFromReport:(PLCrashReport *)report {
-    PLCrashReportThreadInfo *crashedThreadInfo = nil;
-    for (PLCrashReportThreadInfo *threadInfo in report.threads) {
-        if (threadInfo.crashed) {
-            crashedThreadInfo = threadInfo;
-            break;
-        }
-    }
-    
-    NSMutableString *backtrace = [[[NSMutableString alloc] init] autorelease];
-    for (NSUInteger frame_idx = 0; frame_idx < [crashedThreadInfo.stackFrames count]; frame_idx++) {
-        PLCrashReportStackFrameInfo *frameInfo = [crashedThreadInfo.stackFrames objectAtIndex:frame_idx];
-        PLCrashReportBinaryImageInfo *imageInfo;
-        
-        /* Base image address containing instrumention pointer, offset of the IP from that base
-         * address, and the associated image name */
-        uint64_t baseAddress = 0x0;
-        uint64_t pcOffset = 0x0;
-        const char *imageName = "\?\?\?";
-        
-        imageInfo = [report imageForAddress:frameInfo.instructionPointer];
-        if (imageInfo != nil) {
-            imageName = [[imageInfo.imageName lastPathComponent] UTF8String];
-            baseAddress = imageInfo.imageBaseAddress;
-            pcOffset = frameInfo.instructionPointer - imageInfo.imageBaseAddress;
-        }
-        
-        NSString *stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " 0x%" PRIx64 " + %" PRId64 "\n", 
-                                (long)frame_idx, imageName, frameInfo.instructionPointer, baseAddress, pcOffset];
-        [backtrace appendString:stackframe];
-    }
-    
-    return backtrace;
+    [self postJSONData:jsonData];
 }
 
 
@@ -429,7 +375,7 @@ static BugSenseCrashController *sharedCrashController = nil;
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (BOOL) postJSONData:(NSData *)jsonData withHash:(NSString *)hash {
+- (BOOL) postJSONData:(NSData *)jsonData {
     if (!jsonData) {
         return NO;
     } else {
