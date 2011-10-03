@@ -57,8 +57,10 @@ PLCrashReportArchitecture PLCrashReportHostArchitecture =
     PLCrashReportArchitectureX86_64;
 #elif defined(__i386__)
     PLCrashReportArchitectureX86_32;
-#elif defined(__arm__)
-    PLCrashReportArchitectureARM;
+#elif defined(__ARM_ARCH_6K__)
+    PLCrashReportArchitectureARMv6;
+#elif defined(__ARM_ARCH_7A__)
+    PLCrashReportArchitectureARMv7;
 #elif defined(__ppc__)
     PLCrashReportArchitecturePPC;
 #else
@@ -86,11 +88,34 @@ PLCrashReportArchitecture PLCrashReportHostArchitecture =
                   architecture: (PLCrashReportArchitecture) architecture
                      timestamp: (NSDate *) timestamp
 {
+    return [self initWithOperatingSystem: operatingSystem
+                  operatingSystemVersion: operatingSystemVersion
+                    operatingSystemBuild: nil
+                            architecture: architecture
+                               timestamp: timestamp];
+}
+
+/**
+ * Initialize the system info data object.
+ *
+ * @param operatingSystem Operating System
+ * @param operatingSystemVersion OS version
+ * @param operatingSystemBuild OS build (may be nil).
+ * @param architecture Architecture
+ * @param timestamp Timestamp (may be nil).
+ */
+- (id) initWithOperatingSystem: (PLCrashReportOperatingSystem) operatingSystem 
+        operatingSystemVersion: (NSString *) operatingSystemVersion
+          operatingSystemBuild: (NSString *) operatingSystemBuild
+                  architecture: (PLCrashReportArchitecture) architecture
+                     timestamp: (NSDate *) timestamp
+{
     if ((self = [super init]) == nil)
         return nil;
     
     _operatingSystem = operatingSystem;
     _osVersion = [operatingSystemVersion retain];
+    _osBuild = [operatingSystemBuild retain];
     _architecture = architecture;
     _timestamp = [timestamp retain];
     
@@ -99,12 +124,14 @@ PLCrashReportArchitecture PLCrashReportHostArchitecture =
 
 - (void) dealloc {
     [_osVersion release];
+    [_osBuild release];
     [_timestamp release];
     [super dealloc];
 }
 
 @synthesize operatingSystem = _operatingSystem;
 @synthesize operatingSystemVersion = _osVersion;
+@synthesize operatingSystemBuild = _osBuild;
 @synthesize architecture = _architecture;
 @synthesize timestamp = _timestamp;
 

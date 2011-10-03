@@ -34,6 +34,7 @@
 #import "PLCrashLogWriter.h"
 
 #import <fcntl.h>
+#import <mach-o/dyld.h>
 
 #define NSDEBUG(msg, args...) {\
     NSLog(@"[PLCrashReporter] " msg, ## args); \
@@ -62,12 +63,9 @@ static NSString *PLCRASH_QUEUED_DIR = @"queued_reports";
 
 /**
  * @internal
- *
- * Crash reporter singleton. Must default to NULL,
- * or the -[PLCrashReporter init] method will fail when attempting
- * to detect if another crash reporter exists.
+ * Crash reporter singleton.
  */
-static PLCrashReporter *sharedReporter = NULL;
+static PLCrashReporter *sharedReporter = nil;
 
 
 /**
@@ -90,6 +88,17 @@ typedef struct signal_handler_ctx {
  */
 static plcrashreporter_handler_ctx_t signal_handler_context;
 
+
+/**
+ * @internal
+ * 
+ * The optional user-supplied callbacks invoked after the crash report has been written.
+ */
+static PLCrashReporterCallbacks crashCallbacks = {
+    .version = 0,
+    .context = NULL,
+    .handleSignal = NULL
+};
 
 /**
  * @internal
@@ -117,6 +126,26 @@ static void signal_handler_callback (int signal, siginfo_t *info, ucontext_t *ua
     /* Finished */
     plcrash_async_file_flush(&file);
     plcrash_async_file_close(&file);
+
+    /* Call any post-crash callback */
+    if (crashCallbacks.handleSignal != NULL)
+        crashCallbacks.handleSignal(info, uap, crashCallbacks.context);
+}
+
+/**
+ * @internal
+ * dyld image add notification callback.
+ */
+static void image_add_callback (const struct mach_header *mh, intptr_t vmaddr_slide) {
+    plcrash_log_writer_add_image(&signal_handler_context.writer, mh);
+}
+
+/**
+ * @internal
+ * dyld image remove notification callback.
+ */
+static void image_remove_callback (const struct mach_header *mh, intptr_t vmaddr_slide) {
+    plcrash_log_writer_remove_image(&signal_handler_context.writer, mh);
 }
 
 
@@ -134,8 +163,8 @@ static void uncaught_exception_handler (NSException *exception) {
     /* Set the uncaught exception */
     plcrash_log_writer_set_exception(&signal_handler_context.writer, exception);
 
-    /* Trigger the crash handler */
-    raise(SIGTRAP);
+    /* Synchronously trigger the crash handler */
+    abort();
 }
 
 
@@ -157,16 +186,13 @@ static void uncaught_exception_handler (NSException *exception) {
  */
 @implementation PLCrashReporter
 
-/* Create the shared crash reporter singleton. */
-+ (void) initialize {
-    sharedReporter = NULL;
-    sharedReporter = [[PLCrashReporter alloc] initWithBundle: [NSBundle mainBundle]];
-}
-
 /**
  * Return the application's crash reporter instance.
  */
 + (PLCrashReporter *) sharedReporter {
+    if (sharedReporter == nil)
+        sharedReporter = [[PLCrashReporter alloc] initWithBundle: [NSBundle mainBundle]];
+
     return sharedReporter;
 }
 
@@ -277,6 +303,10 @@ static void uncaught_exception_handler (NSException *exception) {
     assert(_applicationIdentifier != nil);
     assert(_applicationVersion != nil);
     plcrash_log_writer_init(&signal_handler_context.writer, _applicationIdentifier, _applicationVersion);
+    
+    /* Enable dyld image monitoring */
+    _dyld_register_func_for_add_image(image_add_callback);
+    _dyld_register_func_for_remove_image(image_remove_callback);
 
     /* Enable the signal handler */
     if (![[PLCrashSignalHandler sharedHandler] registerHandlerWithCallback: &signal_handler_callback context: &signal_handler_context error: outError])
@@ -288,6 +318,32 @@ static void uncaught_exception_handler (NSException *exception) {
     /* Success */
     _enabled = YES;
     return YES;
+}
+
+/**
+ * Set the callbacks that will be executed by the receiver after a crash has occured and been recorded by PLCrashReporter.
+ *
+ * @param callbacks A pointer to an initialized PLCrashReporterCallbacks structure.
+ *
+ * @note This method must be called prior to PLCrashReporter::enableCrashReporter or
+ * PLCrashReporter::enableCrashReporterAndReturnError:
+ *
+ * @sa @ref async_safety
+ */
+- (void) setCrashCallbacks: (PLCrashReporterCallbacks *) callbacks {
+    /* Check for programmer error; this should not be called after the signal handler is enabled as to ensure that
+     * the signal handler can never fire with a partially initialized callback structure. */
+    if (_enabled)
+        [NSException raise: PLCrashReporterException format: @"The crash reporter has alread been enabled"];
+
+    assert(callbacks->version == 0);
+
+    /* Re-initialize our internal callback structure */
+    crashCallbacks.version = 0;
+
+    /* Re-configure the saved callbacks */
+    crashCallbacks.context = callbacks->context;
+    crashCallbacks.handleSignal = callbacks->handleSignal;
 }
 
 
@@ -304,7 +360,7 @@ static void uncaught_exception_handler (NSException *exception) {
  * @internal
  *
  * This is the designated initializer, but it is not intended
- * to be called externally. If 
+ * to be called externally.
  */
 - (id) initWithApplicationIdentifier: (NSString *) applicationIdentifier appVersion: (NSString *) applicationVersion {
     /* Only allow one instance to be created, no matter what */

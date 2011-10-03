@@ -29,16 +29,66 @@
 #import <Foundation/Foundation.h>
 #import "CrashReporter.h"
 
+/* A custom post-crash callback */
+void post_crash_callback (siginfo_t *info, ucontext_t *uap, void *context) {
+    // this is not async-safe, but this is a test implementation
+    NSLog(@"post crash callback: signo=%d, uap=%p, context=%p", info->si_signo, uap, context);
+}
+
+
 void stackFrame (void) {
     /* Trigger a crash */
     ((char *)NULL)[1] = 0;
+}
+
+/* If a crash report exists, make it accessible via iTunes document sharing. This is a no-op on Mac OS X. */
+static void save_crash_report () {
+    if (![[PLCrashReporter sharedReporter] hasPendingCrashReport]) 
+        return;
+
+#if TARGET_OS_IPHONE
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSError *error;
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    if (![fm createDirectoryAtPath: documentsDirectory withIntermediateDirectories: YES attributes:nil error: &error]) {
+        NSLog(@"Could not create documents directory: %@", error);
+        return;
+    }
+
+
+    NSData *data = [[PLCrashReporter sharedReporter] loadPendingCrashReportDataAndReturnError: &error];
+    if (data == nil) {
+        NSLog(@"Failed to load crash report data: %@", error);
+        return;
+    }
+
+    NSString *outputPath = [documentsDirectory stringByAppendingPathComponent: @"demo.plcrash"];
+    if (![data writeToFile: outputPath atomically: YES]) {
+        NSLog(@"Failed to write crash report");
+    }
+    
+    NSLog(@"Saved crash report to: %@", outputPath);
+#endif
 }
 
 int main (int argc, char *argv[]) {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSError *error = nil;
 
-    /* Register the crash reporter */
+    /* Save any existing crash report. */
+    save_crash_report();
+    
+    /* Set up post-crash callbacks */
+    PLCrashReporterCallbacks cb = {
+        .version = 0,
+        .context = (void *) 0xABABABAB,
+        .handleSignal = post_crash_callback
+    };
+    [[PLCrashReporter sharedReporter] setCrashCallbacks: &cb];
+
+    /* Enable the crash reporter */
     if (![[PLCrashReporter sharedReporter] enableCrashReporterAndReturnError: &error]) {
         NSLog(@"Could not enable crash reporter: %@", error);
     }

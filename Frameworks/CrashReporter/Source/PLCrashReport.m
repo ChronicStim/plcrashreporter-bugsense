@@ -1,7 +1,7 @@
 /*
  * Author: Landon Fuller <landonf@plausiblelabs.com>
  *
- * Copyright (c) 2008-2009 Plausible Labs Cooperative, Inc.
+ * Copyright (c) 2008-2010 Plausible Labs Cooperative, Inc.
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person
@@ -41,10 +41,13 @@ struct _PLCrashReportDecoder {
 
 - (Plcrash__CrashReport *) decodeCrashData: (NSData *) data error: (NSError **) outError;
 - (PLCrashReportSystemInfo *) extractSystemInfo: (Plcrash__CrashReport__SystemInfo *) systemInfo error: (NSError **) outError;
+- (PLCrashReportProcessorInfo *) extractProcessorInfo: (Plcrash__CrashReport__Processor *) processorInfo error: (NSError **) outError;
+- (PLCrashReportMachineInfo *) extractMachineInfo: (Plcrash__CrashReport__MachineInfo *) machineInfo error: (NSError **) outError;
 - (PLCrashReportApplicationInfo *) extractApplicationInfo: (Plcrash__CrashReport__ApplicationInfo *) applicationInfo error: (NSError **) outError;
+- (PLCrashReportProcessInfo *) extractProcessInfo: (Plcrash__CrashReport__ProcessInfo *) processInfo error: (NSError **) outError;
 - (NSArray *) extractThreadInfo: (Plcrash__CrashReport *) crashReport error: (NSError **) outError;
 - (NSArray *) extractImageInfo: (Plcrash__CrashReport *) crashReport error: (NSError **) outError;
-- (PLCrashReportApplicationInfo *) extractExceptionInfo: (Plcrash__CrashReport__Exception *) exceptionInfo error: (NSError **) outError;
+- (PLCrashReportExceptionInfo *) extractExceptionInfo: (Plcrash__CrashReport__Exception *) exceptionInfo error: (NSError **) outError;
 - (PLCrashReportSignalInfo *) extractSignalInfo: (Plcrash__CrashReport__Signal *) signalInfo error: (NSError **) outError;
 
 @end
@@ -94,11 +97,25 @@ static void populate_nserror (NSError **error, PLCrashReporterError code, NSStri
     _systemInfo = [[self extractSystemInfo: _decoder->crashReport->system_info error: outError] retain];
     if (!_systemInfo)
         goto error;
+    
+    /* Machine info */
+    if (_decoder->crashReport->machine_info != NULL) {
+        _machineInfo = [[self extractMachineInfo: _decoder->crashReport->machine_info error: outError] retain];
+        if (!_machineInfo)
+            goto error;
+    }
 
     /* Application info */
     _applicationInfo = [[self extractApplicationInfo: _decoder->crashReport->application_info error: outError] retain];
     if (!_applicationInfo)
         goto error;
+    
+    /* Process info. Handle missing info gracefully -- it is only included in v1.1+ crash reports. */
+    if (_decoder->crashReport->process_info != NULL) {
+        _processInfo = [[self extractProcessInfo: _decoder->crashReport->process_info error:outError] retain];
+        if (!_processInfo)
+            goto error;
+    }
 
     /* Signal info */
     _signalInfo = [[self extractSignalInfo: _decoder->crashReport->signal error: outError] retain];
@@ -133,6 +150,8 @@ error:
     /* Free the data objects */
     [_systemInfo release];
     [_applicationInfo release];
+    [_processInfo release];
+    [_signalInfo release];
     [_threads release];
     [_images release];
     [_exceptionInfo release];
@@ -153,6 +172,8 @@ error:
 /**
  * Return the binary image containing the given address, or nil if no binary image
  * is found.
+ *
+ * @param address The address to search for.
  */
 - (PLCrashReportBinaryImageInfo *) imageForAddress: (uint64_t) address {
     for (PLCrashReportBinaryImageInfo *imageInfo in self.images) {
@@ -164,8 +185,21 @@ error:
     return nil;
 }
 
-// property getter. property is documented.
-// Returns YES if exception information is available.
+// property getter. Returns YES if machine information is available.
+- (BOOL) hasMachineInfo {
+    if (_machineInfo != nil)
+        return YES;
+    return NO;
+}
+
+// property getter. Returns YES if process information is available.
+- (BOOL) hasProcessInfo {
+    if (_processInfo != nil)
+        return YES;
+    return NO;
+}
+
+// property getter. Returns YES if exception information is available.
 - (BOOL) hasExceptionInfo {
     if (_exceptionInfo != nil)
         return YES;
@@ -173,7 +207,9 @@ error:
 }
 
 @synthesize systemInfo = _systemInfo;
+@synthesize machineInfo = _machineInfo;
 @synthesize applicationInfo = _applicationInfo;
+@synthesize processInfo = _processInfo;
 @synthesize signalInfo = _signalInfo;
 @synthesize threads = _threads;
 @synthesize images = _images;
@@ -238,6 +274,7 @@ error:
  */
 - (PLCrashReportSystemInfo *) extractSystemInfo: (Plcrash__CrashReport__SystemInfo *) systemInfo error: (NSError **) outError {
     NSDate *timestamp = nil;
+    NSString *osBuild = nil;
     
     /* Validate */
     if (systemInfo == NULL) {
@@ -253,30 +290,82 @@ error:
                                            @"Missing sysinfo operating system in crash report"));
         return nil;
     }
+
+    /* Set up the build, if available */
+    if (systemInfo->os_build != NULL)
+        osBuild = [NSString stringWithUTF8String: systemInfo->os_build];
     
     /* Set up the timestamp, if available */
     if (systemInfo->timestamp != 0)
         timestamp = [NSDate dateWithTimeIntervalSince1970: systemInfo->timestamp];
     
     /* Done */
-    return [[[PLCrashReportSystemInfo alloc] initWithOperatingSystem: systemInfo->operating_system
-                                           operatingSystemVersion: [NSString stringWithUTF8String: systemInfo->os_version]
-                                                     architecture: systemInfo->architecture
-                                                        timestamp: timestamp] autorelease];
+    return [[[PLCrashReportSystemInfo alloc] initWithOperatingSystem: (PLCrashReportOperatingSystem) systemInfo->operating_system
+                                              operatingSystemVersion: [NSString stringWithUTF8String: systemInfo->os_version]
+                                                operatingSystemBuild: osBuild
+                                                        architecture: (PLCrashReportArchitecture) systemInfo->architecture
+                                                           timestamp: timestamp] autorelease];
 }
 
+/**
+ * Extract processor information from the crash log. Returns nil on error.
+ */
+- (PLCrashReportProcessorInfo *) extractProcessorInfo: (Plcrash__CrashReport__Processor *) processorInfo error: (NSError **) outError {   
+    /* Validate */
+    if (processorInfo == NULL) {
+        populate_nserror(outError, PLCrashReporterErrorCrashReportInvalid, 
+                         NSLocalizedString(@"Crash report is missing processor info section", 
+                                           @"Missing processor info in crash report"));
+        return nil;
+    }
+
+    return [[[PLCrashReportProcessorInfo alloc] initWithTypeEncoding: (PLCrashReportProcessorTypeEncoding) processorInfo->encoding
+                                                                type: processorInfo->type
+                                                             subtype: processorInfo->subtype] autorelease];
+}
+
+/**
+ * Extract machine information from the crash log. Returns nil on error.
+ */
+- (PLCrashReportMachineInfo *) extractMachineInfo: (Plcrash__CrashReport__MachineInfo *) machineInfo error: (NSError **) outError {
+    NSString *model = nil;
+    PLCrashReportProcessorInfo *processorInfo;
+
+    /* Validate */
+    if (machineInfo == NULL) {
+        populate_nserror(outError, PLCrashReporterErrorCrashReportInvalid, 
+                         NSLocalizedString(@"Crash report is missing Machine Information section", 
+                                           @"Missing machine_info in crash report"));
+        return nil;
+    }
+
+    /* Set up the model, if available */
+    if (machineInfo->model != NULL)
+        model = [NSString stringWithUTF8String: machineInfo->model];
+
+    /* Set up the processor info. */
+    processorInfo = [self extractProcessorInfo: machineInfo->processor error: outError];
+    if (processorInfo == nil)
+        return nil;
+
+    /* Done */
+    return [[[PLCrashReportMachineInfo alloc] initWithModelName: model
+                                                  processorInfo: processorInfo
+                                                 processorCount: machineInfo->processor_count
+                                          logicalProcessorCount: machineInfo->logical_processor_count] autorelease];
+}
 
 /**
  * Extract application information from the crash log. Returns nil on error.
  */
 - (PLCrashReportApplicationInfo *) extractApplicationInfo: (Plcrash__CrashReport__ApplicationInfo *) applicationInfo 
-                                                 error: (NSError **) outError
+                                                    error: (NSError **) outError
 {    
     /* Validate */
     if (applicationInfo == NULL) {
         populate_nserror(outError, PLCrashReporterErrorCrashReportInvalid, 
                          NSLocalizedString(@"Crash report is missing Application Information section", 
-                                           @"Missing appinfo in crash report"));
+                                           @"Missing app info in crash report"));
         return nil;
     }
 
@@ -284,7 +373,7 @@ error:
     if (applicationInfo->identifier == NULL) {
         populate_nserror(outError, PLCrashReporterErrorCrashReportInvalid, 
                          NSLocalizedString(@"Crash report is missing Application Information app identifier field", 
-                                           @"Missing appinfo operating system in crash report"));
+                                           @"Missing app identifier in crash report"));
         return nil;
     }
 
@@ -292,7 +381,7 @@ error:
     if (applicationInfo->version == NULL) {
         populate_nserror(outError, PLCrashReporterErrorCrashReportInvalid, 
                          NSLocalizedString(@"Crash report is missing Application Information app version field", 
-                                           @"Missing appinfo operating system in crash report"));
+                                           @"Missing app version in crash report"));
         return nil;
     }
     
@@ -302,6 +391,65 @@ error:
 
     return [[[PLCrashReportApplicationInfo alloc] initWithApplicationIdentifier: identifier
                                                           applicationVersion: version] autorelease];
+}
+
+
+/**
+ * Extract process information from the crash log. Returns nil on error.
+ */
+- (PLCrashReportProcessInfo *) extractProcessInfo: (Plcrash__CrashReport__ProcessInfo *) processInfo 
+                                            error: (NSError **) outError
+{    
+    /* Validate */
+    if (processInfo == NULL) {
+        populate_nserror(outError, PLCrashReporterErrorCrashReportInvalid, 
+                         NSLocalizedString(@"Crash report is missing Process Information section", 
+                                           @"Missing process info in crash report"));
+        return nil;
+    }
+    
+    /* Name available? */
+    NSString *processName = nil;
+    if (processInfo->process_name != NULL)
+        processName = [NSString stringWithUTF8String: processInfo->process_name];
+    
+    /* Path available? */
+    NSString *processPath = nil;
+    if (processInfo->process_path != NULL)
+        processPath = [NSString stringWithUTF8String: processInfo->process_path];
+    
+    /* Parent Name available? */
+    NSString *parentProcessName = nil;
+    if (processInfo->parent_process_name != NULL)
+        parentProcessName = [NSString stringWithUTF8String: processInfo->parent_process_name];
+
+    /* Required elements */
+    NSUInteger processID = processInfo->process_id;
+    NSUInteger parentProcessID = processInfo->parent_process_id;
+
+    /* Done */
+    return [[[PLCrashReportProcessInfo alloc] initWithProcessName: processName
+                                                        processID: processID
+                                                      processPath: processPath
+                                                parentProcessName: parentProcessName
+                                                  parentProcessID: parentProcessID
+                                                           native: processInfo->native] autorelease];
+}
+
+/**
+ * Extract stack frame information from the crash log. Returns nil on error, or a PLCrashReportStackFrameInfo
+ * instance on success.
+ */
+- (PLCrashReportStackFrameInfo *) extractStackFrameInfo: (Plcrash__CrashReport__Thread__StackFrame *) stackFrame error: (NSError **) outError {
+    /* There should be at least one thread */
+    if (stackFrame == NULL) {
+        populate_nserror(outError, PLCrashReporterErrorCrashReportInvalid,
+                         NSLocalizedString(@"Crash report is missing stack frame information",
+                                           @"Missing stack frame info in crash report"));
+        return nil;
+    }
+    
+    return [[[PLCrashReportStackFrameInfo alloc] initWithInstructionPointer: stackFrame->pc] autorelease];
 }
 
 /**
@@ -326,9 +474,10 @@ error:
         NSMutableArray *frames = [NSMutableArray arrayWithCapacity: thread->n_frames];
         for (size_t frame_idx = 0; frame_idx < thread->n_frames; frame_idx++) {
             Plcrash__CrashReport__Thread__StackFrame *frame = thread->frames[frame_idx];
-            PLCrashReportStackFrameInfo *frameInfo;
+            PLCrashReportStackFrameInfo *frameInfo = [self extractStackFrameInfo: frame error: outError];
+            if (frameInfo == nil)
+                return nil;
 
-            frameInfo = [[[PLCrashReportStackFrameInfo alloc] initWithInstructionPointer: frame->pc] autorelease];
             [frames addObject: frameInfo];
         }
 
@@ -385,37 +534,27 @@ error:
             return nil;
         }
 
-        /* Convert UUID to hex string */
-        NSString *uuid = nil;
+        /* Extract UUID value */
+        NSData *uuid = nil;
         if (image->uuid.len == 0) {
             /* No UUID */
             uuid = nil;
-        } else if (image->uuid.len != IMAGE_UUID_DIGEST_LEN) {
-            /* Invalid UUID */
-            populate_nserror(outError, PLCrashReporterErrorCrashReportInvalid, @"Invalid image binary UUID length");
-            return nil;
-        } else if (image->uuid.len != 0) {
-            /* Valid UUID */
-    
-            /* Convert to ascii */
-            char output[(IMAGE_UUID_DIGEST_LEN * 2) + 1];
-            const char hex[] = "0123456789abcdef";
-
-            for (int i = 0; i < IMAGE_UUID_DIGEST_LEN; i++) {
-                unsigned char c = ((unsigned char *) image->uuid.data)[i];
-                output[i * 2 + 0] = hex[c >> 4];
-                output[i * 2 + 1] = hex[c & 0x0F];
-            }
-            output[sizeof(output)] = '\0';
-    
-            uuid = [[[NSString alloc] initWithBytes: output length: sizeof(output) - 1 encoding: NSASCIIStringEncoding] autorelease];
+        } else {
+            uuid = [NSData dataWithBytes: image->uuid.data length: image->uuid.len];
         }
-
         assert(image->uuid.len == 0 || uuid != nil);
-        imageInfo = [[[PLCrashReportBinaryImageInfo alloc] initWithImageBaseAddress: image->base_address 
-                                                                       imageSize: image->size 
-                                                                       imageName: [NSString stringWithUTF8String: image->name]
-                                                                       imageUUID: uuid] autorelease];
+        
+        /* Extract code type (if available). */
+        PLCrashReportProcessorInfo *codeType = nil;
+        if ((codeType = [self extractProcessorInfo: image->code_type error: outError]) == nil)
+            return nil;
+
+
+        imageInfo = [[[PLCrashReportBinaryImageInfo alloc] initWithCodeType: codeType
+                                                                baseAddress: image->base_address
+                                                                       size: image->size
+                                                                       name: [NSString stringWithUTF8String: image->name]
+                                                                       uuid: uuid] autorelease];
         [images addObject: imageInfo];
     }
 
@@ -425,7 +564,7 @@ error:
 /**
  * Extract  exception information from the crash log. Returns nil on error.
  */
-- (PLCrashReportApplicationInfo *) extractExceptionInfo: (Plcrash__CrashReport__Exception *) exceptionInfo
+- (PLCrashReportExceptionInfo *) extractExceptionInfo: (Plcrash__CrashReport__Exception *) exceptionInfo
                                                error: (NSError **) outError
 {
     /* Validate */
@@ -456,7 +595,27 @@ error:
     NSString *name = [NSString stringWithUTF8String: exceptionInfo->name];
     NSString *reason = [NSString stringWithUTF8String: exceptionInfo->reason];
     
-    return [[[PLCrashReportExceptionInfo alloc] initWithExceptionName: name reason: reason] autorelease];
+    /* Fetch stack frames for this thread */
+    NSMutableArray *frames = nil;
+    if (exceptionInfo->n_frames > 0) {
+        frames = [NSMutableArray arrayWithCapacity: exceptionInfo->n_frames];
+        for (size_t frame_idx = 0; frame_idx < exceptionInfo->n_frames; frame_idx++) {
+            Plcrash__CrashReport__Thread__StackFrame *frame = exceptionInfo->frames[frame_idx];
+            PLCrashReportStackFrameInfo *frameInfo = [self extractStackFrameInfo: frame error: outError];
+            if (frameInfo == nil)
+                return nil;
+            
+            [frames addObject: frameInfo];
+        }
+    }
+
+    if (frames == nil) {
+        return [[[PLCrashReportExceptionInfo alloc] initWithExceptionName: name reason: reason] autorelease];
+    } else {
+        return [[[PLCrashReportExceptionInfo alloc] initWithExceptionName: name
+                                                                   reason: reason 
+                                                              stackFrames: frames] autorelease];
+    }
 }
 
 /**

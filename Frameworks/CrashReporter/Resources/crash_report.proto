@@ -1,7 +1,7 @@
 /*
  * Author: Landon Fuller <landonf@plausiblelabs.com>
  *
- * Copyright (c) 2008-2009 Plausible Labs Cooperative, Inc.
+ * Copyright (c) 2008-2010 Plausible Labs Cooperative, Inc.
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person
@@ -29,7 +29,7 @@
 package plcrash;
 option java_package = "com.plausiblelabs.crashreporter";
 
-/* Known processor architecture types */
+/* Legacy processor architecture type codes. These codes have been deprecated. */
 enum Architecture {
     /* x86 */
     X86_32 = 0;
@@ -37,46 +37,92 @@ enum Architecture {
     /* x86-64 */
     X86_64 = 1;
 
-    /* ARM */
-    ARM = 2;
+    /* ARMv6 */
+    ARMV6 = 2;
 
     /* PPC */
     PPC = 3;
 
     /** PPC64 */
     PPC64 = 4;
-}
 
-/* Known operating system types */
-enum OperatingSystem {
-    /* Mac OS X */
-    MAC_OS_X = 0;
+    /* ARMv7 */
+    ARMV7 = 5;
 
-    /* iPhone OS */
-    IPHONE_OS = 1;
-
-    /* iPhone Simulator (Mac OS X w/ simulator runtime environment) */
-    IPHONE_SIMULATOR = 2;
+    /* Unknown processor type. */
+    ARCHITECTURE_UNKNOWN = 6;
 }
 
 /* A crash report */
 message CrashReport {
+    /*
+     * Processor information
+     */
+    message Processor {
+        /* 
+         * CPU Type Encodings
+         *
+         * The wire format maintains support for multiple CPU type encodings; it is expected that different operating
+         * systems may target different processors, and the reported CPU type and subtype information may not be
+         * easily or directly expressed when not using the vendor's own defined types.
+         *
+         * Currently, only Apple Mach CPU type/subtype information is supported by the wire protocol. These types are
+         * stable, intended to be encoded in Mach-O files, and are defined in mach/machine.h on Mac OS X.
+         *
+         * Implementations must gracefully handle the addition of unknown type encodings.
+         */
+        enum TypeEncoding {
+            /* Unknown processor type encoding. */
+            TYPE_ENCODING_UNKNOWN = 0;
+
+            /* Apple Mach-defined processor types. */
+            TYPE_ENCODING_MACH = 1;
+        }
+        
+        /** The CPU type encoding that should be used to interpret cpu_type and cpu_subtype. This value is required. */
+        optional TypeEncoding encoding = 1 [default = TYPE_ENCODING_UNKNOWN];
+
+        /** The CPU type. */
+        required uint64 type = 2;
+
+        /** The CPU subtype. */
+        required uint64 subtype = 3;
+    }
+
     message SystemInfo {
+        /* Known operating system types */
+        enum OperatingSystem {
+            /* Mac OS X */
+            MAC_OS_X = 0;
+
+            /* iPhone OS */
+            IPHONE_OS = 1;
+
+            /* iPhone Simulator (Mac OS X w/ simulator runtime environment) */
+            IPHONE_SIMULATOR = 2;
+            
+            /* Unknown operating system. */
+            OS_UNKNOWN = 3;
+        }
+
         /* Operating system */
-        required OperatingSystem operating_system = 1;
+        optional OperatingSystem operating_system = 1 [default = OS_UNKNOWN];
 
         /* OS version */
         required string os_version = 2;
 
-        /* Processor architecture */
-        required Architecture architecture = 3;
+        /* Processor architecture (deprecated in favor of machine_info) */
+        required Architecture architecture = 3 [default = ARCHITECTURE_UNKNOWN /* deprecated = true (TODO: unsupported by embedded protobuf-c version) */];
 
         /* Date crash report was generated (as seconds since epoch). 0 if the time
          * is unknown or can not be determined. */
-        required uint32 timestamp = 4;
+        required int64 timestamp = 4;
+
+        /* OS build number (eg, 10J869) */
+        optional string os_build = 5;
     }
 
-    /* Host data */
+    /* Host system data */
     required SystemInfo system_info = 1;
 
     message ApplicationInfo {
@@ -114,8 +160,8 @@ message CrashReport {
             required uint64 value = 2;
         }
 
-        /* Thread registers (required if this is the
-         * crashed thread, optional otherwise) */
+        /* Thread registers (required if this is the crashed thread, optional otherwise). Note that if an error occurs
+         * during crash report generation, the register values may be missing for the crashed thread. */
         repeated RegisterValue registers = 4;
     }
 
@@ -135,6 +181,11 @@ message CrashReport {
 
         /* 128-bit object UUID (matches Mach-O DWARF dSYM files) */
         optional bytes uuid = 4;
+
+        /* The image's code type. Should be included in all v1.1+ crash reports. The code type may differ between
+         * binaries in the case of architectures with forwards-compatible code types, such as ARM, where armv6 and
+         * armv7 images may be mixed. */
+        optional Processor code_type = 5;
     }
 
     /* All loaded binary images */
@@ -147,6 +198,10 @@ message CrashReport {
 
         /* The exception reason */
         required string reason = 2;
+        
+        /* The exception's original call stack, if available. This may be preserved across rethrow of an exception,
+         * and can be used to determine the original call stack. */
+        repeated Thread.StackFrame frames = 3;
     }
 
     /* The exception that triggered the crash (if any) */
@@ -167,4 +222,57 @@ message CrashReport {
 
     /* The signal that triggered the crash */
     required Signal signal = 6;
+
+
+    /* Process Data. This was not available in earlier releases of the crash reporter and is marked optional
+     * for compatibility. */ 
+    message ProcessInfo {
+        /* Application process name */
+        optional string process_name = 1;
+        
+        /* Application process ID */
+        required uint32 process_id = 2;
+        
+        /* Application process path */
+        optional string process_path = 3;
+        
+        /* Application parent process name */
+        optional string parent_process_name = 4;
+        
+        /* Application parent process ID */
+        required uint32 parent_process_id = 5;
+        
+        /** If false, the process is being run via process-level CPU emulation (such as Rosetta). */
+        required bool native = 6;
+    }
+  
+    /* The process info. Required for all v1.1+ crash reports. */
+    optional ProcessInfo process_info = 7;
+    
+     /*
+      * Host architecture information.
+      */
+     message MachineInfo {    
+         /* Hardware model (eg, MacBookPro6,1) */
+         optional string model = 1;
+
+         /* The host processor. */
+         required Processor processor = 2;
+
+         /*
+          * The number of actual physical processor cores. Note that the number of active processors may be managed by the
+          * operating system's power management system, and this value may not reflect the number of active
+          * processors at the time of the crash. */
+         required uint32 processor_count = 3;
+
+         /* The number of logical processors.  Note that the number of active processors may be managed by the
+          * operating system's power management system, and this value may not reflect the number of active
+          * processors at the time of the crash.
+          */
+         required uint32 logical_processor_count = 4;
+     }
+
+    /* Host architecture information. Required for all v1.1+ crash reports. If unavailable, the information
+     * should be derived from the deprecated SystemInfo.architecture field. */
+     optional MachineInfo machine_info = 8;
 }

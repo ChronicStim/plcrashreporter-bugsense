@@ -9,5 +9,9 @@
      <string>com.plausiblelabs.PLCrashReporter.docset</string>
      <key>DocSetFeedName</key>
      <string>Plausible Labs</string>
+     <key>DocSetPublisherIdentifier</key>
+     <string>org.doxygen.Publisher</string>
+     <key>DocSetPublisherName</key>
+     <string>Publisher</string>
 </dict>
 </plist>

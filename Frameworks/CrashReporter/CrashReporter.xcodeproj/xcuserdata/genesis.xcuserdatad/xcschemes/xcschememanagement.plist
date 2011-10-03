@@ -7,24 +7,24 @@
 		<key>CrashReporter-MacOSX-Static.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>5</integer>
 		</dict>
 		<key>CrashReporter-MacOSX.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>6</integer>
 		</dict>
-		<key>CrashReporter-iPhone.xcscheme</key>
+		<key>CrashReporter-iOS-Device.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>9</integer>
+			<integer>14</integer>
 		</dict>
-		<key>CrashReporter-iPhoneOS.xcscheme</key>
+		<key>CrashReporter-iOS-Simulator.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>4</integer>
 		</dict>
-		<key>CrashReporter-iPhoneSimulator.xcscheme</key>
+		<key>CrashReporter-iOS.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>8</integer>
@@ -34,40 +34,70 @@
 			<key>orderHint</key>
 			<integer>7</integer>
 		</dict>
-		<key>DemoCrash.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>4</integer>
-		</dict>
-		<key>Disk Image.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>10</integer>
-		</dict>
-		<key>Fuzz Testing.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>12</integer>
-		</dict>
-		<key>Tests-iPhoneOS.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>5</integer>
-		</dict>
-		<key>Tests-iPhoneSimulator.xcscheme</key>
+		<key>DemoCrash-iOS-Device.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>11</integer>
 		</dict>
+		<key>DemoCrash-iOS-Simulator.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
+		<key>DemoCrash.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
+		</dict>
+		<key>Disk Image.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Fuzz Testing.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>15</integer>
+		</dict>
+		<key>Tests-iOS-Device.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>12</integer>
+		</dict>
+		<key>Tests-iOS-Simulator.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>16</integer>
+		</dict>
+		<key>Tests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
 		<key>plcrashutil.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>3</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0502E45A12BD0CFF00ACDCB5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>050DE24C0F61B80B00152ED3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>052A45CE136353FB00987004</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>052A4644136355FD00987004</key>
 		<dict>
 			<key>primary</key>
 			<true/>

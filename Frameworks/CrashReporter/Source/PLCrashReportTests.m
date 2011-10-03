@@ -1,7 +1,7 @@
 /*
  * Author: Landon Fuller <landonf@plausiblelabs.com>
  *
- * Copyright (c) 2008-2009 Plausible Labs Cooperative, Inc.
+ * Copyright (c) 2008-2010 Plausible Labs Cooperative, Inc.
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person
@@ -33,6 +33,10 @@
 #import "PLCrashLogWriter.h"
 
 #import <fcntl.h>
+#import <dlfcn.h>
+
+#import <mach-o/arch.h>
+#import <mach-o/dyld.h>
 
 @interface PLCrashReportTests : SenTestCase {
 @private
@@ -50,7 +54,7 @@
 - (void) setUp {
     /* Create a temporary log path */
     _logPath = [[NSTemporaryDirectory() stringByAppendingString: [[NSProcessInfo processInfo] globallyUniqueString]] retain];
-    
+
     /* Create the test thread */
     plframe_test_thread_spawn(&_thr_args);
 }
@@ -94,9 +98,22 @@
     /* Initialize a writer */
     STAssertEquals(PLCRASH_ESUCCESS, plcrash_log_writer_init(&writer, @"test.id", @"1.0"), @"Initialization failed");
     
-    /* Set an exception */
-    plcrash_log_writer_set_exception(&writer, [NSException exceptionWithName: @"TestException" reason: @"TestReason" userInfo: nil]);
-    
+    /* Set an exception with a valid return address call stack. */
+    NSException *exception;
+    @try {
+        [NSException raise: @"TestException" format: @"TestReason"];
+    }
+    @catch (NSException *e) {
+        exception = e;
+    }
+    plcrash_log_writer_set_exception(&writer, exception);
+
+    /* Provide binary image info */
+    uint32_t image_count = _dyld_image_count();
+    for (uint32_t i = 0; i < image_count; i++) {
+        plcrash_log_writer_add_image(&writer, _dyld_get_image_header(i));
+    }            
+
     /* Write the crash report */
     STAssertEquals(PLCRASH_ESUCCESS, plcrash_log_writer_write(&writer, &file, &info, cursor.uap), @"Crash log failed");
     
@@ -114,18 +131,48 @@
     /* System info */
     STAssertNotNil(crashLog.systemInfo, @"No system information available");
     STAssertNotNil(crashLog.systemInfo.operatingSystemVersion, @"OS version is nil");
+    STAssertNotNil(crashLog.systemInfo.operatingSystemBuild, @"OS build is nil");
     STAssertNotNil(crashLog.systemInfo.timestamp, @"Timestamp is nil");
     STAssertEquals(crashLog.systemInfo.operatingSystem, PLCrashReportHostOperatingSystem, @"Operating system incorrect");
     STAssertEquals(crashLog.systemInfo.architecture, PLCrashReportHostArchitecture, @"Architecture incorrect");
+    
+    /* Machine info */
+    const NXArchInfo *archInfo = NXGetLocalArchInfo();
+    STAssertTrue(crashLog.hasMachineInfo, @"No machine information available");
+    STAssertNotNil(crashLog.machineInfo, @"No machine information available");
+    STAssertNotNil(crashLog.machineInfo.modelName, @"Model is nil");
+    STAssertEquals(PLCrashReportProcessorTypeEncodingMach, crashLog.machineInfo.processorInfo.typeEncoding, @"Incorrect processor type encoding");
+    STAssertEquals((uint64_t)archInfo->cputype, crashLog.machineInfo.processorInfo.type, @"Incorrect processor type");
+    STAssertEquals((uint64_t)archInfo->cpusubtype, crashLog.machineInfo.processorInfo.subtype, @"Incorrect processor subtype");
+    STAssertNotEquals((NSUInteger)0, crashLog.machineInfo.processorCount, @"No processor count");
+    STAssertNotEquals((NSUInteger)0, crashLog.machineInfo.logicalProcessorCount, @"No logical processor count");
 
     /* App info */
     STAssertNotNil(crashLog.applicationInfo, @"No application information available");
     STAssertNotNil(crashLog.applicationInfo.applicationIdentifier, @"No application identifier available");
     STAssertNotNil(crashLog.applicationInfo.applicationVersion, @"No application version available");
-
+    
+    /* Process info */
+    STAssertNotNil(crashLog.processInfo, @"No process information available");
+    STAssertNotNil(crashLog.processInfo.processName, @"No process name available");
+    STAssertNotNil(crashLog.processInfo.processPath, @"No process path available");
+    STAssertNotNil(crashLog.processInfo.parentProcessName, @"No parent process name available");
+    STAssertTrue(crashLog.processInfo.native, @"Process should be native");
+    
     /* Signal info */
     STAssertEqualStrings(@"SIGSEGV", crashLog.signalInfo.name, @"Signal is incorrect");
     STAssertEqualStrings(@"SEGV_MAPERR", crashLog.signalInfo.code, @"Signal code is incorrect");
+    
+    /* Exception info */
+    STAssertNotNil(crashLog.exceptionInfo, @"Exception info is nil");
+    STAssertEqualStrings(crashLog.exceptionInfo.exceptionName, [exception name], @"Exceptio name is incorrect");
+    STAssertEqualStrings(crashLog.exceptionInfo.exceptionReason, [exception reason], @"Exception name is incorrect");
+    NSUInteger exceptionFrameCount = [[exception callStackReturnAddresses] count];
+    for (NSUInteger i = 0; i < exceptionFrameCount; i++) {
+        NSNumber *retAddr = [[exception callStackReturnAddresses] objectAtIndex: i];
+        PLCrashReportStackFrameInfo *sf = [crashLog.exceptionInfo.stackFrames objectAtIndex: i];
+        STAssertEquals(sf.instructionPointer, [retAddr unsignedLongLongValue], @"Stack frame address is incorrect");
+    }
 
     /* Thread info */
     STAssertNotNil(crashLog.threads, @"Thread list is nil");
@@ -160,6 +207,20 @@
         } else if (!imageInfo.hasImageUUID) {
             STAssertNil(imageInfo.imageUUID, @"Info declares no UUID, but the imageUUID property is non-nil");
         }
+        
+        STAssertNotNil(imageInfo.codeType, @"Image code type is nil");
+        STAssertEquals(imageInfo.codeType.typeEncoding, PLCrashReportProcessorTypeEncodingMach, @"Incorrect type encoding");
+        
+        /*
+         * Find the in-memory mach header for the image record. We'll compare this against the serialized data.
+         *
+         * The 32-bit and 64-bit mach_header structures are equivalent for our purposes.
+         */ 
+        Dl_info info;
+        STAssertTrue(dladdr((void *)(uintptr_t)imageInfo.imageBaseAddress, &info) != 0, @"dladdr() failed to find image");
+        struct mach_header *hdr = info.dli_fbase;
+        STAssertEquals(imageInfo.codeType.type, (uint64_t)hdr->cputype, @"Incorrect CPU type");
+        STAssertEquals(imageInfo.codeType.subtype, (uint64_t)hdr->cpusubtype, @"Incorrect CPU subtype");
     }
 }
 
