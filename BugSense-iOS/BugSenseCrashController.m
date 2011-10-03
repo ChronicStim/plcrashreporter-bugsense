@@ -15,8 +15,10 @@
 #import "JSONKit.h"
 #import "Reachability.h"
 #import "AFHTTPRequestOperation.h"
+#import "NSMutableURLRequest+AFNetworking.h"
 
 #import <CoreLocation/CoreLocation.h>
+#import <CommonCrypto/CommonDigest.h>
 
 #define BUGSENSE_REPORTING_SERVICE_URL @"http://www.bugsense.com/api/errors"
 #define BUGSENSE_HEADER                @"X-BugSense-Api-Key"
@@ -28,9 +30,11 @@
 - (id) initWithAPIKey:(NSString *)bugSenseAPIKey userDictionary:(NSDictionary *)userDictionary;
 - (void) initiateReportingProcess;
 - (void) processCrashReport;
+- (NSString *) backtraceStringFromReport:(PLCrashReport *)report;
 - (NSString *) deviceIPAddress;
 - (NSData *) JSONDataFromCrashReport:(PLCrashReport *)report;
-- (BOOL) postJSONData:(NSData *)jsonData;
+- (BOOL) postJSONData:(NSData *)jsonData withHash:(NSString *)hash;
+- (NSString *) md5Hash:(NSString *)plainText;
 
 @end
 
@@ -58,8 +62,9 @@ static BugSenseCrashController *sharedCrashController = nil;
 + (BugSenseCrashController *) sharedInstanceWithBugSenseAPIKey:(NSString *)bugSenseAPIKey {
     if (!sharedCrashController) {
         sharedCrashController = [[BugSenseCrashController alloc] initWithAPIKey:bugSenseAPIKey];
-        [sharedCrashController initiateReportingProcess];
     }
+
+    [sharedCrashController initiateReportingProcess];
     
     return sharedCrashController;
 }
@@ -71,8 +76,10 @@ static BugSenseCrashController *sharedCrashController = nil;
     if (!sharedCrashController) {
         sharedCrashController = [[BugSenseCrashController alloc] initWithAPIKey:bugSenseAPIKey 
                                                                  userDictionary:userDictionary];
-        [sharedCrashController initiateReportingProcess];
 	}
+    
+    [sharedCrashController initiateReportingProcess];
+
     return sharedCrashController;
 }
 
@@ -86,10 +93,11 @@ static BugSenseCrashController *sharedCrashController = nil;
     if (!sharedCrashController) {
         sharedCrashController = [[BugSenseCrashController alloc] initWithAPIKey:bugSenseAPIKey 
                                                                   andDomainName:domainName];
-        [sharedCrashController initiateReportingProcess];
     }
-    return sharedCrashController;
     
+    [sharedCrashController initiateReportingProcess];
+    
+    return sharedCrashController;
 }
 
 
@@ -150,7 +158,21 @@ static BugSenseCrashController *sharedCrashController = nil;
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+- (NSString *) md5Hash:(NSString *)plainText {
+    const char *concat_str = [plainText UTF8String];
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(concat_str, strlen(concat_str), result);
+    NSMutableString *hash = [NSMutableString string];
+    for (int i = 0; i < 16; i++)
+        [hash appendFormat:@"%02X", result[i]];
+    return [hash lowercaseString];
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void) processCrashReport {
+    NSLog(@"BugSense --> Processing crash report...");
+    
     PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter];
     NSData *crashData;
     NSError *error;
@@ -184,8 +206,47 @@ static BugSenseCrashController *sharedCrashController = nil;
         return;
     }
     
+    NSString *backtraceString = [self backtraceStringFromReport:report];
+    
     // Send the JSON string to the BugSense servers
-    [self postJSONData:jsonData];
+    [self postJSONData:jsonData withHash:[self md5Hash:backtraceString]];
+}
+                           
+         
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+- (NSString *) backtraceStringFromReport:(PLCrashReport *)report {
+    PLCrashReportThreadInfo *crashedThreadInfo = nil;
+    for (PLCrashReportThreadInfo *threadInfo in report.threads) {
+        if (threadInfo.crashed) {
+            crashedThreadInfo = threadInfo;
+            break;
+        }
+    }
+    
+    NSMutableString *backtrace = [[[NSMutableString alloc] init] autorelease];
+    for (NSUInteger frame_idx = 0; frame_idx < [crashedThreadInfo.stackFrames count]; frame_idx++) {
+        PLCrashReportStackFrameInfo *frameInfo = [crashedThreadInfo.stackFrames objectAtIndex:frame_idx];
+        PLCrashReportBinaryImageInfo *imageInfo;
+        
+        /* Base image address containing instrumention pointer, offset of the IP from that base
+         * address, and the associated image name */
+        uint64_t baseAddress = 0x0;
+        uint64_t pcOffset = 0x0;
+        const char *imageName = "\?\?\?";
+        
+        imageInfo = [report imageForAddress:frameInfo.instructionPointer];
+        if (imageInfo != nil) {
+            imageName = [[imageInfo.imageName lastPathComponent] UTF8String];
+            baseAddress = imageInfo.imageBaseAddress;
+            pcOffset = frameInfo.instructionPointer - imageInfo.imageBaseAddress;
+        }
+        
+        NSString *stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " 0x%" PRIx64 " + %" PRId64 "\n", 
+                                (long)frame_idx, imageName, frameInfo.instructionPointer, baseAddress, pcOffset];
+        [backtrace appendString:stackframe];
+    }
+    
+    return backtrace;
 }
 
 
@@ -224,43 +285,47 @@ static BugSenseCrashController *sharedCrashController = nil;
         return nil;
     }
     
+    NSLog(@"BugSense --> Generating JSON data from crash report...");
+    
     // --application_environment
     NSMutableDictionary *application_environment = [[NSMutableDictionary alloc] init];
     
     // ----appname
-    // [application_environment setObject:report.applicationInfo.applicationIdentifier forKey:@"appname"];
     NSArray *identifierComponents = [report.applicationInfo.applicationIdentifier componentsSeparatedByString:@"."];
     [application_environment setObject:[identifierComponents lastObject] forKey:@"appname"];
     // ----appver
-    [application_environment setObject:report.applicationInfo.applicationVersion forKey:@"appver"];
-    // ----internal_version
-    //CFDictionaryRef bundleInfoDict = CFBundleGetInfoDictionary(CFBundleGetMainBundle());
     CFBundleRef bundle = CFBundleGetBundleWithIdentifier((CFStringRef)report.applicationInfo.applicationIdentifier);
     CFDictionaryRef bundleInfoDict = CFBundleGetInfoDictionary(bundle);
     CFStringRef buildNumber;
     
     // If we succeeded, look for our property.
     if (bundleInfoDict != NULL) {
-        buildNumber = CFDictionaryGetValue(bundleInfoDict, CFSTR("CFBundleVersion"));
-        [application_environment setObject:(NSString *)buildNumber forKey:@"internal_version"];
+        buildNumber = CFDictionaryGetValue(bundleInfoDict, CFSTR("CFBundleShortVersionString"));
+        if (buildNumber) {
+            [application_environment setObject:(NSString *)buildNumber forKey:@"appver"];
+        }
     }
+    
+    // ----internal_version
+    [application_environment setObject:report.applicationInfo.applicationVersion forKey:@"internal_version"];
     
     // ----gps_on
     [application_environment setObject:[NSNumber numberWithBool:[CLLocationManager locationServicesEnabled]] 
                                 forKey:@"gps_on"];
     
-    // ----languages
-    /*NSMutableString *languages = [[[NSMutableString alloc] init] autorelease];
-    for (NSUInteger pos = 0; pos < [[NSLocale availableLocaleIdentifiers] count]; pos++) {
-        [languages appendString:[[NSLocale availableLocaleIdentifiers] objectAtIndex:pos]];
-        if (pos < [[NSLocale availableLocaleIdentifiers] count]-1) {
-            [languages appendString:@", "];
-        }
-    }*/
-    CFStringRef languages;
     if (bundleInfoDict != NULL) {
-        languages = CFDictionaryGetValue(bundleInfoDict, kCFBundleLocalizationsKey);
-        [application_environment setObject:(NSString *)languages forKey:@"languages"];
+        NSMutableString *languages = [[NSMutableString alloc] init];
+        CFStringRef baseLanguage = CFDictionaryGetValue(bundleInfoDict, kCFBundleDevelopmentRegionKey);
+        if (baseLanguage) {
+            [languages appendString:(NSString *)baseLanguage];
+        }
+        CFStringRef allLanguages = CFDictionaryGetValue(bundleInfoDict, kCFBundleLocalizationsKey);
+        if (allLanguages) {
+            [languages appendString:(NSString *)allLanguages];
+        }
+        if (languages) {
+            [application_environment setObject:(NSString *)languages forKey:@"languages"];
+        }
     }
     
     // ----locale
@@ -291,13 +356,11 @@ static BugSenseCrashController *sharedCrashController = nil;
     
     // ----timestamp
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss zzz"];
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss zzzzz"];
     [application_environment setObject:[formatter stringFromDate:report.systemInfo.timestamp] 
                                 forKey:@"timestamp"];
     [formatter release];
     
-    
-    NSLog(@"Basic stuff");
     
     // --exception
     NSMutableDictionary *exception = [[NSMutableDictionary alloc] init];
@@ -314,9 +377,7 @@ static BugSenseCrashController *sharedCrashController = nil;
     for (NSUInteger frame_idx = 0; frame_idx < [crashedThreadInfo.stackFrames count]; frame_idx++) {
         PLCrashReportStackFrameInfo *frameInfo = [crashedThreadInfo.stackFrames objectAtIndex:frame_idx];
         PLCrashReportBinaryImageInfo *imageInfo;
-            
-        /* Base image address containing instrumention pointer, offset of the IP from that base
-         * address, and the associated image name */
+        
         uint64_t baseAddress = 0x0;
         uint64_t pcOffset = 0x0;
         const char *imageName = "\?\?\?";
@@ -361,22 +422,28 @@ static BugSenseCrashController *sharedCrashController = nil;
     [rootDictionary setObject:request forKey:@"request"];
     [rootDictionary setObject:_userDictionary forKey:@"custom_data"];
     
-    return [rootDictionary JSONData];
+    NSString *jsonString = [[rootDictionary JSONString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    return [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    //return [rootDictionary JSONData];
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (BOOL) postJSONData:(NSData *)jsonData {
+- (BOOL) postJSONData:(NSData *)jsonData withHash:(NSString *)hash {
     if (!jsonData) {
         return NO;
     } else {
         NSURL *bugsenseURL = [NSURL URLWithString:BUGSENSE_REPORTING_SERVICE_URL];
         NSMutableURLRequest *bugsenseRequest = [[NSMutableURLRequest alloc] initWithURL:bugsenseURL 
-                                                                            cachePolicy:NSURLRequestReloadIgnoringLocalCacheData 
-                                                                        timeoutInterval:15.0f];
+            cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15.0f];
         [bugsenseRequest setHTTPMethod:@"POST"];
-        [bugsenseRequest setHTTPBody:jsonData];
         [bugsenseRequest setValue:_APIKey forHTTPHeaderField:BUGSENSE_HEADER];
+        [bugsenseRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        
+        NSMutableData *postData = [NSMutableData data];
+        [postData appendData:[@"data=" dataUsingEncoding:NSUTF8StringEncoding]];
+        [postData appendData:jsonData];
+        [bugsenseRequest setHTTPBody:postData];
         
         AFHTTPRequestOperation *operation = 
             [AFHTTPRequestOperation operationWithRequest:bugsenseRequest 
@@ -385,11 +452,20 @@ static BugSenseCrashController *sharedCrashController = nil;
                         response.statusCode, response.allHeaderFields);
                     if (error) {
                         NSLog(@"BugSense --> Error: %@", error);
+                    } else {
+                        BOOL statusCodeAcceptable = [[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(200, 100)] 
+                                                     containsIndex:[response statusCode]];
+                        if (statusCodeAcceptable) {
+                            PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter];
+                            [crashReporter purgePendingCrashReport];
+                        }
                     }
             }];
         
         /// add operation to queue
         [[NSOperationQueue mainQueue] addOperation:operation];
+        
+        NSLog(@"BugSense --> Posting JSON data...");
         
         return YES;
     }
