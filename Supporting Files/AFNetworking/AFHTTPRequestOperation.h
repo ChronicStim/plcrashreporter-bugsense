@@ -48,6 +48,8 @@ extern NSString * const AFHTTPOperationDidFinishNotification;
 @property (nonatomic, retain) NSData *responseBody;
 @property (readonly) NSString *responseString;
 
++ (id)operationWithRequest:(NSURLRequest *)urlRequest observer:(NSObject *)observer;
+
 + (id)operationWithRequest:(NSURLRequest *)urlRequest 
                 completion:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSData *data, NSError *error))completion;
 

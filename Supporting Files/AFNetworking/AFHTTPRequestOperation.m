@@ -126,6 +126,14 @@ static NSThread *_networkRequestThread = nil;
     } while (YES);
 }
 
++ (id)operationWithRequest:(NSURLRequest *)urlRequest observer:(NSObject *)observer {
+    AFHTTPRequestOperation *operation = [[[self alloc] initWithRequest:urlRequest] autorelease];
+    [operation addObserver:observer forKeyPath:@"isFinished" options:NSKeyValueObservingOptionNew context:nil];
+    //operation.completion = completion;
+    
+    return operation;
+}
+
 + (id)operationWithRequest:(NSURLRequest *)urlRequest 
                 completion:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSData *data, NSError *error))completion
 {

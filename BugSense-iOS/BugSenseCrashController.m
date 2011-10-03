@@ -391,7 +391,8 @@ static BugSenseCrashController *sharedCrashController = nil;
         [postData appendData:jsonData];
         [bugsenseRequest setHTTPBody:postData];
         
-        AFHTTPRequestOperation *operation = 
+        // This version employs blocks so not working under 4.0.
+        /*AFHTTPRequestOperation *operation = 
             [AFHTTPRequestOperation operationWithRequest:bugsenseRequest 
                 completion:^(NSURLRequest *request, NSHTTPURLResponse *response, NSData *data, NSError *error) {
                     NSLog(@"BugSense --> Server responded with: \nstatus code:%i\nheader fields: %@", 
@@ -406,7 +407,9 @@ static BugSenseCrashController *sharedCrashController = nil;
                             [crashReporter purgePendingCrashReport];
                         }
                     }
-            }];
+            }];*/
+        
+        AFHTTPRequestOperation *operation = [AFHTTPRequestOperation operationWithRequest:bugsenseRequest observer:self];
         
         /// add operation to queue
         [[NSOperationQueue mainQueue] addOperation:operation];
@@ -414,6 +417,29 @@ static BugSenseCrashController *sharedCrashController = nil;
         NSLog(@"BugSense --> Posting JSON data...");
         
         return YES;
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void) observeValueForKeyPath:(NSString *)keyPath 
+                       ofObject:(id)object 
+                         change:(NSDictionary *)change 
+                        context:(void *)context {
+    if ([keyPath isEqualToString:@"isFinished"] && [object isKindOfClass:[AFHTTPRequestOperation class]]) {
+        AFHTTPRequestOperation *operation = object;
+        NSLog(@"BugSense --> Server responded with: \nstatus code:%i\nheader fields: %@", 
+              operation.response.statusCode, operation.response.allHeaderFields);
+        if (operation.error) {
+            NSLog(@"BugSense --> Error: %@", operation.error);
+        } else {
+            BOOL statusCodeAcceptable = [[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(200, 100)] 
+                                         containsIndex:[operation.response statusCode]];
+            if (statusCodeAcceptable) {
+                PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter];
+                [crashReporter purgePendingCrashReport];
+            }
+        }
     }
 }
 
