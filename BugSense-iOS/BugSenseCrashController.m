@@ -216,7 +216,7 @@ static BugSenseCrashController *sharedCrashController = nil;
     }
     
     // Send the JSON string to the BugSense servers
-    [self postJSONData:jsonData];
+    //[self postJSONData:jsonData];
 }
 
 
@@ -363,12 +363,20 @@ static BugSenseCrashController *sharedCrashController = nil;
             (long)frame_idx, imageName, frameInfo.instructionPointer, baseAddress, pcOffset];
         [backtrace addObject:stackframe];
         
-        if (frameInfo.instructionPointer == report.signalInfo.address) {
+        if (report.signalInfo.address == frameInfo.instructionPointer) {
             [exception setObject:stackframe forKey:@"where"];
         }
     }
     
-    [exception setObject:backtrace forKey:@"backtrace"];
+    if (![exception objectForKey:@"where"] && backtrace && backtrace.count > 0) {
+         [exception setObject:[backtrace objectAtIndex:0] forKey:@"where"];
+    }
+    
+    if (backtrace.count > 0) {
+        [exception setObject:backtrace forKey:@"backtrace"];
+    } else {
+        [exception setObject:@"No backtrace available" forKey:@"backtrace"];
+    }
     
     // ----klass, message
     if (report.hasExceptionInfo) {
@@ -392,6 +400,7 @@ static BugSenseCrashController *sharedCrashController = nil;
     [rootDictionary setObject:request forKey:@"request"];
     [rootDictionary setObject:_userDictionary forKey:@"custom_data"];
     
+    NSLog(@"json: %@", [rootDictionary JSONString]);
     NSString *jsonString = [[rootDictionary JSONString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     return [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     //return [rootDictionary JSONData];
