@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>BugSense-iOS-Universal.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>BugSense-iOS.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,6 +17,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>05086E6C143BB8AB008A8411</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>05C9B0401435C65300343267</key>
 		<dict>
 			<key>primary</key>

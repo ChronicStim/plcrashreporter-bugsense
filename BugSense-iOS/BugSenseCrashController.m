@@ -391,6 +391,7 @@ static BugSenseCrashController *sharedCrashController = nil;
     NSMutableDictionary *request = [[NSMutableDictionary alloc] init];
     // ----remote_ip
     [request setObject:[self deviceIPAddress] forKey:@"remote_ip"];
+    [request addEntriesFromDictionary:_userDictionary];
     
     
     // root
@@ -398,7 +399,7 @@ static BugSenseCrashController *sharedCrashController = nil;
     [rootDictionary setObject:application_environment forKey:@"application_environment"];
     [rootDictionary setObject:exception forKey:@"exception"];
     [rootDictionary setObject:request forKey:@"request"];
-    [rootDictionary setObject:_userDictionary forKey:@"custom_data"];
+    //[rootDictionary setObject:_userDictionary forKey:@"custom_data"];
     
     NSLog(@"json: %@", [rootDictionary JSONString]);
     NSString *jsonString = [[rootDictionary JSONString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
