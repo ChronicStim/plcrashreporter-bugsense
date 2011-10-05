@@ -166,14 +166,16 @@ static BugSenseCrashController *sharedCrashController = nil;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void) initiateReportingProcess {
     PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter];
-    NSError *error;
+    NSError *error = nil;
     
     if ([crashReporter hasPendingCrashReport]) {
         [self processCrashReport];
     }
     
     if (![crashReporter enableCrashReporterAndReturnError:&error]) {
-        NSLog(@"BugSense --> Warning: Could not enable crash reporterd due to: %@", error);
+        NSLog(@"BugSense --> Error: Could not enable crash reporterd due to: %@", error);
+    } else {
+        NSLog(@"BugSense --> Warning: %@", error);
     }
 }
 
@@ -184,21 +186,25 @@ static BugSenseCrashController *sharedCrashController = nil;
     
     PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter];
     NSData *crashData;
-    NSError *error;
+    NSError *error = nil;
 
     // Try loading the crash report
     crashData = [crashReporter loadPendingCrashReportDataAndReturnError:&error];
     if (!crashData) {
-        NSLog(@"BugSense --> Could not load crash report data due to: %@", error);
+        NSLog(@"BugSense --> Error: Could not load crash report data due to: %@", error);
         [crashReporter purgePendingCrashReport];
         return;
+    } else {
+        if (error != nil) {
+            NSLog(@"BugSense --> Warning: %@", error);
+        }
     }
     
     // We could send the report from here, but we'll just print out
     // some debugging info instead
     PLCrashReport *report = [[PLCrashReport alloc] initWithData:crashData error:&error];
     if (!report) {
-        NSLog(@"BugSense --> Could not parse crash report due to: %@", error);
+        NSLog(@"BugSense --> Error: Could not parse crash report due to: %@", error);
         [crashReporter purgePendingCrashReport];
         return;
     }
