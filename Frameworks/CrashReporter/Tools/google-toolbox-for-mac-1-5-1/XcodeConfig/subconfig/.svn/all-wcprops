@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/subconfig
+END
+Release.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/subconfig/Release.xcconfig
+END
+iPhone.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/subconfig/iPhone.xcconfig
+END
+TigerOrLater.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/subconfig/TigerOrLater.xcconfig
+END
+CodeCoverage.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/subconfig/CodeCoverage.xcconfig
+END
+Debug.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/subconfig/Debug.xcconfig
+END
+64bit.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/subconfig/64bit.xcconfig
+END
+General.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/subconfig/General.xcconfig
+END
+CodeCoverageStatic.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/subconfig/CodeCoverageStatic.xcconfig
+END
+LeopardOrLater.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/subconfig/LeopardOrLater.xcconfig
+END
+GCSupported.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/subconfig/GCSupported.xcconfig
+END
+Unittest.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/subconfig/Unittest.xcconfig
+END

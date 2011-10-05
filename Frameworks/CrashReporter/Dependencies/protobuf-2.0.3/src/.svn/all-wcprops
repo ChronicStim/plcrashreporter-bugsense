@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/263/trunk/Dependencies/protobuf-2.0.3/src
+END
+protobuf-c.c
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/263/trunk/Dependencies/protobuf-2.0.3/src/protobuf-c.c
+END
+protobuf-c.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/160/trunk/Dependencies/protobuf-2.0.3/src/protobuf-c.h
+END
+protobuf-c-private.h
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/160/trunk/Dependencies/protobuf-2.0.3/src/protobuf-c-private.h
+END

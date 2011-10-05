@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/Target
+END
+ReleaseUnittest.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/Target/ReleaseUnittest.xcconfig
+END
+DebugUnittest.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/Target/DebugUnittest.xcconfig
+END
+SharedLibraryGCSupported.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/Target/SharedLibraryGCSupported.xcconfig
+END
+SharedLibrary.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/Target/SharedLibrary.xcconfig
+END
+StaticLibrary.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/Target/StaticLibrary.xcconfig
+END
+StaticLibraryGCSupported.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/Target/StaticLibraryGCSupported.xcconfig
+END
+LoadableBundleGCSupported.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/Target/LoadableBundleGCSupported.xcconfig
+END
+LoadableBundle.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/Target/LoadableBundle.xcconfig
+END

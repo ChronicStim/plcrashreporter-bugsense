@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/Project
+END
+ReleaseLeopardOrLater.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/Project/ReleaseLeopardOrLater.xcconfig
+END
+ReleaseiPhone.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/Project/ReleaseiPhone.xcconfig
+END
+ReleaseTigerOrLater.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/Project/ReleaseTigerOrLater.xcconfig
+END
+DebugLeopardOrLater.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/Project/DebugLeopardOrLater.xcconfig
+END
+DebugiPhone.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/Project/DebugiPhone.xcconfig
+END
+DebugTigerOrLater.xcconfig
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/!svn/ver/6/trunk/Tools/google-toolbox-for-mac-1-5-1/XcodeConfig/Project/DebugTigerOrLater.xcconfig
+END
