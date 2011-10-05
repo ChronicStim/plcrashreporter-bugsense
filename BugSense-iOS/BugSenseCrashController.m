@@ -407,7 +407,11 @@ static BugSenseCrashController *sharedCrashController = nil;
     [rootDictionary setObject:request forKey:@"request"];
     //[rootDictionary setObject:_userDictionary forKey:@"custom_data"];
     
-    NSLog(@"json: %@", [rootDictionary JSONString]);
+    //NSLog(@"json: %@", [rootDictionary JSONString]);
+    
+    NSString *string = [PLCrashReportTextFormatter stringValueForCrashReport:report withTextFormat:PLCrashReportTextFormatiOS];
+    NSLog(@"string: \n%@", string);
+                                             
     NSString *jsonString = [[rootDictionary JSONString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     return [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     //return [rootDictionary JSONData];

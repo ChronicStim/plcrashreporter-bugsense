@@ -362,6 +362,11 @@ plcrash_error_t plcrash_log_writer_init (plcrash_log_writer_t *writer, NSString 
 #if TARGET_OS_IPHONE
     /* iPhone OS */
     writer->system_info.version = strdup([[[UIDevice currentDevice] systemVersion] UTF8String]);
+    NSDictionary *systemVersionDict = [[NSDictionary alloc] 
+        initWithContentsOfFile:@"/System/Library/CoreServices/SystemVersion.plist"];
+    // otherwise can be parsed 
+    writer->system_info.build = strdup([[(NSDictionary *)systemVersionDict objectForKey:@"ProductBuildVersion"] UTF8String]);
+    [systemVersionDict release];
 #elif TARGET_OS_MAC
     /* Mac OS X */
     {
