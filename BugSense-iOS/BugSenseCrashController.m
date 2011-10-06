@@ -43,6 +43,8 @@
 
 #import <CoreLocation/CoreLocation.h>
 
+#include <dlfcn.h>
+
 #define BUGSENSE_REPORTING_SERVICE_URL @"http://www.bugsense.com/api/errors"
 #define BUGSENSE_HEADER                @"X-BugSense-Api-Key"
 
@@ -175,7 +177,9 @@ static BugSenseCrashController *sharedCrashController = nil;
     if (![crashReporter enableCrashReporterAndReturnError:&error]) {
         NSLog(@"BugSense --> Error: Could not enable crash reporterd due to: %@", error);
     } else {
-        NSLog(@"BugSense --> Warning: %@", error);
+        if (error != nil) {
+            NSLog(@"BugSense --> Warning: %@", error);
+        }
     }
 }
 
@@ -207,6 +211,10 @@ static BugSenseCrashController *sharedCrashController = nil;
         NSLog(@"BugSense --> Error: Could not parse crash report due to: %@", error);
         [crashReporter purgePendingCrashReport];
         return;
+    } else {
+        if (error != nil) {
+            NSLog(@"BugSense --> Warning: %@", error);
+        }
     }
     
     // Generic status report on console
@@ -365,8 +373,16 @@ static BugSenseCrashController *sharedCrashController = nil;
             pcOffset = frameInfo.instructionPointer - imageInfo.imageBaseAddress;
         }
         
-        NSString *stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " 0x%" PRIx64 " + %" PRId64 "", 
-            (long)frame_idx, imageName, frameInfo.instructionPointer, baseAddress, pcOffset];
+        Dl_info theInfo;
+        NSString *stackframe = nil;
+        if (dladdr((void *)(uintptr_t)frameInfo.instructionPointer, &theInfo) == 0) {
+            stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 "%@ + %" PRId64 "",
+            (long)frame_idx, imageName, frameInfo.instructionPointer, 
+                [NSString stringWithCString:theInfo.dli_sname encoding:NSUTF8StringEncoding], pcOffset];
+        } else {
+            stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " 0x%" PRIx64 " + %" PRId64 "", 
+                          (long)frame_idx, imageName, frameInfo.instructionPointer, baseAddress, pcOffset];
+        }
         [backtrace addObject:stackframe];
         
         if (report.signalInfo.address == frameInfo.instructionPointer) {
@@ -399,19 +415,13 @@ static BugSenseCrashController *sharedCrashController = nil;
     [request setObject:[self deviceIPAddress] forKey:@"remote_ip"];
     [request addEntriesFromDictionary:_userDictionary];
     
-    
     // root
     NSMutableDictionary *rootDictionary = [[NSMutableDictionary alloc] init];
     [rootDictionary setObject:application_environment forKey:@"application_environment"];
     [rootDictionary setObject:exception forKey:@"exception"];
     [rootDictionary setObject:request forKey:@"request"];
-    //[rootDictionary setObject:_userDictionary forKey:@"custom_data"];
-    
-    //NSLog(@"json: %@", [rootDictionary JSONString]);
-    
-    NSString *string = [PLCrashReportTextFormatter stringValueForCrashReport:report withTextFormat:PLCrashReportTextFormatiOS];
-    NSLog(@"string: \n%@", string);
                                              
+    NSLog(@"%@", [rootDictionary JSONString]);
     NSString *jsonString = [[rootDictionary JSONString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     return [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     //return [rootDictionary JSONData];
