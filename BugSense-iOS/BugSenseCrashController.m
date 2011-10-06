@@ -230,7 +230,7 @@ static BugSenseCrashController *sharedCrashController = nil;
     }
     
     // Send the JSON string to the BugSense servers
-    //[self postJSONData:jsonData];
+    [self postJSONData:jsonData];
 }
 
 
@@ -357,6 +357,9 @@ static BugSenseCrashController *sharedCrashController = nil;
             break;
         }
     }
+    
+    NSInteger pos = -1;
+    
     NSMutableArray *backtrace = [[NSMutableArray alloc] init];
     for (NSUInteger frame_idx = 0; frame_idx < [crashedThreadInfo.stackFrames count]; frame_idx++) {
         PLCrashReportStackFrameInfo *frameInfo = [crashedThreadInfo.stackFrames objectAtIndex:frame_idx];
@@ -375,18 +378,29 @@ static BugSenseCrashController *sharedCrashController = nil;
         
         Dl_info theInfo;
         NSString *stackframe = nil;
-        if (dladdr((void *)(uintptr_t)frameInfo.instructionPointer, &theInfo) == 0) {
-            stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 "%@ + %" PRId64 "",
-            (long)frame_idx, imageName, frameInfo.instructionPointer, 
-                [NSString stringWithCString:theInfo.dli_sname encoding:NSUTF8StringEncoding], pcOffset];
+        NSString *commandName = nil;
+        if ((dladdr((void *)(uintptr_t)frameInfo.instructionPointer, &theInfo) != 0) && theInfo.dli_sname != NULL) {
+            commandName = [NSString stringWithCString:theInfo.dli_sname encoding:NSUTF8StringEncoding];
+            stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " %@ + %" PRId64 "",
+                (long)frame_idx, imageName, frameInfo.instructionPointer, commandName, pcOffset];
         } else {
             stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " 0x%" PRIx64 " + %" PRId64 "", 
-                          (long)frame_idx, imageName, frameInfo.instructionPointer, baseAddress, pcOffset];
+                (long)frame_idx, imageName, frameInfo.instructionPointer, baseAddress, pcOffset];
         }
         [backtrace addObject:stackframe];
         
-        if (report.signalInfo.address == frameInfo.instructionPointer) {
-            [exception setObject:stackframe forKey:@"where"];
+        if (report.hasExceptionInfo) {
+            if ([commandName hasPrefix:@"+[NSException raise:"]) {
+                pos = frame_idx+1;
+            } else {
+                if (pos != -1 && pos == frame_idx) {
+                    [exception setObject:stackframe forKey:@"where"];
+                }
+            }
+        } else {
+            if (report.signalInfo.address == frameInfo.instructionPointer) {
+                [exception setObject:stackframe forKey:@"where"];
+            }
         }
     }
     
@@ -420,11 +434,9 @@ static BugSenseCrashController *sharedCrashController = nil;
     [rootDictionary setObject:application_environment forKey:@"application_environment"];
     [rootDictionary setObject:exception forKey:@"exception"];
     [rootDictionary setObject:request forKey:@"request"];
-                                             
-    NSLog(@"%@", [rootDictionary JSONString]);
+    
     NSString *jsonString = [[rootDictionary JSONString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     return [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-    //return [rootDictionary JSONData];
 }
 
 
@@ -482,8 +494,7 @@ static BugSenseCrashController *sharedCrashController = nil;
                         context:(void *)context {
     if ([keyPath isEqualToString:@"isFinished"] && [object isKindOfClass:[AFHTTPRequestOperation class]]) {
         AFHTTPRequestOperation *operation = object;
-        NSLog(@"BugSense --> Server responded with: \nstatus code:%i\nheader fields: %@", 
-              operation.response.statusCode, operation.response.allHeaderFields);
+        NSLog(@"BugSense --> Server responded with: \nstatus code: %i", operation.response.statusCode);
         if (operation.error) {
             NSLog(@"BugSense --> Error: %@", operation.error);
         } else {
