@@ -224,6 +224,7 @@ static BugSenseCrashController *sharedCrashController = nil;
     
     // Preparing the JSON string
     NSData *jsonData = [self JSONDataFromCrashReport:report];
+    [report release];
     if (!jsonData) {
         NSLog(@"BugSense --> Could not prepare JSON crash report string.");
         return;
@@ -272,7 +273,7 @@ static BugSenseCrashController *sharedCrashController = nil;
     NSLog(@"BugSense --> Generating JSON data from crash report...");
     
     // --application_environment
-    NSMutableDictionary *application_environment = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *application_environment = [[[NSMutableDictionary alloc] init] autorelease];
     
     // ----appname
     NSArray *identifierComponents = [report.applicationInfo.applicationIdentifier componentsSeparatedByString:@"."];
@@ -298,7 +299,7 @@ static BugSenseCrashController *sharedCrashController = nil;
                                 forKey:@"gps_on"];
     
     if (bundleInfoDict != NULL) {
-        NSMutableString *languages = [[NSMutableString alloc] init];
+        NSMutableString *languages = [[[NSMutableString alloc] init] autorelease];
         CFStringRef baseLanguage = CFDictionaryGetValue(bundleInfoDict, kCFBundleDevelopmentRegionKey);
         if (baseLanguage) {
             [languages appendString:(NSString *)baseLanguage];
@@ -347,7 +348,7 @@ static BugSenseCrashController *sharedCrashController = nil;
     
     
     // --exception
-    NSMutableDictionary *exception = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *exception = [[[NSMutableDictionary alloc] init] autorelease];
     
     // ----backtrace, where
     PLCrashReportThreadInfo *crashedThreadInfo = nil;
@@ -360,7 +361,7 @@ static BugSenseCrashController *sharedCrashController = nil;
     
     NSInteger pos = -1;
     
-    NSMutableArray *backtrace = [[NSMutableArray alloc] init];
+    NSMutableArray *backtrace = [[[NSMutableArray alloc] init] autorelease];
     for (NSUInteger frame_idx = 0; frame_idx < [crashedThreadInfo.stackFrames count]; frame_idx++) {
         PLCrashReportStackFrameInfo *frameInfo = [crashedThreadInfo.stackFrames objectAtIndex:frame_idx];
         PLCrashReportBinaryImageInfo *imageInfo;
@@ -424,13 +425,13 @@ static BugSenseCrashController *sharedCrashController = nil;
     }
     
     // --request
-    NSMutableDictionary *request = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *request = [[[NSMutableDictionary alloc] init] autorelease];
     // ----remote_ip
     [request setObject:[self deviceIPAddress] forKey:@"remote_ip"];
     [request addEntriesFromDictionary:_userDictionary];
     
     // root
-    NSMutableDictionary *rootDictionary = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *rootDictionary = [[[NSMutableDictionary alloc] init] autorelease];
     [rootDictionary setObject:application_environment forKey:@"application_environment"];
     [rootDictionary setObject:exception forKey:@"exception"];
     [rootDictionary setObject:request forKey:@"request"];
@@ -446,8 +447,8 @@ static BugSenseCrashController *sharedCrashController = nil;
         return NO;
     } else {
         NSURL *bugsenseURL = [NSURL URLWithString:BUGSENSE_REPORTING_SERVICE_URL];
-        NSMutableURLRequest *bugsenseRequest = [[NSMutableURLRequest alloc] initWithURL:bugsenseURL 
-            cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15.0f];
+        NSMutableURLRequest *bugsenseRequest = [[[NSMutableURLRequest alloc] initWithURL:bugsenseURL 
+            cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15.0f] autorelease];
         [bugsenseRequest setHTTPMethod:@"POST"];
         [bugsenseRequest setValue:_APIKey forHTTPHeaderField:BUGSENSE_HEADER];
         [bugsenseRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
@@ -479,7 +480,7 @@ static BugSenseCrashController *sharedCrashController = nil;
         
         /// add operation to queue
         [[NSOperationQueue mainQueue] addOperation:operation];
-        
+
         NSLog(@"BugSense --> Posting JSON data...");
         
         return YES;
