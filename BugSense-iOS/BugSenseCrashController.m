@@ -48,13 +48,16 @@
 #define BUGSENSE_REPORTING_SERVICE_URL @"http://www.bugsense.com/api/errors"
 #define BUGSENSE_HEADER                @"X-BugSense-Api-Key"
 
+void post_crash_callback (siginfo_t *info, ucontext_t *uap, void *context);
+
 @interface BugSenseCrashController (Private)
 
-- (id) init;
-- (id) initWithAPIKey:(NSString *)bugSenseAPIKey;
-- (id) initWithAPIKey:(NSString *)bugSenseAPIKey userDictionary:(NSDictionary *)userDictionary;
+- (id) initWithAPIKey:(NSString *)bugSenseAPIKey 
+       userDictionary:(NSDictionary *)userDictionary 
+      sendImmediately:(BOOL)immediately;
 - (void) initiateReportingProcess;
 - (void) processCrashReport;
+- (void) processCrashReportImmediately;
 - (NSString *) deviceIPAddress;
 - (NSData *) JSONDataFromCrashReport:(PLCrashReport *)report;
 - (BOOL) postJSONData:(NSData *)jsonData;
@@ -66,25 +69,51 @@
 
 static BugSenseCrashController *sharedCrashController = nil;
 
-@synthesize userDictionary = _userDictionary;
-
-/** 
- @deprecated 
- */
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-+ (BugSenseCrashController *) sharedInstance {
-    if (!sharedCrashController) {
-        sharedCrashController = [[BugSenseCrashController alloc] init];
+void post_crash_callback (siginfo_t *info, ucontext_t *uap, void *context) {
+    // This is not async-safe!!! Beware!!! It could ruin your app.
+    if ([[PLCrashReporter sharedReporter] hasPendingCrashReport]) {
+        [sharedCrashController performSelectorOnMainThread:@selector(processCrashReportImmediately) 
+                                                withObject:nil 
+                                             waitUntilDone:YES];
     }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void) processCrashReportImmediately {
+    [self processCrashReport];
     
-    return sharedCrashController;
+    CFRunLoopRef runLoop = CFRunLoopGetCurrent();
+	CFArrayRef allModes = CFRunLoopCopyAllModes(runLoop);
+	
+	while (!_operationCompleted) {
+		for (NSString *mode in (NSArray *)allModes) {
+			CFRunLoopRunInMode((CFStringRef)mode, 0.001, false);
+		}
+	}
+	
+	CFRelease(allModes);
+    
+	NSSetUncaughtExceptionHandler(NULL);
+	signal(SIGABRT, SIG_DFL);
+	signal(SIGILL, SIG_DFL);
+	signal(SIGSEGV, SIG_DFL);
+	signal(SIGFPE, SIG_DFL);
+	signal(SIGBUS, SIG_DFL);
+	signal(SIGPIPE, SIG_DFL);
+    
+    NSLog(@"BugSense --> Immediate dispatch completed!");
+    
+    abort();
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 + (BugSenseCrashController *) sharedInstanceWithBugSenseAPIKey:(NSString *)bugSenseAPIKey {
     if (!sharedCrashController) {
-        sharedCrashController = [[BugSenseCrashController alloc] initWithAPIKey:bugSenseAPIKey];
+        sharedCrashController = [[BugSenseCrashController alloc] initWithAPIKey:bugSenseAPIKey
+                                                                 userDictionary:nil
+                                                                sendImmediately:NO];
     }
 
     [sharedCrashController initiateReportingProcess];
@@ -97,8 +126,9 @@ static BugSenseCrashController *sharedCrashController = nil;
 + (BugSenseCrashController *) sharedInstanceWithBugSenseAPIKey:(NSString *)bugSenseAPIKey 
                                                 userDictionary:(NSDictionary *)userDictionary {
     if (!sharedCrashController) {
-        sharedCrashController = [[BugSenseCrashController alloc] initWithAPIKey:bugSenseAPIKey 
-                                                                 userDictionary:userDictionary];
+        sharedCrashController = [[BugSenseCrashController alloc] initWithAPIKey:bugSenseAPIKey
+                                                                 userDictionary:userDictionary
+                                                                sendImmediately:NO];
 	}
     
     [sharedCrashController initiateReportingProcess];
@@ -107,15 +137,14 @@ static BugSenseCrashController *sharedCrashController = nil;
 }
 
 
-/** 
- @deprecated 
- */
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 + (BugSenseCrashController *) sharedInstanceWithBugSenseAPIKey:(NSString *)bugSenseAPIKey 
-                                                 andDomainName:(NSString *)domainName {
+                                                userDictionary:(NSDictionary *)userDictionary
+                                               sendImmediately:(BOOL)immediately {
     if (!sharedCrashController) {
-        sharedCrashController = [[BugSenseCrashController alloc] initWithAPIKey:bugSenseAPIKey 
-                                                                  andDomainName:domainName];
+        sharedCrashController = [[BugSenseCrashController alloc] initWithAPIKey:bugSenseAPIKey
+                                                                 userDictionary:userDictionary
+                                                                sendImmediately:immediately];
     }
     
     [sharedCrashController initiateReportingProcess];
@@ -124,42 +153,16 @@ static BugSenseCrashController *sharedCrashController = nil;
 }
 
 
-// to support deprecated singleton constructor
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (id) init {
+- (id) initWithAPIKey:(NSString *)bugSenseAPIKey 
+       userDictionary:(NSDictionary *)userDictionary 
+      sendImmediately:(BOOL)immediately {
     if ((self = [super init])) {
-
-    }
-    return self;
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (id) initWithAPIKey:(NSString *)bugSenseAPIKey {
-    if ((self = [super init])) {
-        _APIKey = [bugSenseAPIKey retain];
-    }
-    return self;
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (id) initWithAPIKey:(NSString *)bugSenseAPIKey userDictionary:(NSDictionary *)userDictionary {
-    if ((self = [super init])) {
+        _operationCompleted = NO;
+        
         _APIKey = [bugSenseAPIKey retain];
         _userDictionary = [userDictionary retain];
-    }
-    return self;
-}
-
-
-/** 
- @deprecated 
- */
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (id) initWithAPIKey:(NSString *)bugSenseAPIKey andDomainName:(NSString *)domainName {
-    if ((self = [super init])) {
-        _APIKey = [bugSenseAPIKey retain];
+        _immediately = immediately;
     }
     return self;
 }
@@ -170,8 +173,17 @@ static BugSenseCrashController *sharedCrashController = nil;
     PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter];
     NSError *error = nil;
     
-    if ([crashReporter hasPendingCrashReport]) {
-        [self processCrashReport];
+    if (_immediately) {
+        PLCrashReporterCallbacks cb = {
+            .version = 0,
+            .context = (void *) 0xABABABAB,
+            .handleSignal = post_crash_callback
+        };
+        [crashReporter setCrashCallbacks:&cb];
+    } else {
+        if ([crashReporter hasPendingCrashReport]) {
+            [self processCrashReport];
+        }
     }
     
     if (![crashReporter enableCrashReporterAndReturnError:&error]) {
@@ -428,7 +440,9 @@ static BugSenseCrashController *sharedCrashController = nil;
     NSMutableDictionary *request = [[[NSMutableDictionary alloc] init] autorelease];
     // ----remote_ip
     [request setObject:[self deviceIPAddress] forKey:@"remote_ip"];
-    [request addEntriesFromDictionary:_userDictionary];
+    if (_userDictionary) {
+        [request addEntriesFromDictionary:_userDictionary];
+    }
     
     // root
     NSMutableDictionary *rootDictionary = [[[NSMutableDictionary alloc] init] autorelease];
@@ -506,6 +520,8 @@ static BugSenseCrashController *sharedCrashController = nil;
                 [crashReporter purgePendingCrashReport];
             }
         }
+        
+        _operationCompleted = YES;
     }
 }
 

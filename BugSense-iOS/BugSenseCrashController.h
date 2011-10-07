@@ -36,28 +36,18 @@
 @interface BugSenseCrashController : NSObject {
     NSString *_APIKey;
     NSDictionary *_userDictionary;
+    BOOL _immediately;
+    
+    BOOL _operationCompleted;
 }
-
-/** 
- @deprecated 
- */
-+ (BugSenseCrashController *) sharedInstance;
 
 + (BugSenseCrashController *) sharedInstanceWithBugSenseAPIKey:(NSString *)bugSenseAPIKey;
 
 + (BugSenseCrashController *) sharedInstanceWithBugSenseAPIKey:(NSString *)bugSenseAPIKey 
                                                 userDictionary:(NSDictionary *)userDictionary;
 
-/** 
- @deprecated 
- */
 + (BugSenseCrashController *) sharedInstanceWithBugSenseAPIKey:(NSString *)bugSenseAPIKey 
-                                                 andDomainName:(NSString *)domainName;
-/** 
- @deprecated 
- */
-- (id) initWithAPIKey:(NSString *)bugSenseAPIKey andDomainName:(NSString *)domainName;
-
-@property (nonatomic, retain) NSDictionary *userDictionary;
+                                                userDictionary:(NSDictionary *)userDictionary
+                                               sendImmediately:(BOOL)immediately;
 
 @end
