@@ -33,7 +33,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface BugSenseCrashController : NSObject {
+UIKIT_EXTERN @interface BugSenseCrashController : NSObject {
     NSString *_APIKey;
     NSDictionary *_userDictionary;
     BOOL _immediately;

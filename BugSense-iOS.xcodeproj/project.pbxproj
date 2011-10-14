@@ -9,32 +9,32 @@
 /* Begin PBXBuildFile section */
 		05086E96143BBFC6008A8411 /* BugSenseCrashController.h in Headers */ = {isa = PBXBuildFile; fileRef = 05086E92143BBFC6008A8411 /* BugSenseCrashController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		058D4C11143BC2AD002A01CA /* BugSenseCrashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05086E93143BBFC6008A8411 /* BugSenseCrashController.m */; };
-		058D4C30143BC2D6002A01CA /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C14143BC2D6002A01CA /* AFHTTPRequestOperation.h */; };
+		058D4C30143BC2D6002A01CA /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C14143BC2D6002A01CA /* AFHTTPRequestOperation.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		058D4C31143BC2D6002A01CA /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C15143BC2D6002A01CA /* AFHTTPRequestOperation.m */; };
-		058D4C32143BC2D6002A01CA /* AFImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C16143BC2D6002A01CA /* AFImageCache.h */; };
+		058D4C32143BC2D6002A01CA /* AFImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C16143BC2D6002A01CA /* AFImageCache.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		058D4C33143BC2D6002A01CA /* AFImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C17143BC2D6002A01CA /* AFImageCache.m */; };
-		058D4C34143BC2D6002A01CA /* AFImageRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C18143BC2D6002A01CA /* AFImageRequestOperation.h */; };
+		058D4C34143BC2D6002A01CA /* AFImageRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C18143BC2D6002A01CA /* AFImageRequestOperation.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		058D4C35143BC2D6002A01CA /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C19143BC2D6002A01CA /* AFImageRequestOperation.m */; };
-		058D4C36143BC2D6002A01CA /* AFJSONRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C1A143BC2D6002A01CA /* AFJSONRequestOperation.h */; };
+		058D4C36143BC2D6002A01CA /* AFJSONRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C1A143BC2D6002A01CA /* AFJSONRequestOperation.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		058D4C37143BC2D6002A01CA /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C1B143BC2D6002A01CA /* AFJSONRequestOperation.m */; };
-		058D4C38143BC2D6002A01CA /* AFNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C1C143BC2D6002A01CA /* AFNetworkActivityIndicatorManager.h */; };
+		058D4C38143BC2D6002A01CA /* AFNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C1C143BC2D6002A01CA /* AFNetworkActivityIndicatorManager.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		058D4C39143BC2D6002A01CA /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C1D143BC2D6002A01CA /* AFNetworkActivityIndicatorManager.m */; };
-		058D4C3A143BC2D6002A01CA /* AFRestClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C1E143BC2D6002A01CA /* AFRestClient.h */; };
-		058D4C3B143BC2D6002A01CA /* AFRestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C1F143BC2D6002A01CA /* AFRestClient.m */; };
-		058D4C3E143BC2D6002A01CA /* NSMutableURLRequest+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C22143BC2D6002A01CA /* NSMutableURLRequest+AFNetworking.h */; };
+		058D4C3E143BC2D6002A01CA /* NSMutableURLRequest+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C22143BC2D6002A01CA /* NSMutableURLRequest+AFNetworking.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		058D4C3F143BC2D6002A01CA /* NSMutableURLRequest+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C23143BC2D6002A01CA /* NSMutableURLRequest+AFNetworking.m */; };
-		058D4C40143BC2D6002A01CA /* NSString+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C24143BC2D6002A01CA /* NSString+AFNetworking.h */; };
+		058D4C40143BC2D6002A01CA /* NSString+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C24143BC2D6002A01CA /* NSString+AFNetworking.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		058D4C41143BC2D6002A01CA /* NSString+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C25143BC2D6002A01CA /* NSString+AFNetworking.m */; };
-		058D4C42143BC2D6002A01CA /* UIImage+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C26143BC2D6002A01CA /* UIImage+AFNetworking.h */; };
+		058D4C42143BC2D6002A01CA /* UIImage+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C26143BC2D6002A01CA /* UIImage+AFNetworking.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		058D4C43143BC2D6002A01CA /* UIImage+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C27143BC2D6002A01CA /* UIImage+AFNetworking.m */; };
-		058D4C44143BC2D6002A01CA /* UIImageView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C28143BC2D6002A01CA /* UIImageView+AFNetworking.h */; };
+		058D4C44143BC2D6002A01CA /* UIImageView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C28143BC2D6002A01CA /* UIImageView+AFNetworking.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		058D4C45143BC2D6002A01CA /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C29143BC2D6002A01CA /* UIImageView+AFNetworking.m */; };
-		058D4C46143BC2D6002A01CA /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C2B143BC2D6002A01CA /* JSONKit.h */; };
+		058D4C46143BC2D6002A01CA /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C2B143BC2D6002A01CA /* JSONKit.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		058D4C47143BC2D6002A01CA /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C2C143BC2D6002A01CA /* JSONKit.m */; };
-		058D4C48143BC2D6002A01CA /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C2E143BC2D6002A01CA /* Reachability.h */; };
+		058D4C48143BC2D6002A01CA /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C2E143BC2D6002A01CA /* Reachability.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		058D4C49143BC2D6002A01CA /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C2F143BC2D6002A01CA /* Reachability.m */; };
-		058D4C4F143BC2EE002A01CA /* BugSense-iOS-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C4B143BC2EE002A01CA /* BugSense-iOS-Prefix.pch */; };
+		058D4C4F143BC2EE002A01CA /* BugSense-iOS-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C4B143BC2EE002A01CA /* BugSense-iOS-Prefix.pch */; settings = {ATTRIBUTES = (Private, ); }; };
 		058D4C50143BC2EE002A01CA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 058D4C4C143BC2EE002A01CA /* InfoPlist.strings */; };
+		05B0BF8F14487F8A00ECFF3F /* AFRestClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B0BF8B14487F8900ECFF3F /* AFRestClient.h */; };
+		05B0BF9014487F8A00ECFF3F /* AFRestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B0BF8C14487F8A00ECFF3F /* AFRestClient.m */; };
 		05F985F714476EEE00D65AC0 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9B0991435C90800343267 /* libCrashReporter-iphoneos.a */; };
 /* End PBXBuildFile section */
 
@@ -153,8 +153,6 @@
 		058D4C1B143BC2D6002A01CA /* AFJSONRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFJSONRequestOperation.m; sourceTree = "<group>"; };
 		058D4C1C143BC2D6002A01CA /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
 		058D4C1D143BC2D6002A01CA /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
-		058D4C1E143BC2D6002A01CA /* AFRestClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFRestClient.h; sourceTree = "<group>"; };
-		058D4C1F143BC2D6002A01CA /* AFRestClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFRestClient.m; sourceTree = "<group>"; };
 		058D4C22143BC2D6002A01CA /* NSMutableURLRequest+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+AFNetworking.h"; sourceTree = "<group>"; };
 		058D4C23143BC2D6002A01CA /* NSMutableURLRequest+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableURLRequest+AFNetworking.m"; sourceTree = "<group>"; };
 		058D4C24143BC2D6002A01CA /* NSString+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AFNetworking.h"; sourceTree = "<group>"; };
@@ -170,6 +168,8 @@
 		058D4C4A143BC2EE002A01CA /* BugSense-iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "BugSense-iOS-Info.plist"; path = "BugSense-iOS/BugSense-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		058D4C4B143BC2EE002A01CA /* BugSense-iOS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BugSense-iOS-Prefix.pch"; path = "BugSense-iOS/BugSense-iOS-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		058D4C4D143BC2EE002A01CA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "BugSense-iOS/en.lproj/InfoPlist.strings"; sourceTree = SOURCE_ROOT; };
+		05B0BF8B14487F8900ECFF3F /* AFRestClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFRestClient.h; sourceTree = "<group>"; };
+		05B0BF8C14487F8A00ECFF3F /* AFRestClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFRestClient.m; sourceTree = "<group>"; };
 		05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CrashReporter.xcodeproj; path = Frameworks/CrashReporter/CrashReporter.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -212,6 +212,8 @@
 		058D4C13143BC2D6002A01CA /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
+				05B0BF8B14487F8900ECFF3F /* AFRestClient.h */,
+				05B0BF8C14487F8A00ECFF3F /* AFRestClient.m */,
 				058D4C14143BC2D6002A01CA /* AFHTTPRequestOperation.h */,
 				058D4C15143BC2D6002A01CA /* AFHTTPRequestOperation.m */,
 				058D4C16143BC2D6002A01CA /* AFImageCache.h */,
@@ -222,8 +224,6 @@
 				058D4C1B143BC2D6002A01CA /* AFJSONRequestOperation.m */,
 				058D4C1C143BC2D6002A01CA /* AFNetworkActivityIndicatorManager.h */,
 				058D4C1D143BC2D6002A01CA /* AFNetworkActivityIndicatorManager.m */,
-				058D4C1E143BC2D6002A01CA /* AFRestClient.h */,
-				058D4C1F143BC2D6002A01CA /* AFRestClient.m */,
 				058D4C22143BC2D6002A01CA /* NSMutableURLRequest+AFNetworking.h */,
 				058D4C23143BC2D6002A01CA /* NSMutableURLRequest+AFNetworking.m */,
 				058D4C24143BC2D6002A01CA /* NSString+AFNetworking.h */,
@@ -312,7 +312,6 @@
 				058D4C34143BC2D6002A01CA /* AFImageRequestOperation.h in Headers */,
 				058D4C36143BC2D6002A01CA /* AFJSONRequestOperation.h in Headers */,
 				058D4C38143BC2D6002A01CA /* AFNetworkActivityIndicatorManager.h in Headers */,
-				058D4C3A143BC2D6002A01CA /* AFRestClient.h in Headers */,
 				058D4C3E143BC2D6002A01CA /* NSMutableURLRequest+AFNetworking.h in Headers */,
 				058D4C40143BC2D6002A01CA /* NSString+AFNetworking.h in Headers */,
 				058D4C42143BC2D6002A01CA /* UIImage+AFNetworking.h in Headers */,
@@ -320,6 +319,7 @@
 				058D4C46143BC2D6002A01CA /* JSONKit.h in Headers */,
 				058D4C48143BC2D6002A01CA /* Reachability.h in Headers */,
 				058D4C4F143BC2EE002A01CA /* BugSense-iOS-Prefix.pch in Headers */,
+				05B0BF8F14487F8A00ECFF3F /* AFRestClient.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,7 +508,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nset +u\nif [[ $UFW_MASTER_SCRIPT_RUNNING ]]\nthen\n    # Nothing for the slave script to do\n    exit 0\nfi\nset -u\nexport UFW_MASTER_SCRIPT_RUNNING=1\n\n\n# Functions\n\n## List files in the specified directory, storing to the specified array.\n#\n# @param $1 The path to list\n# @param $2 The name of the array to fill\n#\n##\nlist_files ()\n{\n    filelist=$(ls \"$1\")\n    while read line\n    do\n        eval \"$2[\\${#$2[*]}]=\\\"\\$line\\\"\"\n    done <<< \"$filelist\"\n}\n\n\n# Sanity check\n\nif [[ ! -f \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" ]]\nthen\n    echo \"Framework target \\\"${TARGET_NAME}\\\" had no source files to build from. Make sure your source files have the correct target membership\"\n    exit 1\nfi\n\n\n# Gather information\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\n    UFW_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\n    echo \"Could not find platform name from SDK_NAME: $SDK_NAME\"\n    exit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\n    UFW_SDK_VERSION=${BASH_REMATCH[1]}\nelse\n    echo \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\n    exit 1\nfi\n\nif [[ \"$UFW_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\n    UFW_OTHER_PLATFORM=iphonesimulator\nelse\n    UFW_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$UFW_SDK_PLATFORM$ ]]\nthen\n    UFW_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${UFW_OTHER_PLATFORM}\"\nelse\n    echo \"Could not find $UFW_SDK_PLATFORM in $BUILT_PRODUCTS_DIR\"\n    exit 1\nfi\n\nONLY_ACTIVE_PLATFORM=${ONLY_ACTIVE_PLATFORM:-$ONLY_ACTIVE_ARCH}\n\n# Short-circuit if all binaries are up to date.\n# We already checked the other platform in the prerun script.\n\nif [[ -f \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" ]] && [[ -f \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/${EXECUTABLE_PATH}\" ]] && [[ ! \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -nt \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/${EXECUTABLE_PATH}\" ]]\nthen\n    exit 0\nfi\n\n#if [ \"${ONLY_ACTIVE_PLATFORM}\" == \"YES\" ]\n#then\n#    echo \"ONLY_ACTIVE_PLATFORM=${ONLY_ACTIVE_PLATFORM}: Skipping other platform build\"\n#else\n    # Make sure the other platform gets built\n    \n#    echo \"Build other platform\"\n    \n    #changes\n#    if [[ \"$UFW_OTHER_PLATFORM\" = \"iphonesimulator\" ]]\n#    then\n#VALID_ARCHS=\"i386 x86_64 ppc\"\n#        ARCHS=\"i386 x86_64 ppc\"\n#        ARCHS_STANDARD_32_64_BIT=\"i386 x86_64 ppc\"\n#        ARCHS_STANDARD_32_BIT=\"i386 x86_64 ppc\"\n#        ARCHS_UNIVERSAL_IPHONE_OS=\"i386 x86_64 ppc\"\n\n#        echo xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${UFW_OTHER_PLATFORM}${UFW_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" CONFIGURATION_TEMP_DIR=\"${PROJECT_TEMP_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\" $ACTION\n\n#        xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${UFW_OTHER_PLATFORM}${UFW_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" CONFIGURATION_TEMP_DIR=\"${PROJECT_TEMP_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\" $ACTION\n#    else\n#        echo xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${UFW_OTHER_PLATFORM}${UFW_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" CONFIGURATION_TEMP_DIR=\"${PROJECT_TEMP_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\" $ACTION\n\n#       xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${UFW_OTHER_PLATFORM}${UFW_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" CONFIGURATION_TEMP_DIR=\"${PROJECT_TEMP_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\" $ACTION\n#    fi\n    \n    \n    # Build the fat static library binary\n    \n#    echo \"Create universal static library\"\n    \n#    echo \"$PLATFORM_DEVELOPER_BIN_DIR/libtool\" -static \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" \"${UFW_OTHER_BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -o \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\"\n#    \"$PLATFORM_DEVELOPER_BIN_DIR/libtool\" -static \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" \"${UFW_OTHER_BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -o \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\"\n    \n#    echo mv \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\n#    mv \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\n# fi\n\n# Build embedded framework structure\n\necho \"Build Embedded Framework\"\n\necho rm -rf \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework\"\nrm -rf \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework\"\necho mkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources\"\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources\"\necho cp -a \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/\"\ncp -a \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/\"\n\ndeclare -a UFW_FILE_LIST\nlist_files \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\" UFW_FILE_LIST\nfor filename in \"${UFW_FILE_LIST[@]}\"\ndo\n    if [[ \"${filename}\" != \"Info.plist\" ]] && [[ ! \"${filename}\" =~ .*\\.lproj$ ]]\n    then\n        echo ln -sf \"../${WRAPPER_NAME}/Resources/${filename}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources/${filename}\"\n        ln -sf \"../${WRAPPER_NAME}/Resources/${filename}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources/${filename}\"\n    fi\ndone\n\n\nif [ \"${ONLY_ACTIVE_PLATFORM}\" != \"YES\" ]\nthen\n    # Replace other platform's framework with a copy of this one (so that both have the same universal binary)\n    \n    echo \"Copy from $UFW_SDK_PLATFORM to $UFW_OTHER_PLATFORM\"\n    \n    echo rm -rf \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\n    rm -rf \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\n    echo cp -a \"${BUILD_DIR}/${CONFIGURATION}-${UFW_SDK_PLATFORM}\" \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\n    cp -a \"${BUILD_DIR}/${CONFIGURATION}-${UFW_SDK_PLATFORM}\" \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\nfi\n";
+			shellScript = "set -e\n\nset +u\nif [[ $UFW_MASTER_SCRIPT_RUNNING ]]\nthen\n    # Nothing for the slave script to do\n    exit 0\nfi\nset -u\nexport UFW_MASTER_SCRIPT_RUNNING=1\n\n\n# Functions\n\n## List files in the specified directory, storing to the specified array.\n#\n# @param $1 The path to list\n# @param $2 The name of the array to fill\n#\n##\nlist_files ()\n{\n    filelist=$(ls \"$1\")\n    while read line\n    do\n        eval \"$2[\\${#$2[*]}]=\\\"\\$line\\\"\"\n    done <<< \"$filelist\"\n}\n\n\n# Sanity check\n\nif [[ ! -f \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" ]]\nthen\n    echo \"Framework target \\\"${TARGET_NAME}\\\" had no source files to build from. Make sure your source files have the correct target membership\"\n    exit 1\nfi\n\n\n# Gather information\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\n    UFW_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\n    echo \"Could not find platform name from SDK_NAME: $SDK_NAME\"\n    exit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\n    UFW_SDK_VERSION=${BASH_REMATCH[1]}\nelse\n    echo \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\n    exit 1\nfi\n\nif [[ \"$UFW_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\n    UFW_OTHER_PLATFORM=iphonesimulator\nelse\n    UFW_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$UFW_SDK_PLATFORM$ ]]\nthen\n    UFW_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${UFW_OTHER_PLATFORM}\"\nelse\n    echo \"Could not find $UFW_SDK_PLATFORM in $BUILT_PRODUCTS_DIR\"\n    exit 1\nfi\n\nONLY_ACTIVE_PLATFORM=${ONLY_ACTIVE_PLATFORM:-$ONLY_ACTIVE_ARCH}\n\n# Short-circuit if all binaries are up to date.\n# We already checked the other platform in the prerun script.\n\nif [[ -f \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" ]] && [[ -f \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/${EXECUTABLE_PATH}\" ]] && [[ ! \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -nt \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/${EXECUTABLE_PATH}\" ]]\nthen\n    exit 0\nfi\n\n#if [ \"${ONLY_ACTIVE_PLATFORM}\" == \"YES\" ]\n#then\n#    echo \"ONLY_ACTIVE_PLATFORM=${ONLY_ACTIVE_PLATFORM}: Skipping other platform build\"\n#else\n    # Make sure the other platform gets built\n    \n#    echo \"Build other platform\"\n#    echo xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${UFW_OTHER_PLATFORM}${UFW_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" CONFIGURATION_TEMP_DIR=\"${PROJECT_TEMP_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\" $ACTION\n\n#    xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${UFW_OTHER_PLATFORM}${UFW_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" CONFIGURATION_TEMP_DIR=\"${PROJECT_TEMP_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\" $ACTION\n    \n    \n    # Build the fat static library binary\n    \n#    echo \"Create universal static library\"\n    \n#    echo \"$PLATFORM_DEVELOPER_BIN_DIR/libtool\" -static \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" \"${UFW_OTHER_BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -o \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\"\n#    \"$PLATFORM_DEVELOPER_BIN_DIR/libtool\" -static \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" \"${UFW_OTHER_BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -o \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\"\n    \n#    echo mv \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\n#    mv \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\n# fi\n\n# Build embedded framework structure\n\necho \"Build Embedded Framework\"\n\necho rm -rf \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework\"\nrm -rf \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework\"\necho mkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources\"\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources\"\necho cp -a \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/\"\ncp -a \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/\"\n\ndeclare -a UFW_FILE_LIST\nlist_files \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\" UFW_FILE_LIST\nfor filename in \"${UFW_FILE_LIST[@]}\"\ndo\n    if [[ \"${filename}\" != \"Info.plist\" ]] && [[ ! \"${filename}\" =~ .*\\.lproj$ ]]\n    then\n        echo ln -sf \"../${WRAPPER_NAME}/Resources/${filename}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources/${filename}\"\n        ln -sf \"../${WRAPPER_NAME}/Resources/${filename}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources/${filename}\"\n    fi\ndone\n\n\nif [ \"${ONLY_ACTIVE_PLATFORM}\" != \"YES\" ]\nthen\n    # Replace other platform's framework with a copy of this one (so that both have the same universal binary)\n    \n    echo \"Copy from $UFW_SDK_PLATFORM to $UFW_OTHER_PLATFORM\"\n    \n    echo rm -rf \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\n    rm -rf \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\n    echo cp -a \"${BUILD_DIR}/${CONFIGURATION}-${UFW_SDK_PLATFORM}\" \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\n    cp -a \"${BUILD_DIR}/${CONFIGURATION}-${UFW_SDK_PLATFORM}\" \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -523,13 +523,13 @@
 				058D4C35143BC2D6002A01CA /* AFImageRequestOperation.m in Sources */,
 				058D4C37143BC2D6002A01CA /* AFJSONRequestOperation.m in Sources */,
 				058D4C39143BC2D6002A01CA /* AFNetworkActivityIndicatorManager.m in Sources */,
-				058D4C3B143BC2D6002A01CA /* AFRestClient.m in Sources */,
 				058D4C3F143BC2D6002A01CA /* NSMutableURLRequest+AFNetworking.m in Sources */,
 				058D4C41143BC2D6002A01CA /* NSString+AFNetworking.m in Sources */,
 				058D4C43143BC2D6002A01CA /* UIImage+AFNetworking.m in Sources */,
 				058D4C45143BC2D6002A01CA /* UIImageView+AFNetworking.m in Sources */,
 				058D4C47143BC2D6002A01CA /* JSONKit.m in Sources */,
 				058D4C49143BC2D6002A01CA /* Reachability.m in Sources */,
+				05B0BF9014487F8A00ECFF3F /* AFRestClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -570,9 +570,11 @@
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = "";
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -581,7 +583,12 @@
 				);
 				INFOPLIST_FILE = "BugSense-iOS/BugSense-iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
-				OTHER_LDFLAGS = "";
+				KEEP_PRIVATE_EXTERNS = NO;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
+				PRELINK_LIBS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SEPARATE_STRIP = NO;
@@ -591,6 +598,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv6 armv7";
+				WARNING_LDFLAGS = "";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -610,9 +618,11 @@
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = "";
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -621,7 +631,12 @@
 				);
 				INFOPLIST_FILE = "BugSense-iOS/BugSense-iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
-				OTHER_LDFLAGS = "";
+				KEEP_PRIVATE_EXTERNS = NO;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
+				PRELINK_LIBS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SEPARATE_STRIP = NO;
@@ -630,6 +645,7 @@
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv6 armv7";
+				WARNING_LDFLAGS = "";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
