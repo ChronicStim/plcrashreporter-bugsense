@@ -20,11 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
 #import <objc/runtime.h>
-
 #import "UIImageView+AFNetworking.h"
-
 #import "AFImageCache.h"
 
 static NSString * const kUIImageViewImageRequestObjectKey = @"imageRequestOperation";
