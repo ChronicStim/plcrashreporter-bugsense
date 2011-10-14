@@ -401,39 +401,40 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
                 crashedThreadInfo = [report.threads objectAtIndex:0];
             }
         }
-    
-        NSInteger pos = -1;
-    
+        
         NSMutableArray *backtrace = [[[NSMutableArray alloc] init] autorelease];
-        for (NSUInteger frameIndex = 0; frameIndex < [crashedThreadInfo.stackFrames count]; frameIndex++) {
-            PLCrashReportStackFrameInfo *frameInfo = [crashedThreadInfo.stackFrames objectAtIndex:frameIndex];
-            PLCrashReportBinaryImageInfo *imageInfo;
+        if (report.hasExceptionInfo) {
+            PLCrashReportExceptionInfo *exceptionInfo = report.exceptionInfo;
+            NSInteger pos = -1;
         
-            uint64_t baseAddress = 0x0;
-            uint64_t pcOffset = 0x0;
-            const char *imageName = "\?\?\?";
+            for (NSUInteger frameIndex = 0; frameIndex < [exceptionInfo.stackFrames count]; frameIndex++) {
+                PLCrashReportStackFrameInfo *frameInfo = [exceptionInfo.stackFrames objectAtIndex:frameIndex];
+                PLCrashReportBinaryImageInfo *imageInfo;
                 
-            imageInfo = [report imageForAddress:frameInfo.instructionPointer];
-            if (imageInfo != nil) {
-                imageName = [[imageInfo.imageName lastPathComponent] UTF8String];
-                baseAddress = imageInfo.imageBaseAddress;
-                pcOffset = frameInfo.instructionPointer - imageInfo.imageBaseAddress;
-            }
-        
-            Dl_info theInfo;
-            NSString *stackframe = nil;
-            NSString *commandName = nil;
-            if ((dladdr((void *)(uintptr_t)frameInfo.instructionPointer, &theInfo) != 0) && theInfo.dli_sname != NULL) {
-                commandName = [NSString stringWithCString:theInfo.dli_sname encoding:NSUTF8StringEncoding];
-                stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " %@ + %" PRId64 "",
-                    (long)frameIndex, imageName, frameInfo.instructionPointer, commandName, pcOffset];
-            } else {
-                stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " 0x%" PRIx64 " + %" PRId64 "", 
-                    (long)frameIndex, imageName, frameInfo.instructionPointer, baseAddress, pcOffset];
-            }
-            [backtrace addObject:stackframe];
-        
-            if (report.hasExceptionInfo) {
+                uint64_t baseAddress = 0x0;
+                uint64_t pcOffset = 0x0;
+                const char *imageName = "\?\?\?";
+                
+                imageInfo = [report imageForAddress:frameInfo.instructionPointer];
+                if (imageInfo != nil) {
+                    imageName = [[imageInfo.imageName lastPathComponent] UTF8String];
+                    baseAddress = imageInfo.imageBaseAddress;
+                    pcOffset = frameInfo.instructionPointer - imageInfo.imageBaseAddress;
+                }
+                
+                Dl_info theInfo;
+                NSString *stackframe = nil;
+                NSString *commandName = nil;
+                if ((dladdr((void *)(uintptr_t)frameInfo.instructionPointer, &theInfo) != 0) && theInfo.dli_sname != NULL) {
+                    commandName = [NSString stringWithCString:theInfo.dli_sname encoding:NSUTF8StringEncoding];
+                    stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " %@ + %" PRId64 "",
+                                  (long)frameIndex, imageName, frameInfo.instructionPointer, commandName, pcOffset];
+                } else {
+                    stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " 0x%" PRIx64 " + %" PRId64 "", 
+                                  (long)frameIndex, imageName, frameInfo.instructionPointer, baseAddress, pcOffset];
+                }
+                [backtrace addObject:stackframe];
+                
                 if ([commandName hasPrefix:@"+[NSException raise:"]) {
                     pos = frameIndex+1;
                 } else {
@@ -441,7 +442,38 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
                         [exception setObject:stackframe forKey:@"where"];
                     }
                 }
-            } else {
+            }
+        } else {
+            NSInteger pos = -1;
+
+            for (NSUInteger frameIndex = 0; frameIndex < [crashedThreadInfo.stackFrames count]; frameIndex++) {
+                PLCrashReportStackFrameInfo *frameInfo = [crashedThreadInfo.stackFrames objectAtIndex:frameIndex];
+                PLCrashReportBinaryImageInfo *imageInfo;
+            
+                uint64_t baseAddress = 0x0;
+                uint64_t pcOffset = 0x0;
+                const char *imageName = "\?\?\?";
+                    
+                imageInfo = [report imageForAddress:frameInfo.instructionPointer];
+                if (imageInfo != nil) {
+                    imageName = [[imageInfo.imageName lastPathComponent] UTF8String];
+                    baseAddress = imageInfo.imageBaseAddress;
+                    pcOffset = frameInfo.instructionPointer - imageInfo.imageBaseAddress;
+                }
+            
+                Dl_info theInfo;
+                NSString *stackframe = nil;
+                NSString *commandName = nil;
+                if ((dladdr((void *)(uintptr_t)frameInfo.instructionPointer, &theInfo) != 0) && theInfo.dli_sname != NULL) {
+                    commandName = [NSString stringWithCString:theInfo.dli_sname encoding:NSUTF8StringEncoding];
+                    stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " %@ + %" PRId64 "",
+                        (long)frameIndex, imageName, frameInfo.instructionPointer, commandName, pcOffset];
+                } else {
+                    stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " 0x%" PRIx64 " + %" PRId64 "", 
+                        (long)frameIndex, imageName, frameInfo.instructionPointer, baseAddress, pcOffset];
+                }
+                [backtrace addObject:stackframe];
+            
                 if (report.signalInfo.address == frameInfo.instructionPointer) {
                     [exception setObject:stackframe forKey:@"where"];
                 }
