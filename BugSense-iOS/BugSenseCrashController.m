@@ -487,8 +487,7 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
         return [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     } @catch (NSException *exception) {
         NSLog(@"BugSense --> Something unusual happened during the generation of JSON data");
-    } @finally {
-        
+        return nil;
     }
 }
 

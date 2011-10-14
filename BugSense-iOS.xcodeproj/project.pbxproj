@@ -7,11 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		05086E6E143BB8AC008A8411 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05086E5E143BB564008A8411 /* Foundation.framework */; };
 		05086E96143BBFC6008A8411 /* BugSenseCrashController.h in Headers */ = {isa = PBXBuildFile; fileRef = 05086E92143BBFC6008A8411 /* BugSenseCrashController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		058D4C0C143BC175002A01CA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05086E64143BB5CB008A8411 /* CoreLocation.framework */; };
-		058D4C0D143BC175002A01CA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05086E60143BB56B008A8411 /* UIKit.framework */; };
-		058D4C0E143BC175002A01CA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05086E62143BB574008A8411 /* SystemConfiguration.framework */; };
 		058D4C11143BC2AD002A01CA /* BugSenseCrashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05086E93143BBFC6008A8411 /* BugSenseCrashController.m */; };
 		058D4C30143BC2D6002A01CA /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 058D4C14143BC2D6002A01CA /* AFHTTPRequestOperation.h */; };
 		058D4C31143BC2D6002A01CA /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C15143BC2D6002A01CA /* AFHTTPRequestOperation.m */; };
@@ -144,10 +140,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		05086E5E143BB564008A8411 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		05086E60143BB56B008A8411 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		05086E62143BB574008A8411 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		05086E64143BB5CB008A8411 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		05086E6D143BB8AB008A8411 /* BugSense-iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = "BugSense-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		05086E92143BBFC6008A8411 /* BugSenseCrashController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BugSenseCrashController.h; path = "BugSense-iOS/BugSenseCrashController.h"; sourceTree = SOURCE_ROOT; };
 		05086E93143BBFC6008A8411 /* BugSenseCrashController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugSenseCrashController.m; path = "BugSense-iOS/BugSenseCrashController.m"; sourceTree = SOURCE_ROOT; };
@@ -187,10 +179,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				05F985F714476EEE00D65AC0 /* libCrashReporter-iphoneos.a in Frameworks */,
-				05086E6E143BB8AC008A8411 /* Foundation.framework in Frameworks */,
-				058D4C0C143BC175002A01CA /* CoreLocation.framework in Frameworks */,
-				058D4C0D143BC175002A01CA /* UIKit.framework in Frameworks */,
-				058D4C0E143BC175002A01CA /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,10 +294,6 @@
 		05D58BB2142CC4A400BEE267 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				05086E64143BB5CB008A8411 /* CoreLocation.framework */,
-				05086E5E143BB564008A8411 /* Foundation.framework */,
-				05086E60143BB56B008A8411 /* UIKit.framework */,
-				05086E62143BB574008A8411 /* SystemConfiguration.framework */,
 				05C9B07A1435C90700343267 /* CrashReporter.xcodeproj */,
 			);
 			name = Frameworks;
@@ -583,6 +567,9 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
@@ -594,10 +581,7 @@
 				);
 				INFOPLIST_FILE = "BugSense-iOS/BugSense-iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SEPARATE_STRIP = NO;
@@ -606,7 +590,7 @@
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "armv6 armv7 i386 x86_64 ppc";
+				VALID_ARCHS = "armv6 armv7";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -623,6 +607,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BugSense-iOS/BugSense-iOS-Prefix.pch";
 				GCC_VERSION = "";
@@ -633,10 +621,7 @@
 				);
 				INFOPLIST_FILE = "BugSense-iOS/BugSense-iOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SEPARATE_STRIP = NO;
@@ -644,7 +629,7 @@
 				STRIP_STYLE = debugging;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv6 armv7 i386 x86_64 ppc";
+				VALID_ARCHS = "armv6 armv7";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
