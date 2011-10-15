@@ -505,7 +505,7 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
         // ----remote_ip
         [request setObject:[self ipAddress] forKey:@"remote_ip"];
         if (_userDictionary) {
-            [request addEntriesFromDictionary:_userDictionary];
+            [request setObject:_userDictionary forKey:@"custom_data"];
         }
     
         // root
