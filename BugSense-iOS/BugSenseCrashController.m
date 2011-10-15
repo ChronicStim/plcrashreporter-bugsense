@@ -444,8 +444,6 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
                 }
             }
         } else {
-            NSInteger pos = -1;
-
             for (NSUInteger frameIndex = 0; frameIndex < [crashedThreadInfo.stackFrames count]; frameIndex++) {
                 PLCrashReportStackFrameInfo *frameInfo = [crashedThreadInfo.stackFrames objectAtIndex:frameIndex];
                 PLCrashReportBinaryImageInfo *imageInfo;
