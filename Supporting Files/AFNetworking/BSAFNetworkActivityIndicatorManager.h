@@ -1,4 +1,4 @@
-// UIImageView+AFNetworking.h
+// AFNetworkActivityIndicatorManager.h
 //
 // Copyright (c) 2011 Gowalla (http://gowalla.com/)
 // 
@@ -20,24 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "BSAFImageRequestOperation.h"
+@interface BSAFNetworkActivityIndicatorManager : NSObject {
+@private
+	NSInteger _activityCount;
+}
 
-@interface UIImageView (AFNetworking)
++ (BSAFNetworkActivityIndicatorManager *)sharedManager;
 
-- (void)setImageWithURL:(NSURL *)url;
-
-- (void)setImageWithURL:(NSURL *)url 
-       placeholderImage:(UIImage *)placeholderImage;
-
-- (void)setImageWithURL:(NSURL *)url 
-       placeholderImage:(UIImage *)placeholderImage 
-              imageSize:(CGSize)imageSize 
-                options:(AFImageRequestOptions)options;
-
-- (void)setImageWithURL:(NSURL *)url 
-       placeholderImage:(UIImage *)placeholderImage 
-              imageSize:(CGSize)imageSize 
-                options:(AFImageRequestOptions)options
-                  block:(void (^)(UIImage *image))block;
+- (void)startAnimating;
+- (void)stopAnimating;
 
 @end

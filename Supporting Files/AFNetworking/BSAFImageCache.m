@@ -1,4 +1,4 @@
-// UIImageView+AFNetworking.h
+// AFImageCache.m
 //
 // Copyright (c) 2011 Gowalla (http://gowalla.com/)
 // 
@@ -20,24 +20,42 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "BSAFImageRequestOperation.h"
+#import "BSAFImageCache.h"
 
-@interface UIImageView (AFNetworking)
+static inline NSString * AFImageCacheKey(NSURLRequest *urlRequest, CGSize imageSize, AFImageRequestOptions options) {
+    return [[[urlRequest URL] absoluteString] stringByAppendingFormat:@"#%fx%f:%d", imageSize.width, imageSize.height, options];
+}
 
-- (void)setImageWithURL:(NSURL *)url;
+@implementation BSAFImageCache
 
-- (void)setImageWithURL:(NSURL *)url 
-       placeholderImage:(UIImage *)placeholderImage;
++ (id)sharedImageCache {
+    static NSCache *_sharedImageCache = nil;
+    static dispatch_once_t oncePredicate;
 
-- (void)setImageWithURL:(NSURL *)url 
-       placeholderImage:(UIImage *)placeholderImage 
-              imageSize:(CGSize)imageSize 
-                options:(AFImageRequestOptions)options;
+    dispatch_once(&oncePredicate, ^{
+        _sharedImageCache = [[self alloc] init];
+    });
+    
+    return _sharedImageCache;
+}
 
-- (void)setImageWithURL:(NSURL *)url 
-       placeholderImage:(UIImage *)placeholderImage 
-              imageSize:(CGSize)imageSize 
-                options:(AFImageRequestOptions)options
-                  block:(void (^)(UIImage *image))block;
+- (UIImage *)cachedImageForRequest:(NSURLRequest *)urlRequest
+                         imageSize:(CGSize)imageSize
+                           options:(AFImageRequestOptions)options
+{
+    return [self objectForKey:AFImageCacheKey(urlRequest, imageSize, options)];
+}
+
+- (void)cacheImage:(UIImage *)image
+        forRequest:(NSURLRequest *)urlRequest
+         imageSize:(CGSize)imageSize
+           options:(AFImageRequestOptions)options
+{
+    if (!image) {
+        return;
+    }
+    
+    [self setObject:image forKey:AFImageCacheKey(urlRequest, imageSize, options)];
+}
 
 @end

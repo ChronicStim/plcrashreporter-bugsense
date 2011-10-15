@@ -1,4 +1,4 @@
-// UIImageView+AFNetworking.h
+// AFImageCache.h
 //
 // Copyright (c) 2011 Gowalla (http://gowalla.com/)
 // 
@@ -22,22 +22,17 @@
 
 #import "BSAFImageRequestOperation.h"
 
-@interface UIImageView (AFNetworking)
+@interface BSAFImageCache : NSCache
 
-- (void)setImageWithURL:(NSURL *)url;
++ (id)sharedImageCache;
 
-- (void)setImageWithURL:(NSURL *)url 
-       placeholderImage:(UIImage *)placeholderImage;
+- (UIImage *)cachedImageForRequest:(NSURLRequest *)urlRequest
+                         imageSize:(CGSize)imageSize
+                           options:(AFImageRequestOptions)options;
 
-- (void)setImageWithURL:(NSURL *)url 
-       placeholderImage:(UIImage *)placeholderImage 
-              imageSize:(CGSize)imageSize 
-                options:(AFImageRequestOptions)options;
-
-- (void)setImageWithURL:(NSURL *)url 
-       placeholderImage:(UIImage *)placeholderImage 
-              imageSize:(CGSize)imageSize 
-                options:(AFImageRequestOptions)options
-                  block:(void (^)(UIImage *image))block;
+- (void)cacheImage:(UIImage *)image
+        forRequest:(NSURLRequest *)urlRequest
+         imageSize:(CGSize)imageSize
+           options:(AFImageRequestOptions)options;
 
 @end

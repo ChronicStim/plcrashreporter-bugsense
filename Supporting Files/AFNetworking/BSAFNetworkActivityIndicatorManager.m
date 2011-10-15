@@ -1,4 +1,4 @@
-// UIImageView+AFNetworking.h
+// AFNetworkActivityIndicatorManager.m
 //
 // Copyright (c) 2011 Gowalla (http://gowalla.com/)
 // 
@@ -20,24 +20,43 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "BSAFImageRequestOperation.h"
+#import "BSAFNetworkActivityIndicatorManager.h"
 
-@interface UIImageView (AFNetworking)
+@interface BSAFNetworkActivityIndicatorManager ()
+@property (readwrite, nonatomic, assign) NSInteger activityCount;
+@end
 
-- (void)setImageWithURL:(NSURL *)url;
+@implementation BSAFNetworkActivityIndicatorManager
+@synthesize activityCount = _activityCount;
 
-- (void)setImageWithURL:(NSURL *)url 
-       placeholderImage:(UIImage *)placeholderImage;
++ (BSAFNetworkActivityIndicatorManager *)sharedManager {
+    static BSAFNetworkActivityIndicatorManager *_sharedManager = nil;
+    static dispatch_once_t oncePredicate;
+    dispatch_once(&oncePredicate, ^{
+        _sharedManager = [[BSAFNetworkActivityIndicatorManager alloc] init];
+    });
+    
+    return _sharedManager;
+}
 
-- (void)setImageWithURL:(NSURL *)url 
-       placeholderImage:(UIImage *)placeholderImage 
-              imageSize:(CGSize)imageSize 
-                options:(AFImageRequestOptions)options;
+- (void)setActivityCount:(NSInteger)activityCount {
+    [self willChangeValueForKey:@"activityCount"];
+    _activityCount = MAX(activityCount, 0);
+    [self didChangeValueForKey:@"activityCount"];
 
-- (void)setImageWithURL:(NSURL *)url 
-       placeholderImage:(UIImage *)placeholderImage 
-              imageSize:(CGSize)imageSize 
-                options:(AFImageRequestOptions)options
-                  block:(void (^)(UIImage *image))block;
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:self.activityCount > 0];
+}
+
+- (void)startAnimating {
+    @synchronized(self) {
+        self.activityCount += 1;
+    }
+}
+
+- (void)stopAnimating {
+    @synchronized(self) {
+        self.activityCount -= 1;
+    }
+}
 
 @end

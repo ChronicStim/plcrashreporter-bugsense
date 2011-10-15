@@ -22,12 +22,12 @@
 
 #import <objc/runtime.h>
 #import "UIImageView+AFNetworking.h"
-#import "AFImageCache.h"
+#import "BSAFImageCache.h"
 
 static NSString * const kUIImageViewImageRequestObjectKey = @"imageRequestOperation";
 
 @interface UIImageView (_AFNetworking)
-@property (readwrite, nonatomic, retain) AFImageRequestOperation *imageRequestOperation;
+@property (readwrite, nonatomic, retain) BSAFImageRequestOperation *imageRequestOperation;
 @end
 
 @implementation UIImageView (_AFNetworking)
@@ -38,11 +38,11 @@ static NSString * const kUIImageViewImageRequestObjectKey = @"imageRequestOperat
 
 @implementation UIImageView (AFNetworking)
 
-- (AFHTTPRequestOperation *)imageRequestOperation {
-    return (AFHTTPRequestOperation *)objc_getAssociatedObject(self, kUIImageViewImageRequestObjectKey);
+- (BSAFHTTPRequestOperation *)imageRequestOperation {
+    return (BSAFHTTPRequestOperation *)objc_getAssociatedObject(self, kUIImageViewImageRequestObjectKey);
 }
 
-- (void)setImageRequestOperation:(AFImageRequestOperation *)imageRequestOperation {
+- (void)setImageRequestOperation:(BSAFImageRequestOperation *)imageRequestOperation {
     objc_setAssociatedObject(self, kUIImageViewImageRequestObjectKey, imageRequestOperation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
@@ -91,7 +91,7 @@ static NSString * const kUIImageViewImageRequestObjectKey = @"imageRequestOperat
     [request setHTTPShouldHandleCookies:NO];
     [request setHTTPShouldUsePipelining:YES];
     
-    UIImage *cachedImage = [[AFImageCache sharedImageCache] cachedImageForRequest:request imageSize:imageSize options:options];
+    UIImage *cachedImage = [[BSAFImageCache sharedImageCache] cachedImageForRequest:request imageSize:imageSize options:options];
     if (cachedImage) {
         self.image = cachedImage;
         
@@ -101,7 +101,7 @@ static NSString * const kUIImageViewImageRequestObjectKey = @"imageRequestOperat
     } else {
         self.image = placeholderImage;
         
-        self.imageRequestOperation = [AFImageRequestOperation operationWithRequest:request imageSize:imageSize options:options success:^(UIImage *image) {
+        self.imageRequestOperation = [BSAFImageRequestOperation operationWithRequest:request imageSize:imageSize options:options success:^(UIImage *image) {
             if ([[request URL] isEqual:[[self.imageRequestOperation request] URL]]) {
                 self.image = image;
             } else {

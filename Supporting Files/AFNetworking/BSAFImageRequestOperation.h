@@ -1,4 +1,4 @@
-// UIImageView+AFNetworking.h
+// AFImageRequestOperation.h
 //
 // Copyright (c) 2011 Gowalla (http://gowalla.com/)
 // 
@@ -20,24 +20,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "BSAFImageRequestOperation.h"
+#import "BSAFHTTPRequestOperation.h"
 
-@interface UIImageView (AFNetworking)
+typedef enum {
+    AFImageRequestDefaultOptions        = 0,
+    AFImageRequestRoundCorners			= 1 << 1,
+} AFImageRequestOptions;
 
-- (void)setImageWithURL:(NSURL *)url;
+@interface BSAFImageRequestOperation : BSAFHTTPRequestOperation
 
-- (void)setImageWithURL:(NSURL *)url 
-       placeholderImage:(UIImage *)placeholderImage;
++ (id)operationWithRequest:(NSURLRequest *)urlRequest                
+                   success:(void (^)(UIImage *image))success;
 
-- (void)setImageWithURL:(NSURL *)url 
-       placeholderImage:(UIImage *)placeholderImage 
-              imageSize:(CGSize)imageSize 
-                options:(AFImageRequestOptions)options;
-
-- (void)setImageWithURL:(NSURL *)url 
-       placeholderImage:(UIImage *)placeholderImage 
-              imageSize:(CGSize)imageSize 
-                options:(AFImageRequestOptions)options
-                  block:(void (^)(UIImage *image))block;
++ (id)operationWithRequest:(NSURLRequest *)urlRequest
+                 imageSize:(CGSize)imageSize
+                   options:(AFImageRequestOptions)options
+                   success:(void (^)(UIImage *image))success;
 
 @end

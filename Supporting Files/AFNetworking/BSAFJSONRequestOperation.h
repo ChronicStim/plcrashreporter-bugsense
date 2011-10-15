@@ -1,4 +1,4 @@
-// UIImageView+AFNetworking.h
+// AFJSONRequestOperation.h
 //
 // Copyright (c) 2011 Gowalla (http://gowalla.com/)
 // 
@@ -20,24 +20,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "BSAFImageRequestOperation.h"
+#import "BSAFHTTPRequestOperation.h"
 
-@interface UIImageView (AFNetworking)
+@interface BSAFJSONRequestOperation : BSAFHTTPRequestOperation
 
-- (void)setImageWithURL:(NSURL *)url;
++ (id)operationWithRequest:(NSURLRequest *)urlRequest                
+                   success:(void (^)(id JSON))success;
 
-- (void)setImageWithURL:(NSURL *)url 
-       placeholderImage:(UIImage *)placeholderImage;
++ (id)operationWithRequest:(NSURLRequest *)urlRequest 
+                   success:(void (^)(id JSON))success
+                   failure:(void (^)(NSError *error))failure;
 
-- (void)setImageWithURL:(NSURL *)url 
-       placeholderImage:(UIImage *)placeholderImage 
-              imageSize:(CGSize)imageSize 
-                options:(AFImageRequestOptions)options;
++ (id)operationWithRequest:(NSURLRequest *)urlRequest
+     acceptableStatusCodes:(NSIndexSet *)acceptableStatusCodes
+    acceptableContentTypes:(NSSet *)acceptableContentTypes
+                   success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id JSON))success
+                   failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
 
-- (void)setImageWithURL:(NSURL *)url 
-       placeholderImage:(UIImage *)placeholderImage 
-              imageSize:(CGSize)imageSize 
-                options:(AFImageRequestOptions)options
-                  block:(void (^)(UIImage *image))block;
++ (NSIndexSet *)defaultAcceptableStatusCodes;
++ (NSSet *)defaultAcceptableContentTypes;
 
 @end

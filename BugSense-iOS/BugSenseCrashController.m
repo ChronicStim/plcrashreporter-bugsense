@@ -37,8 +37,8 @@
 
 #import "CrashReporter.h"
 #import "JSONKit.h"
-#import "Reachability.h"
-#import "AFHTTPRequestOperation.h"
+#import "BSReachability.h"
+#import "BSAFHTTPRequestOperation.h"
 #import "NSMutableURLRequest+AFNetworking.h"
 
 #import <CoreLocation/CoreLocation.h>
@@ -353,7 +353,7 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
         [application_environment setObject:[[NSLocale currentLocale] localeIdentifier] forKey:@"locale"];
     
         // ----mobile_net_on, wifi_on
-        Reachability *reach = [Reachability reachabilityForInternetConnection];
+        BSReachability *reach = [BSReachability reachabilityForInternetConnection];
         NetworkStatus status = [reach currentReachabilityStatus];
         switch (status) {
             case NotReachable:
@@ -558,7 +558,7 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
                     }
             }];*/
         
-        AFHTTPRequestOperation *operation = [AFHTTPRequestOperation operationWithRequest:bugsenseRequest observer:self];
+        BSAFHTTPRequestOperation *operation = [BSAFHTTPRequestOperation operationWithRequest:bugsenseRequest observer:self];
         
         /// add operation to queue
         [[NSOperationQueue mainQueue] addOperation:operation];
@@ -575,8 +575,8 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
                        ofObject:(id)object 
                          change:(NSDictionary *)change 
                         context:(void *)context {
-    if ([keyPath isEqualToString:@"isFinished"] && [object isKindOfClass:[AFHTTPRequestOperation class]]) {
-        AFHTTPRequestOperation *operation = object;
+    if ([keyPath isEqualToString:@"isFinished"] && [object isKindOfClass:[BSAFHTTPRequestOperation class]]) {
+        BSAFHTTPRequestOperation *operation = object;
         NSLog(@"BugSense --> Server responded with status code: %i", operation.response.statusCode);
         if (operation.error) {
             NSLog(@"BugSense --> Error: %@", operation.error);
