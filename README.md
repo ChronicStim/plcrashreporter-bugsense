@@ -14,6 +14,6 @@ The framework has been updated to work properly for iOS 3.0+ and both armv6 and 
 
 ### Requirements 
 
-In order to build the framework, you need to use [iOS-Universal-Framework] (https://github.com/kstenerud/iOS-Universal-Framework), which updates your development environment with a few additional templates and settings for creating frameworks.
+In order to build the framework, you need to use [Karl Stenerud](https://github.com/kstenerud)'s [iOS-Universal-Framework] (https://github.com/kstenerud/iOS-Universal-Framework), which updates your development environment with a few additional templates and settings for creating frameworks.
 
 
