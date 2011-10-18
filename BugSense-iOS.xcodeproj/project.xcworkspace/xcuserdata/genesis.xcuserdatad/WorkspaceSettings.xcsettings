@@ -6,10 +6,8 @@
 	<integer>0</integer>
 	<key>IDEWorkspaceUserSettings_BuildSubfolderNameStyle</key>
 	<integer>0</integer>
-	<key>IDEWorkspaceUserSettings_DerivedDataCustomLocation</key>
-	<string>Products</string>
 	<key>IDEWorkspaceUserSettings_DerivedDataLocationStyle</key>
-	<integer>2</integer>
+	<integer>0</integer>
 	<key>IDEWorkspaceUserSettings_HasAskedToTakeAutomaticSnapshotBeforeSignificantChanges</key>
 	<true/>
 	<key>IDEWorkspaceUserSettings_IssueFilterStyle</key>
