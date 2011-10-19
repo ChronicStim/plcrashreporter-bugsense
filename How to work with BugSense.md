@@ -3,7 +3,7 @@
 
 ## Compatibility 
 
-BugSense for iOS works with iOS 3.0+, armv6, armv7 for devices. We are currently working on supporting the simulator. 
+BugSense for iOS works with iOS 3.0+, armv6+armv7, with both device and simulator support.
 
 
 ## Setting up your project for BugSense
