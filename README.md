@@ -9,6 +9,8 @@ plcrashreporter is by [Plausible Labs](http://plausible.coop/), maintained by [L
 
 ### Project status
 
+*Latest*: Issue (not affecting functionality) with warnings regarding the generation of debug symbols and the location of .o files has been corrected.
+ 
 The framework has been updated to work properly for iOS 3.0+ and both armv6 and armv7. Unfortunately, after the recent updates, we haven't been able to fully support the iOS Simulator. You need to get the source code to do that. We have fixed any conflicts that could arise by using JSONKit, Reachability and AFNetworking. 
 
 
