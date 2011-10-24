@@ -1,6 +1,6 @@
 # BugSense for iOS
 
-*Latest*: Simulator support implemented. Issue (not affecting functionality) with warnings regarding the generation of debug symbols and the location of .o files has been corrected.
+*Latest*: Fixed issues with Simulator support.
 
 
 ### Project status
