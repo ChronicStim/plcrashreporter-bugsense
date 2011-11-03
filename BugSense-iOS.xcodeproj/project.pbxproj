@@ -35,9 +35,6 @@
 		058D4C50143BC2EE002A01CA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 058D4C4C143BC2EE002A01CA /* InfoPlist.strings */; };
 		05B0BF8F14487F8A00ECFF3F /* BSAFRestClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B0BF8B14487F8900ECFF3F /* BSAFRestClient.h */; };
 		05B0BF9014487F8A00ECFF3F /* BSAFRestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B0BF8C14487F8A00ECFF3F /* BSAFRestClient.m */; };
-		05D8D75E1455972300D1218E /* How to work with BugSense.md in Resources */ = {isa = PBXBuildFile; fileRef = 05D8D75C1455972300D1218E /* How to work with BugSense.md */; };
-		05D8D75F1455972300D1218E /* Using the BugSense iOS library.md in Resources */ = {isa = PBXBuildFile; fileRef = 05D8D75D1455972300D1218E /* Using the BugSense iOS library.md */; };
-		05D8D7611455972C00D1218E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 05D8D7601455972C00D1218E /* README.md */; };
 		05F985F714476EEE00D65AC0 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C9B0991435C90800343267 /* libCrashReporter-iphoneos.a */; };
 /* End PBXBuildFile section */
 
@@ -495,9 +492,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				058D4C50143BC2EE002A01CA /* InfoPlist.strings in Resources */,
-				05D8D75E1455972300D1218E /* How to work with BugSense.md in Resources */,
-				05D8D75F1455972300D1218E /* Using the BugSense iOS library.md in Resources */,
-				05D8D7611455972C00D1218E /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
