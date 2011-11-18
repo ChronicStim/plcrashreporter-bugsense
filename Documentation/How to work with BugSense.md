@@ -24,7 +24,7 @@ This is very easy to do: install the BugSense library, configure your project (c
 * Then, in your target properties:
 
   * in "Other Linker Flags" put -ObjC -all_load
-  * in "Strip Debug Symbols" select No for Debug and Release
+  * in "Strip Debug Symbols" and/or "Strip Linked Product" select No for all configurations (typically Debug and Release)
 
 * Make sure that "Generate Debug Symbols" is set to Yes.
 

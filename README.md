@@ -2,6 +2,8 @@
 
 *Latest*: Fixed issues with Simulator support.
 
+*Issues*: https://github.com/bugsense/plcrashreporter-bugsense/issues 
+
 
 ### Project status
  
