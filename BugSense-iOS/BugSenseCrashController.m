@@ -36,14 +36,17 @@
 #include <arpa/inet.h>
 
 #import "CrashReporter.h"
+#import "PLCrashReportTextFormatter.h"
 #import "JSONKit.h"
 #import "BSReachability.h"
 #import "BSAFHTTPRequestOperation.h"
 #import "NSMutableURLRequest+AFNetworking.h"
+#import <objc/runtime.h>
 
 #import <CoreLocation/CoreLocation.h>
 
 #include <dlfcn.h>
+#include <execinfo.h>
 
 
 #define BUGSENSE_REPORTING_SERVICE_URL @"http://www.bugsense.com/api/errors"
@@ -402,7 +405,7 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
             }
         }
         
-        NSMutableArray *backtrace = [[[NSMutableArray alloc] init] autorelease];
+        NSMutableArray *stacktrace = [[[NSMutableArray alloc] init] autorelease];
         if (report.hasExceptionInfo) {
             PLCrashReportExceptionInfo *exceptionInfo = report.exceptionInfo;
             NSInteger pos = -1;
@@ -427,13 +430,15 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
                 NSString *commandName = nil;
                 if ((dladdr((void *)(uintptr_t)frameInfo.instructionPointer, &theInfo) != 0) && theInfo.dli_sname != NULL) {
                     commandName = [NSString stringWithCString:theInfo.dli_sname encoding:NSUTF8StringEncoding];
+                    pcOffset = frameInfo.instructionPointer - (uint64_t)theInfo.dli_saddr;
                     stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " %@ + %" PRId64 "",
                                   (long)frameIndex, imageName, frameInfo.instructionPointer, commandName, pcOffset];
                 } else {
                     stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " 0x%" PRIx64 " + %" PRId64 "", 
                                   (long)frameIndex, imageName, frameInfo.instructionPointer, baseAddress, pcOffset];
                 }
-                [backtrace addObject:stackframe];
+            
+                [stacktrace addObject:stackframe];
                 
                 if ([commandName hasPrefix:@"+[NSException raise:"]) {
                     pos = frameIndex+1;
@@ -464,13 +469,14 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
                 NSString *commandName = nil;
                 if ((dladdr((void *)(uintptr_t)frameInfo.instructionPointer, &theInfo) != 0) && theInfo.dli_sname != NULL) {
                     commandName = [NSString stringWithCString:theInfo.dli_sname encoding:NSUTF8StringEncoding];
+                    pcOffset = frameInfo.instructionPointer - (uint64_t)theInfo.dli_saddr;
                     stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " %@ + %" PRId64 "",
                         (long)frameIndex, imageName, frameInfo.instructionPointer, commandName, pcOffset];
                 } else {
                     stackframe = [NSString stringWithFormat:@"%-4ld%-36s0x%08" PRIx64 " 0x%" PRIx64 " + %" PRId64 "", 
                         (long)frameIndex, imageName, frameInfo.instructionPointer, baseAddress, pcOffset];
                 }
-                [backtrace addObject:stackframe];
+                [stacktrace addObject:stackframe];
             
                 if (report.signalInfo.address == frameInfo.instructionPointer) {
                     [exception setObject:stackframe forKey:@"where"];
@@ -478,12 +484,12 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
             }
         }
     
-        if (![exception objectForKey:@"where"] && backtrace && backtrace.count > 0) {
-             [exception setObject:[backtrace objectAtIndex:0] forKey:@"where"];
+        if (![exception objectForKey:@"where"] && stacktrace && stacktrace.count > 0) {
+             [exception setObject:[stacktrace objectAtIndex:0] forKey:@"where"];
         }
     
-        if (backtrace.count > 0) {
-            [exception setObject:backtrace forKey:@"backtrace"];
+        if (stacktrace.count > 0) {
+            [exception setObject:stacktrace forKey:@"backtrace"];
         } else {
             [exception setObject:@"No backtrace available [?]" forKey:@"backtrace"];
         }
