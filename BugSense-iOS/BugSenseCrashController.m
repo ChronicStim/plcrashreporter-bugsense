@@ -30,6 +30,9 @@
  
  */
 
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
 #import "BugSenseCrashController.h"
 
 #include <ifaddrs.h>
@@ -75,7 +78,13 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context);
 @end
 
 
-@implementation BugSenseCrashController
+@implementation BugSenseCrashController {
+    NSString *_APIKey;
+    NSDictionary *_userDictionary;
+    BOOL _immediately;
+    
+    BOOL _operationCompleted;
+}
 
 static BugSenseCrashController *sharedCrashController = nil;
 

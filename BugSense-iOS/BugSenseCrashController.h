@@ -30,16 +30,7 @@
  
  */
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
-UIKIT_EXTERN @interface BugSenseCrashController : NSObject {
-    NSString *_APIKey;
-    NSDictionary *_userDictionary;
-    BOOL _immediately;
-    
-    BOOL _operationCompleted;
-}
+UIKIT_EXTERN @interface BugSenseCrashController : NSObject
 
 + (BugSenseCrashController *) sharedInstanceWithBugSenseAPIKey:(NSString *)bugSenseAPIKey;
 
