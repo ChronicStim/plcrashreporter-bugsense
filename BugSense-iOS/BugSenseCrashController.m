@@ -50,13 +50,10 @@
 
 #include <dlfcn.h>
 #include <execinfo.h>
-
+#include <sys/utsname.h>
 
 #define BUGSENSE_REPORTING_SERVICE_URL @"http://www.bugsense.com/api/errors"
 #define BUGSENSE_HEADER                @"X-BugSense-Api-Key"
-
-
-
 
 @interface BugSenseCrashController (Private)
 
