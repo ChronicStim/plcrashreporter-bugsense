@@ -545,7 +545,7 @@ void post_crash_callback(siginfo_t *info, ucontext_t *uap, void *context) {
     } else {
         NSURL *bugsenseURL = [NSURL URLWithString:BUGSENSE_REPORTING_SERVICE_URL];
         NSMutableURLRequest *bugsenseRequest = [[[NSMutableURLRequest alloc] initWithURL:bugsenseURL 
-            cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15.0f] autorelease];
+            cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f] autorelease];
         [bugsenseRequest setHTTPMethod:@"POST"];
         [bugsenseRequest setValue:_APIKey forHTTPHeaderField:BUGSENSE_HEADER];
         [bugsenseRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
