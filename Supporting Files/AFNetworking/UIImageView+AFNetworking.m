@@ -22,7 +22,9 @@
 
 #import <objc/runtime.h>
 #import "UIImageView+AFNetworking.h"
-#import "BSAFImageCache.h"
+//#if defined (__IPHONE_4_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_4_0
+//#import "BSAFImageCache.h"
+//#endif
 
 static NSString * const kUIImageViewImageRequestObjectKey = @"imageRequestOperation";
 
@@ -87,11 +89,19 @@ static NSString * const kUIImageViewImageRequestObjectKey = @"imageRequestOperat
         return;
     }
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLCacheStorageAllowed timeoutInterval:30.0];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url 
+                                                           cachePolicy:NSURLCacheStorageAllowed 
+                                                       timeoutInterval:30.0];
     [request setHTTPShouldHandleCookies:NO];
     [request setHTTPShouldUsePipelining:YES];
     
-    UIImage *cachedImage = [[BSAFImageCache sharedImageCache] cachedImageForRequest:request imageSize:imageSize options:options];
+    UIImage *cachedImage = nil;
+    //Class cacheClass = NSClassFromString(@"NSCache");
+    /*if (cacheClass) {
+        cachedImage = [[BSAFImageCache sharedImageCache] cachedImageForRequest:request 
+                                                                     imageSize:imageSize 
+                                                                       options:options];
+    }*/
     if (cachedImage) {
         self.image = cachedImage;
         

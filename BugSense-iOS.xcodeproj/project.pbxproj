@@ -10,7 +10,6 @@
 		05086E96143BBFC6008A8411 /* BugSenseCrashController.h in Headers */ = {isa = PBXBuildFile; fileRef = 05086E92143BBFC6008A8411 /* BugSenseCrashController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		058D4C11143BC2AD002A01CA /* BugSenseCrashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05086E93143BBFC6008A8411 /* BugSenseCrashController.m */; };
 		058D4C31143BC2D6002A01CA /* BSAFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C15143BC2D6002A01CA /* BSAFHTTPRequestOperation.m */; };
-		058D4C33143BC2D6002A01CA /* BSAFImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C17143BC2D6002A01CA /* BSAFImageCache.m */; };
 		058D4C35143BC2D6002A01CA /* BSAFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C19143BC2D6002A01CA /* BSAFImageRequestOperation.m */; };
 		058D4C37143BC2D6002A01CA /* BSAFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C1B143BC2D6002A01CA /* BSAFJSONRequestOperation.m */; };
 		058D4C39143BC2D6002A01CA /* BSAFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 058D4C1D143BC2D6002A01CA /* BSAFNetworkActivityIndicatorManager.m */; };
@@ -132,8 +131,6 @@
 		05086E93143BBFC6008A8411 /* BugSenseCrashController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BugSenseCrashController.m; path = "BugSense-iOS/BugSenseCrashController.m"; sourceTree = SOURCE_ROOT; };
 		058D4C14143BC2D6002A01CA /* BSAFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSAFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		058D4C15143BC2D6002A01CA /* BSAFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSAFHTTPRequestOperation.m; sourceTree = "<group>"; };
-		058D4C16143BC2D6002A01CA /* BSAFImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSAFImageCache.h; sourceTree = "<group>"; };
-		058D4C17143BC2D6002A01CA /* BSAFImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSAFImageCache.m; sourceTree = "<group>"; };
 		058D4C18143BC2D6002A01CA /* BSAFImageRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSAFImageRequestOperation.h; sourceTree = "<group>"; };
 		058D4C19143BC2D6002A01CA /* BSAFImageRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSAFImageRequestOperation.m; sourceTree = "<group>"; };
 		058D4C1A143BC2D6002A01CA /* BSAFJSONRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSAFJSONRequestOperation.h; sourceTree = "<group>"; };
@@ -206,8 +203,6 @@
 				05B0BF8C14487F8A00ECFF3F /* BSAFRestClient.m */,
 				058D4C14143BC2D6002A01CA /* BSAFHTTPRequestOperation.h */,
 				058D4C15143BC2D6002A01CA /* BSAFHTTPRequestOperation.m */,
-				058D4C16143BC2D6002A01CA /* BSAFImageCache.h */,
-				058D4C17143BC2D6002A01CA /* BSAFImageCache.m */,
 				058D4C18143BC2D6002A01CA /* BSAFImageRequestOperation.h */,
 				058D4C19143BC2D6002A01CA /* BSAFImageRequestOperation.m */,
 				058D4C1A143BC2D6002A01CA /* BSAFJSONRequestOperation.h */,
@@ -507,7 +502,6 @@
 			files = (
 				058D4C11143BC2AD002A01CA /* BugSenseCrashController.m in Sources */,
 				058D4C31143BC2D6002A01CA /* BSAFHTTPRequestOperation.m in Sources */,
-				058D4C33143BC2D6002A01CA /* BSAFImageCache.m in Sources */,
 				058D4C35143BC2D6002A01CA /* BSAFImageRequestOperation.m in Sources */,
 				058D4C37143BC2D6002A01CA /* BSAFJSONRequestOperation.m in Sources */,
 				058D4C39143BC2D6002A01CA /* BSAFNetworkActivityIndicatorManager.m in Sources */,

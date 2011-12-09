@@ -20,9 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "BSAFImageRequestOperation.h"
-#import "BSAFImageCache.h"
+// #if defined (__IPHONE_4_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_4_0
+// #import "BSAFImageCache.h"
+// #endif
 
+#import "BSAFImageRequestOperation.h"
 #import "UIImage+AFNetworking.h"
 
 static CGFloat const kAFImageRequestJPEGQuality = 0.8;
@@ -78,7 +80,11 @@ static dispatch_queue_t image_request_operation_processing_queue() {
                 }
             });
         
-            [[BSAFImageCache sharedImageCache] cacheImage:image forRequest:request imageSize:imageSize options:options];
+            /*Class cacheClass = NSClassFromString(@"NSCache");
+            if (cacheClass) {
+                [[BSAFImageCache sharedImageCache] cacheImage:image forRequest:request 
+                                                    imageSize:imageSize options:options];
+            }*/
         });
     }];
 
