@@ -1,6 +1,6 @@
 # BugSense for iOS
 
-*Latest*: Fixed issues with Simulator support.
+*Latest*: Provides accurate program counter offset for each line in the stacktrace. General improvements.
 
 *Issues*: https://github.com/bugsense/plcrashreporter-bugsense/issues 
 

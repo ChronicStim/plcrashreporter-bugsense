@@ -23,10 +23,10 @@ This is very easy to do: install the BugSense library, configure your project (c
 * Since BugSense depends on `SystemConfiguration.framework` and `CoreLocation.framework`, you have to add these as well to your project. 
 * Then, in your target properties:
 
-  * in "Other Linker Flags" put -ObjC -all_load
-  * in "Strip Debug Symbols" and/or "Strip Linked Product" select No for all configurations (typically Debug and Release)
-
-* Make sure that "Generate Debug Symbols" is set to Yes.
+  * in "Other Linker Flags" put -ObjC
+  		* (You should consider using -all_load only if you have issues symbolicating traces that are related to third-party libraries in your app).
+  * Make sure that "Strip Debug Symbols During Copy", "Strip Linked Product" and "Deployment Post Processing" are all set to No for your configurations (typically Debug and Release)
+  * Make sure that "Generate Debug Symbols" is set to Yes.
 
 
 ## Basic BugSense use
